@@ -17,5 +17,14 @@ def _exec_notebook(path):
 
 
 def test():
-    _exec_notebook(os.path.join('Ch04', 'ex04.001.SFD.BMD.numerical.arrows.ipynb'))
-    _exec_notebook(os.path.join('Ch02', 'ex02.002.varying.width.ipynb'))
+    path = os.curdir
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
