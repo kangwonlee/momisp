@@ -21,7 +21,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
+  - conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.5.yml
   - source activate test-environment
   - conda list
 
