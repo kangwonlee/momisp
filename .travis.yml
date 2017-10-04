@@ -3,7 +3,8 @@
 language: python
 python:
   - "3.5"
-  - "3.6.1"
+  - "3.6"
+  - "nightly"
 install:
   - sudo apt-get update
   # We do this conditionally because it saves us some downloading if the
@@ -20,10 +21,10 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6.1" ]]; then
-        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.6.yml;
-    else
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then
         conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.5.yml;
+    else
+        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.6.yml;
     fi
   - source activate test-environment
   - conda list
