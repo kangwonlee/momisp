@@ -20,8 +20,11 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-
-  - conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.5.yml
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6.1" ]]; then
+        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.6.yml;
+    else
+        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.5.yml;
+    fi
   - source activate test-environment
   - conda list
 
