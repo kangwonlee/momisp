@@ -25,3 +25,6 @@ install:
 
 script:
 - py.test
+notifications:
+    email:
+        - kangwon.lee.edu@gmail.com
