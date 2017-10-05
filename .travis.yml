@@ -1,10 +1,12 @@
 # ref : Francesco Mosconi, Travis + Anaconda + Jupyter, https://github.com/ghego/travis_anaconda_jupyter
+#       Anaconda Inc., Using conda with Travis CI, Conda documentation, https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
 
 language: python
+
 python:
   - "3.5"
-  - "3.6"
   - "nightly"
+
 install:
   - sudo apt-get update
   # We do this conditionally because it saves us some downloading if the
@@ -24,7 +26,7 @@ install:
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then
         conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.5.yml;
     else
-        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
+        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
     fi
   - source activate test-environment
   - conda list
