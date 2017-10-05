@@ -17,7 +17,7 @@ def _exec_notebook(path):
 
 
 def test():
-    path = os.curdir
+    path = os.pardir
     ext = 'ipynb'
 
     # recursive loop
