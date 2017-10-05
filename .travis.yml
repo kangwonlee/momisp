@@ -22,15 +22,15 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then
-        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.5.yml;
+        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.5.yml;
     else
-        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.3.6.yml;
+        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
     fi
   - source activate test-environment
   - conda list
 
-script:
-- py.test
+# https://lord.io/blog/2014/travis-multiple-subdirs/
+script: cd tests && py.test
 notifications:
     email:
         - kangwon.lee.edu@gmail.com
