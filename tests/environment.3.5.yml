@@ -5,10 +5,10 @@ channels:
 - defaults
 
 dependencies:
-- python=3.5
-- numpy==1.11.1
-- scipy==0.18.1
-- sympy==1.0
-- jupyter==1.0
-- pytest==2.9.2
-- matplotlib==2.0.2
+- python=3.5.2
+- numpy=1.11.1
+- scipy=0.18.1
+- sympy=1.0=py35_0
+- jupyter=1.0.0
+- pytest=2.9.2
+- matplotlib=2.0.2
