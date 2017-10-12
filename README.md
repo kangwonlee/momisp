@@ -3,22 +3,28 @@
 교재 : Pytel 외 저, 이주성 외 역, 재료역학 2판, 한티미디어, 2013.<br>
 Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
 
-### 설치 항목 
+### 설치 항목 Software to install
 
-### Software to install
+#### 파이썬 프로그래밍 언어 Python Programming Language
+* [Anaconda 4.x Python 3.x version](https://www.continuum.io/downloads) <br>
+경로 이름에 한글을 사용할 수 없음 Use ASCII characters for path name<br>
+윈도우즈의 경우, 아나콘다 [4.3.22](https://repo.continuum.io/archive/) 판 추천 (설치 후 [가상 환경 생성, 전환 2회 이상](https://graspthegist.com/post/learn-conda-1/) 확인 추천)<br> 
+For Windows recommend Anaconda [4.3.22](https://repo.continuum.io/archive/) (after install, check [creating a virtual environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) and [switching between environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#activating-an-environment) more than twice)
 
-#### Python
-* [Anaconda 4.x (Windows: 4.3.22 ?) Python 3.x version](https://www.continuum.io/downloads)
+#### 깃 버전 관리 소프트웨어 Git Version Control Software
+* 명령행 Commandline [Git for Windows](https://git-scm.com/download/win)
+* GUI [SourceTree](https://www.sourcetreeapp.com/download/) 또는 or [Github Desktop](https://desktop.github.com/)
+
+#### 통합 개발 환경 Integrated Development Environment
 * [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
-* PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)
-
-#### Git
-* [Git for Windows](https://git-scm.com/download/win)
-* [SourceTree](https://www.sourcetreeapp.com/download/) 또는 or [Github Desktop](https://desktop.github.com/)
+* PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
+PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
 
 ### `jupyter` 노트북 실행시키는 법<br>How to start `jupyter` notebook
 이 저장소 는 주로 `jupyter` 노트북으로 만들어져 있음.<br>
-This repository is mostly written in `jupyter` notebook.
+This repository is mostly written in `jupyter` notebook.<br>
+`jupyter` 노트북은 웹브라우저를 통해 프로그램 코드를 수정 실행하고 LaTex 수식을 포함한 문서 작성이 가능함.<br>
+Through a web browser, `jupyter` notebook enables editing & running program codes and writing documents including LaTex equations.<br>
 
 * 적당한 folder 를 만듦 (예를 들어 User/Documents/SolMech/) <br> Make an appropriate folder (e.g., User/Documents/SolMech/)
 * Git 또는 SourceTree 를 이용하여 위 folder 아래 이 원격 저장소를 `git clone` <br> Using the Git or SourceTree, `git clone` this repository under the folder
