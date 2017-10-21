@@ -4,26 +4,30 @@ import numpy as np
 
 
 def rect_section():
+    ax1 = rect_section_base()
+
+    # Matplotlib development team, Text properties and layout, matplotlib User's Guide, https://matplotlib.org/users/text_props.html
+    ax1.set_axis_off()
+    plt.show()
+
+
+def rect_section_base():
     # Matthias Elsen, Draw rectangles with matplotlib, Python Patterns, 2015, https://matthiaseisen.com/pp/patterns/p0203/
     fig1 = plt.figure()
     ax1 = fig1.add_subplot(111, aspect='equal')
-
     # size of the section
     width = 0.5
     height = 1.0
-
     # coordinates of the section
     center = np.array((0.5, 0.5))
     corner_sw = center + (-0.5) * np.array((width, height))
     corner_ne = center + 0.5 * np.array((width, height))
-
     # draw a rectangle
     ax1.add_patch(
         patches.Rectangle(
             corner_sw, width, height
         )
     )
-
     # indicate dimensions : b, h, h/2
     # https://stackoverflow.com/questions/25761717/matplotlib-simple-and-two-head-arrows
     # http://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.annotate.html#matplotlib.axes.Axes.annotate
@@ -33,28 +37,22 @@ def rect_section():
                  xytext=(corner_ne[0], offset + center[1] * 0.9625),
                  arrowprops=dict(arrowstyle='<->')
                  )
-
     plt.annotate(s='$h$',
                  xy=(center[0], corner_sw[1]),
                  xytext=(center[0] * 0.9625, corner_ne[1] / 0.975),
                  arrowprops=dict(arrowstyle='<->')
                  )
-
     offset_x = width * 0.25
     plt.annotate(s='$\\frac{h}{2}$',
                  xy=(offset_x + center[0], center[1]),
                  xytext=(offset_x + center[0] * 0.9625, corner_ne[1] / 0.955),
                  arrowprops=dict(arrowstyle='<->')
                  )
-
     # rotational axis at the centroid
     overhang_x = width * 0.25
     plt.plot((corner_sw[0] - overhang_x, corner_ne[0] + overhang_x),
              (center[1], center[1]), 'k-.')
-
-    # Matplotlib development team, Text properties and layout, matplotlib User's Guide, https://matplotlib.org/users/text_props.html
-    ax1.set_axis_off()
-    plt.show()
+    return ax1
 
 
 def rect_section_c():
