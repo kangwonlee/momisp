@@ -1,6 +1,6 @@
+import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib.patches as patches
 
 
 def rect_section():
@@ -8,19 +8,23 @@ def rect_section():
     fig1 = plt.figure()
     ax1 = fig1.add_subplot(111, aspect='equal')
 
+    # size of the section
     width = 0.5
     height = 1.0
 
+    # coordinates of the section
     center = np.array((0.5, 0.5))
     corner_sw = center + (-0.5) * np.array((width, height))
     corner_ne = center + 0.5 * np.array((width, height))
 
+    # draw a rectangle
     ax1.add_patch(
         patches.Rectangle(
             corner_sw, width, height
         )
     )
 
+    # indicate dimensions : b, h, h/2
     # https://stackoverflow.com/questions/25761717/matplotlib-simple-and-two-head-arrows
     # http://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.annotate.html#matplotlib.axes.Axes.annotate
     offset = height * 0.25
@@ -43,6 +47,7 @@ def rect_section():
                  arrowprops=dict(arrowstyle='<->')
                  )
 
+    # rotational axis at the centroid
     overhang_x = width * 0.25
     plt.plot((corner_sw[0] - overhang_x, corner_ne[0] + overhang_x),
              (center[1], center[1]), 'k-.')
