@@ -6,6 +6,10 @@ import numpy as np
 def rect_section():
     ax1 = rect_section_base()
 
+    show_diagram(ax1)
+
+
+def show_diagram(ax1):
     # Matplotlib development team, Text properties and layout, matplotlib User's Guide, https://matplotlib.org/users/text_props.html
     ax1.set_axis_off()
     plt.show()
