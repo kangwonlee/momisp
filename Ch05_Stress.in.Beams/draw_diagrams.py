@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.patches as patches
 
 
-def draw_this():
+def rect_section_c():
 
     # Matthias Elsen, Draw rectangles with matplotlib, Python Patterns, 2015, https://matthiaseisen.com/pp/patterns/p0203/
     fig1 = plt.figure()
