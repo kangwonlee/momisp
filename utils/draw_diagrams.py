@@ -75,7 +75,7 @@ def rect_section_c():
     show_diagram(ax1)
 
 
-def draw_w_view(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]):
+def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]):
     """
 
     :param float L_m: length of the beam  
