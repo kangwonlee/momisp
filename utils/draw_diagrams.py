@@ -75,13 +75,16 @@ def rect_section_c():
     show_diagram(ax1)
 
 
-def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]):
+def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[], moment_list=[]):
     """
 
     :param float L_m: length of the beam  
     :param list(dict) points_list: [{'x_m':x, 'label': txt}] 
     :param list(dict) reaction_list: [{'x_m':x}] 
-    :return: 
+    :param list(dict) v_load_list: [{'x_m':x, 'sign': +1 | -1}]
+    :param list(dict) dist_load_list: [{'x_begin_m':x, 'x_end_m':x, 'text': txt}]
+    :param list(dict) moment_list: [{'x_m':x, 'direction': 'ccw' | 'cw', 'open': 'right' | 'left', 'text': txt}]
+    :return:
     """
 
     # input argument cleansing
@@ -135,7 +138,105 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
         ax.text((float(dist_load_dict['x_begin_m']) + float(dist_load_dict['x_end_m'])) * 0.5, y_load + 0.1,
                 dist_load_dict['text'], horizontalalignment='center')
 
+    # 모멘트
+    # moment
+
+    moment_radius_m = h_beam_m * 1.5
+
+    draw_moment_arrows(ax, moment_list, moment_radius_m, y_load)
+
     ax.axis('equal')
     # Joe Kington, Emmet B, et al,. How to remove frame from matplotlib?, StackOverflow.com, 2016 Sep 16, https://stackoverflow.com/questions/14908576/
     ax.axis('off')
     plt.show()
+
+
+def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
+    """
+
+    :param AxesSubplot ax: (subplot) axis
+    :param list(dict) moment_list: [{'x_m':x, 'direction': 'ccw' | 'cw', 'open': 'right' | 'left', 'text': txt}]
+    :param float moment_radius_m:
+    :param float y_load: text location
+    :return:
+    """
+    style_radius_dict = {
+        'ccw': moment_radius_m,
+        'cw': -moment_radius_m,
+    }
+
+    delta_x_start_open_right = {
+        'ccw': 0,
+        'cw': 0,
+    }
+
+    delta_y_start_open_right = {
+        'ccw': moment_radius_m * (2 ** -0.5),
+        'cw': - moment_radius_m * (2 ** -0.5),
+    }
+
+    delta_x_end_open_right = delta_x_start_open_right
+
+    delta_y_end_open_right = {
+        'ccw': delta_y_start_open_right['cw'],
+        'cw': delta_y_start_open_right['ccw'],
+    }
+
+    delta_x_start_open_left = {
+        'ccw': delta_x_start_open_right['ccw'],
+        'cw': delta_x_start_open_right['cw'],
+    }
+
+    delta_y_start_open_left = {
+        'ccw': delta_y_start_open_right['cw'],
+        'cw': delta_y_start_open_right['ccw'],
+    }
+
+    delta_x_end_open_left = delta_x_start_open_left
+
+    delta_y_end_open_left = {
+        'ccw': delta_y_start_open_left['cw'],
+        'cw': delta_y_start_open_left['ccw'],
+    }
+
+    delta_x_start = {
+        'right': delta_x_start_open_right,
+        'left': delta_x_start_open_left,
+    }
+
+    delta_y_start = {
+        'right': delta_y_start_open_right,
+        'left': delta_y_start_open_left,
+    }
+
+    delta_x_end = {
+        'right': delta_x_end_open_right,
+        'left': delta_x_end_open_left,
+    }
+
+    delta_y_end = {
+        'right': delta_y_end_open_right,
+        'left': delta_y_end_open_left,
+    }
+
+    for moment_dict in moment_list:
+        # http://matthiaseisen.com/matplotlib/shapes/arrow/#curved-arrow
+        # ccw == + radius
+        # cw == - radius
+
+        direction = moment_dict.get('direction', 'ccw')
+        open_dir = moment_dict.get('open', 'right')
+
+        center_x = moment_dict['x_m']
+        center_y = 0
+
+        start = (center_x + delta_x_start[open_dir][direction], center_y + delta_y_start[open_dir][direction])
+        end = (center_x + delta_x_end[open_dir][direction], center_y + delta_y_end[open_dir][direction])
+
+        connection_style_str = 'arc3, rad=%g' % style_radius_dict[direction]
+
+        arrow = patches.FancyArrowPatch(start, end, connectionstyle=connection_style_str, mutation_scale=20)
+        ax.add_patch(arrow)
+
+        ax.text(float(moment_dict['x_m']), y_load + 0.1,
+                moment_dict['text'], horizontalalignment='center')
