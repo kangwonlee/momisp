@@ -156,21 +156,21 @@ def draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load):
         'cw': -moment_radius_m,
     }
 
-    delta_x_start = {
+    delta_x_start_open_left = {
         'ccw': - moment_radius_m * (2 ** -0.5),
         'cw': - moment_radius_m * (2 ** -0.5),
     }
 
-    delta_y_start = {
+    delta_y_start_open_left = {
         'ccw': - moment_radius_m * (2 ** -0.5),
         'cw': moment_radius_m * (2 ** -0.5),
     }
 
-    delta_x_end = delta_x_start
+    delta_x_end_open_left = delta_x_start_open_left
 
-    delta_y_end = {
-        'ccw': delta_y_start['cw'],
-        'cw': delta_y_start['ccw'],
+    delta_y_end_open_left = {
+        'ccw': delta_y_start_open_left['cw'],
+        'cw': delta_y_start_open_left['ccw'],
     }
     for moment_dict in moment_list:
         # http://matthiaseisen.com/matplotlib/shapes/arrow/#curved-arrow
@@ -182,8 +182,8 @@ def draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load):
         center_x = moment_dict['x_m']
         center_y = 0
 
-        start = (center_x + delta_x_start[direction], center_y + delta_y_start[direction])
-        end = (center_x + delta_x_end[direction], center_y + delta_y_end[direction])
+        start = (center_x + delta_x_start_open_left[direction], center_y + delta_y_start_open_left[direction])
+        end = (center_x + delta_x_end_open_left[direction], center_y + delta_y_end_open_left[direction])
 
         connection_style_str = 'arc3, rad=%g' % style_radius_dict[direction]
 
