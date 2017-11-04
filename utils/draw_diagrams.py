@@ -83,6 +83,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     :param list(dict) reaction_list: [{'x_m':x}] 
     :param list(dict) v_load_list: [{'x_m':x, 'sign': +1 | -1}]
     :param list(dict) dist_load_list: [{'x_begin_m':x, 'x_end_m':x, 'text': txt}]
+    :param list(dict) moment_list: [{'x_m':x, 'direction': 'ccw' | 'cw', 'open': 'right' | 'left', 'text': txt}]
     :return:
     """
 
