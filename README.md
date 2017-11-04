@@ -21,7 +21,7 @@ For Windows recommend Anaconda [4.3.22](https://repo.continuum.io/archive/) (aft
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
 
 #### 설치 동영상<br>Installation video
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy" frameborder="0" gesture="media" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
 
 ### `jupyter` 노트북 실행시키는 법<br>How to start `jupyter` notebook
 이 저장소 는 주로 `jupyter` 노트북으로 만들어져 있음.<br>
