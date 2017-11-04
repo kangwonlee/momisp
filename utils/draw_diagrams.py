@@ -142,7 +142,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
 
     moment_radius_m = h_beam_m * 1.5
 
-    draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load)
+    draw_moment_arrows(ax, moment_list, moment_radius_m, y_load)
 
     ax.axis('equal')
     # Joe Kington, Emmet B, et al,. How to remove frame from matplotlib?, StackOverflow.com, 2016 Sep 16, https://stackoverflow.com/questions/14908576/
@@ -150,20 +150,37 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     plt.show()
 
 
-def draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load):
+def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
     style_radius_dict = {
         'ccw': moment_radius_m,
         'cw': -moment_radius_m,
     }
 
-    delta_x_start_open_left = {
-        'ccw': - moment_radius_m * (2 ** -0.5),
+    delta_x_start_open_right = {
+        'ccw': 0,
+        'cw': 0,
+    }
+
+    delta_y_start_open_right = {
+        'ccw': moment_radius_m * (2 ** -0.5),
         'cw': - moment_radius_m * (2 ** -0.5),
     }
 
+    delta_x_end_open_right = delta_x_start_open_right
+
+    delta_y_end_open_right = {
+        'ccw': delta_y_start_open_right['cw'],
+        'cw': delta_y_start_open_right['ccw'],
+    }
+
+    delta_x_start_open_left = {
+        'ccw': delta_x_start_open_right['ccw'],
+        'cw': delta_x_start_open_right['cw'],
+    }
+
     delta_y_start_open_left = {
-        'ccw': - moment_radius_m * (2 ** -0.5),
-        'cw': moment_radius_m * (2 ** -0.5),
+        'ccw': delta_y_start_open_right['cw'],
+        'cw': delta_y_start_open_right['ccw'],
     }
 
     delta_x_end_open_left = delta_x_start_open_left
@@ -172,18 +189,40 @@ def draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load):
         'ccw': delta_y_start_open_left['cw'],
         'cw': delta_y_start_open_left['ccw'],
     }
+
+    delta_x_start = {
+        'right': delta_x_start_open_right,
+        'left': delta_x_start_open_left,
+    }
+
+    delta_y_start = {
+        'right': delta_y_start_open_right,
+        'left': delta_y_start_open_left,
+    }
+
+    delta_x_end = {
+        'right': delta_x_end_open_right,
+        'left': delta_x_end_open_left,
+    }
+
+    delta_y_end = {
+        'right': delta_y_end_open_right,
+        'left': delta_y_end_open_left,
+    }
+
     for moment_dict in moment_list:
         # http://matthiaseisen.com/matplotlib/shapes/arrow/#curved-arrow
         # ccw == + radius
         # cw == - radius
 
         direction = moment_dict.get('direction', 'ccw')
+        open_dir = moment_dict.get('open', 'right')
 
         center_x = moment_dict['x_m']
         center_y = 0
 
-        start = (center_x + delta_x_start_open_left[direction], center_y + delta_y_start_open_left[direction])
-        end = (center_x + delta_x_end_open_left[direction], center_y + delta_y_end_open_left[direction])
+        start = (center_x + delta_x_start[open_dir][direction], center_y + delta_y_start[open_dir][direction])
+        end = (center_x + delta_x_end[open_dir][direction], center_y + delta_y_end[open_dir][direction])
 
         connection_style_str = 'arc3, rad=%g' % style_radius_dict[direction]
 
