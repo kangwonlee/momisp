@@ -81,7 +81,9 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     :param float L_m: length of the beam  
     :param list(dict) points_list: [{'x_m':x, 'label': txt}] 
     :param list(dict) reaction_list: [{'x_m':x}] 
-    :return: 
+    :param list(dict) v_load_list: [{'x_m':x, 'sign': +1 | -1}]
+    :param list(dict) dist_load_list: [{'x_begin_m':x, 'x_end_m':x, 'text': txt}]
+    :return:
     """
 
     # input argument cleansing
