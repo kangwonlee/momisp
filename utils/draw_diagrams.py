@@ -142,6 +142,15 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
 
     moment_radius_m = h_beam_m * 1.5
 
+    draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load)
+
+    ax.axis('equal')
+    # Joe Kington, Emmet B, et al,. How to remove frame from matplotlib?, StackOverflow.com, 2016 Sep 16, https://stackoverflow.com/questions/14908576/
+    ax.axis('off')
+    plt.show()
+
+
+def draw_moment_arrows_open_left(ax, moment_list, moment_radius_m, y_load):
     style_radius_dict = {
         'ccw': moment_radius_m,
         'cw': -moment_radius_m,
@@ -183,8 +192,3 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
 
         ax.text(float(moment_dict['x_m']), y_load + 0.1,
                 moment_dict['text'], horizontalalignment='center')
-
-    ax.axis('equal')
-    # Joe Kington, Emmet B, et al,. How to remove frame from matplotlib?, StackOverflow.com, 2016 Sep 16, https://stackoverflow.com/questions/14908576/
-    ax.axis('off')
-    plt.show()
