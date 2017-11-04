@@ -75,7 +75,7 @@ def rect_section_c():
     show_diagram(ax1)
 
 
-def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]):
+def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[], moment_list=[]):
     """
 
     :param float L_m: length of the beam  
@@ -136,6 +136,53 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
 
         ax.text((float(dist_load_dict['x_begin_m']) + float(dist_load_dict['x_end_m'])) * 0.5, y_load + 0.1,
                 dist_load_dict['text'], horizontalalignment='center')
+
+    # 모멘트
+    # moment
+
+    moment_radius_m = h_beam_m * 1.5
+
+    style_radius_dict = {
+        'ccw': moment_radius_m,
+        'cw': -moment_radius_m,
+    }
+
+    delta_x_start = {
+        'ccw': - moment_radius_m * (2 ** -0.5),
+        'cw': - moment_radius_m * (2 ** -0.5),
+    }
+
+    delta_y_start = {
+        'ccw': - moment_radius_m * (2 ** -0.5),
+        'cw': moment_radius_m * (2 ** -0.5),
+    }
+
+    delta_x_end = delta_x_start
+
+    delta_y_end = {
+        'ccw': delta_y_start['cw'],
+        'cw': delta_y_start['ccw'],
+    }
+    for moment_dict in moment_list:
+        # http://matthiaseisen.com/matplotlib/shapes/arrow/#curved-arrow
+        # ccw == + radius
+        # cw == - radius
+
+        direction = moment_dict.get('direction', 'ccw')
+
+        center_x = moment_dict['x_m']
+        center_y = 0
+
+        start = (center_x + delta_x_start[direction], center_y + delta_y_start[direction])
+        end = (center_x + delta_x_end[direction], center_y + delta_y_end[direction])
+
+        connection_style_str = 'arc3, rad=%g' % style_radius_dict[direction]
+
+        arrow = patches.FancyArrowPatch(start, end, connectionstyle=connection_style_str, mutation_scale=20)
+        ax.add_patch(arrow)
+
+        ax.text(float(moment_dict['x_m']), y_load + 0.1,
+                moment_dict['text'], horizontalalignment='center')
 
     ax.axis('equal')
     # Joe Kington, Emmet B, et al,. How to remove frame from matplotlib?, StackOverflow.com, 2016 Sep 16, https://stackoverflow.com/questions/14908576/
