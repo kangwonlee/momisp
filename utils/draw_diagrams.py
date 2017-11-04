@@ -152,6 +152,14 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
 
 
 def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
+    """
+
+    :param AxesSubplot ax: (subplot) axis
+    :param list(dict) moment_list: [{'x_m':x, 'direction': 'ccw' | 'cw', 'open': 'right' | 'left', 'text': txt}]
+    :param float moment_radius_m:
+    :param float y_load: text location
+    :return:
+    """
     style_radius_dict = {
         'ccw': moment_radius_m,
         'cw': -moment_radius_m,
