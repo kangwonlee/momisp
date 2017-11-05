@@ -227,7 +227,7 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
         direction = moment_dict.get('direction', 'ccw')
         open_dir = moment_dict.get('open', 'right')
 
-        center_x = moment_dict['x_m']
+        center_x = float(moment_dict['x_m'])
         center_y = 0
 
         start = (center_x + delta_x_start[open_dir][direction], center_y + delta_y_start[open_dir][direction])
