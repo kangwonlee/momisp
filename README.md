@@ -24,8 +24,8 @@ PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/j
 [![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
 
 ### `jupyter` 노트북 실행시키는 법<br>How to start a `jupyter` notebook
-이 저장소 는 주로 `jupyter` 노트북으로 만들어져 있음.<br>
-This repository is mostly written in `jupyter` notebook.<br>
+이 저장소 는 주로 [`jupyter` 노트북](http://blog.ncsoft.com/?p=21870)으로 만들어져 있음.<br>
+This repository is mostly written in [`jupyter` notebook](http://arogozhnikov.github.io/2016/09/10/jupyter-features.html).<br>
 `jupyter` 노트북은 웹브라우저를 통해 프로그램 코드를 수정 실행하고 LaTex 수식을 포함한 문서 작성이 가능함.<br>
 Through a web browser, `jupyter` notebook enables editing & running program codes and writing documents including LaTex equations.<br>
 
