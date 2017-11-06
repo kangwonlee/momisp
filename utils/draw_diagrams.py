@@ -103,14 +103,14 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     for point_dict in points_list:
         ax.text(float(point_dict['x_m']), y_text, point_dict['text'])
 
-    y_arrow = -0.5
+    y_arrow = -1.5 * h_beam_m
     # 반력
     # Reaction force
     for reaction_dict in reaction_list:
         ax.arrow(float(reaction_dict['x_m']), y_arrow,
                  0, abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
 
-    y_load = h_beam_m * 2
+    y_load = h_beam_m * 3
     # 집중하중 P
     # Concentrated shear force load P
     for v_load_dict in v_load_list:
@@ -161,8 +161,8 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
     :return:
     """
     style_radius_dict = {
-        'ccw': moment_radius_m,
-        'cw': -moment_radius_m,
+        'ccw': moment_radius_m * 2.5,
+        'cw': -moment_radius_m * 2.5,
     }
 
     delta_x_start_open_right = {
@@ -227,7 +227,7 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
         direction = moment_dict.get('direction', 'ccw')
         open_dir = moment_dict.get('open', 'right')
 
-        center_x = moment_dict['x_m']
+        center_x = float(moment_dict['x_m'])
         center_y = 0
 
         start = (center_x + delta_x_start[open_dir][direction], center_y + delta_y_start[open_dir][direction])
