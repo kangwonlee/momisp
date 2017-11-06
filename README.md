@@ -23,7 +23,7 @@ PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/j
 #### 설치 동영상<br>Installation video
 [![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
 
-### `jupyter` 노트북 실행시키는 법<br>How to start `jupyter` notebook
+### `jupyter` 노트북 실행시키는 법<br>How to start a `jupyter` notebook
 이 저장소 는 주로 `jupyter` 노트북으로 만들어져 있음.<br>
 This repository is mostly written in `jupyter` notebook.<br>
 `jupyter` 노트북은 웹브라우저를 통해 프로그램 코드를 수정 실행하고 LaTex 수식을 포함한 문서 작성이 가능함.<br>
@@ -34,3 +34,6 @@ Through a web browser, `jupyter` notebook enables editing & running program code
 * `cmd` 또는 `git bash` 실행한 후 `clone` 된 지역 저장소 folder로 이동 (예를 들어 `cd User/Documents/Solmech/`) <br> Start `cmd` or `git bash` and change working folder to the cloned folder (e.g. `cd User/Documents/Solmech/`)
 * `cmd` 또는 `git bash` 에서 각각 `cd` 또는 `pwd` 로 `clone` 된 folder 인지 확인 <br>Check location using `cd` or `pwd` in `cmd` or `git bash`
 * `jupyter notebook` 실행 <br>Run `jupyter notebook`
+
+#### 실행 동영상<br>Instruction video
+[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/W6ynqGKJFSs/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJO9HeSC74wqxECtwpUPJfdm)
