@@ -240,3 +240,156 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
 
         ax.text(float(moment_dict['x_m']), y_load + 0.1,
                 moment_dict['text'], horizontalalignment='center')
+
+
+def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0):
+    sx, sy, txy = float(sx_i), float(sy_i), float(txy_i)
+
+    s_bar = (sx + sy) / 2
+    r = np.sqrt(((sx - sy) / 2) ** 2 + txy ** 2)
+
+    s1 = s_bar + r
+    s2 = s_bar - r
+    den = max((abs(s1), abs(s2), abs(r)))
+
+    # Nick Charton, Drawing and Animating Shapes with Matplotlib, nickcharton.net, https://nickcharlton.net/posts/drawing-animating-shapes-matplotlib.html
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    # square size
+    square_size = 1.0
+
+    # half of s
+    s_h = square_size * 0.5
+
+    c, s = get_cos_sin(angle_deg)
+
+    # South West corner of the element square
+    x_sw = - s_h
+    y_sw = - s_h
+
+    # rotate by angle_deg
+    x_sw_t = x_sw * c + y_sw * (-s)
+    y_sw_t = x_sw * s + y_sw * c
+
+    # prepare the element square
+    square = patches.Rectangle((x_sw_t, y_sw_t), square_size, square_size, angle=angle_deg)
+    ax.add_patch(square)
+
+    # prepare the sigma x arrow right
+    draw_arrow_sigma_x_r(ax, s_h, sx / den, angle_deg)
+    draw_arrow_sigma_x_l(ax, s_h, sx / den, angle_deg)
+    draw_arrow_sigma_y_u(ax, s_h, sy / den, angle_deg)
+    draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
+
+    # tau arrows
+    draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
+    draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
+    draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
+    draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+
+    plt.xlabel('$\\sigma$')
+    plt.ylabel('$\\tau$')
+    plt.grid(True)
+
+    ax.axis('equal')
+    ax.axis('off')
+
+
+def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
+    arrow_center_x = s_h * 1.1
+    arrow_center_y = 0
+
+    c, s = get_cos_sin(angle_deg)
+
+    arrow_start_x = arrow_center_x
+    arrow_start_y = arrow_center_y - 0.5 * shaft_length
+
+    x_start = arrow_start_x * c + arrow_start_y * (-s)
+    y_start = arrow_start_x * s + arrow_start_y * c
+
+    dx = 0.0 * c + shaft_length * (-s)
+    dy = 0.0 * s + shaft_length * c
+
+    head_width = abs(s_h) * 0.1
+    head_length = head_width * 2.0
+
+    shape = decide_right_or_left(x_start, y_start, dx, dy)
+
+    arrow = ax.arrow(x_start, y_start,
+                     dx, dy,
+                     head_width=head_width, head_length=head_length,
+                     fc='k', ec='k', shape=shape)
+
+    # length of the arrow including the head
+    dxe = (shaft_length + head_length) * c + 0.0 * (-s)
+    dye = (shaft_length + head_length) * s + 0.0 * c
+
+    # add an invisible plot to make sure the arrow is included in the axis
+    arrow_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+
+def decide_right_or_left(x_start, y_start, dx, dy):
+    cross = np.cross((x_start, y_start), (dx, dy))
+    if 0 >= cross:
+        shape = 'right'
+    else:
+        shape = 'left'
+    return shape
+
+
+def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
+    arrow_angle_deg = angle_deg + 0
+    c, s = get_cos_sin(arrow_angle_deg)
+
+    # start point of the arrow
+    x_start = s_h * c + 0.0 * (-s)
+    y_start = s_h * s + 0.0 * c
+
+    dx = shaft_length * c + 0.0 * (-s)
+    dy = shaft_length * s + 0.0 * c
+
+    head_width = abs(s_h) * 0.1
+    head_length = head_width * 2.0
+
+    arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
+
+    # length of the arrow including the head
+    dxe = (shaft_length + head_length) * c + 0.0 * (-s)
+    dye = (shaft_length + head_length) * s + 0.0 * c
+
+    # add an invisible plot to make sure the arrow is included in the axis
+    arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+
+def draw_arrow_sigma_x_l(ax, s_h, shaft_length, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 180)
+
+
+def draw_arrow_sigma_y_u(ax, s_h, shaft_length, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 90)
+
+
+def draw_arrow_sigma_y_l(ax, s_h, shaft_length, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 270)
+
+
+def get_cos_sin(angle_deg):
+    angle_rad = np.deg2rad(angle_deg)
+    c, s = np.cos(angle_rad), np.sin(angle_rad)
+    return c, s
+
+
+def test_stress_2d():
+    sx, sy, txy = 40, 20, 16
+    angle_deg_list = (0.0, 30, -30, 120)
+
+    for k, angle_deg in enumerate(angle_deg_list):
+        ax = plt.subplot(2, 2, k + 1)
+        draw_stress_2d(sx, sy, txy, ax=ax, angle_deg=angle_deg)
+
+    plt.show()
+
+
+if __name__ == '__main__':
+    test_stress_2d()
