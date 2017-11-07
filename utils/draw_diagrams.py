@@ -283,7 +283,9 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
 
     # tau arrows
     draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
+    draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
     draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
+    draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
