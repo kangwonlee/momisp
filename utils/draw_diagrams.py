@@ -293,6 +293,7 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0):
     plt.grid(True)
 
     ax.axis('equal')
+    ax.axis('off')
 
 
 def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
