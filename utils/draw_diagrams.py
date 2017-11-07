@@ -254,9 +254,15 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     # half of s
     s_h = square_size * 0.5
 
+    c, s = get_cos_sin(angle_deg)
+
     # South West corner of the element square
     x_sw = - s_h
     y_sw = - s_h
+
+    # rotate by angle_deg
+    x_sw_t = x_sw * c + y_sw * (-s)
+    y_sw_t = x_sw * s + y_sw * c
 
     # prepare the element square
     square = patches.Rectangle((x_sw_t, y_sw_t), square_size, square_size, angle=angle_deg)
