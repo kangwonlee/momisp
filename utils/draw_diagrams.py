@@ -242,7 +242,8 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
                 moment_dict['text'], horizontalalignment='center')
 
 
-def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
+def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0):
+    sx, sy, txy = float(sx_i), float(sy_i), float(txy_i)
 
     s_bar = (sx + sy) / 2
     r = np.sqrt(((sx - sy) / 2) ** 2 + txy ** 2)
