@@ -244,6 +244,13 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
 
 def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
 
+    s_bar = (sx + sy) / 2
+    r = np.sqrt(((sx - sy) / 2) ** 2 + txy ** 2)
+
+    s1 = s_bar + r
+    s2 = s_bar - r
+    den = max((abs(s1), abs(s2), abs(r)))
+
     # Nick Charton, Drawing and Animating Shapes with Matplotlib, nickcharton.net, https://nickcharlton.net/posts/drawing-animating-shapes-matplotlib.html
     if ax is None:
         fig, ax = plt.subplots()
