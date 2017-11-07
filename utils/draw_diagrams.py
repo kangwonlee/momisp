@@ -276,8 +276,10 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     ax.add_patch(square)
 
     # prepare the sigma x arrow right
-    draw_arrow_sigma_x_r(ax, sx / den, angle_deg)
-    draw_arrow_sigma_x_l(ax, sx / den, angle_deg)
+    draw_arrow_sigma_x_r(ax, s_h, sx / den, angle_deg)
+    draw_arrow_sigma_x_l(ax, s_h, sx / den, angle_deg)
+    draw_arrow_sigma_y_u(ax, s_h, sy / den, angle_deg)
+    draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
@@ -286,15 +288,13 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     ax.axis('equal')
 
 
-def draw_arrow_sigma_x_r(ax, s_h, angle_deg):
+def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
     arrow_angle_deg = angle_deg + 0
     c, s = get_cos_sin(arrow_angle_deg)
 
     # start point of the arrow
     x_start = s_h * c + 0.0 * (-s)
     y_start = s_h * s + 0.0 * c
-
-    shaft_length = s_h
 
     dx = shaft_length * c + 0.0 * (-s)
     dy = shaft_length * s + 0.0 * c
@@ -312,8 +312,16 @@ def draw_arrow_sigma_x_r(ax, s_h, angle_deg):
     arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
 
 
-def draw_arrow_sigma_x_l(ax, s_h, angle_deg):
-    draw_arrow_sigma_x_r(ax, s_h, angle_deg + 180)
+def draw_arrow_sigma_x_l(ax, s_h, shaft_length, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 180)
+
+
+def draw_arrow_sigma_y_u(ax, s_h, shaft_length, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 90)
+
+
+def draw_arrow_sigma_y_l(ax, s_h, shaft_length, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 270)
 
 
 def get_cos_sin(angle_deg):
