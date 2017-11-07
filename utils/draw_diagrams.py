@@ -249,11 +249,21 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
         fig, ax = plt.subplots()
 
     # square size
-    s = 1.0
+    square_size = 1.0
 
-    square = patches.Rectangle((0, 0), s, s, angle=angle_deg)
+    # half of s
+    s_h = square_size * 0.5
 
+    # South West corner of the element square
+    x_sw = - s_h
+    y_sw = - s_h
+
+    # prepare the element square
+    square = patches.Rectangle((x_sw_t, y_sw_t), square_size, square_size, angle=angle_deg)
     ax.add_patch(square)
+
+    # prepare the sigma x arrow right
+    draw_arrow_sigma_r(ax, s_h, angle_deg)
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
@@ -261,6 +271,38 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
 
     ax.axis('equal')
     plt.show()
+
+
+def draw_arrow_sigma_r(ax, s_h, angle_deg):
+    arrow_angle_deg = angle_deg + 0
+    c, s = get_cos_sin(arrow_angle_deg)
+
+    # start point of the arrow
+    x_start = s_h * c + 0.0 * (-s)
+    y_start = s_h * s + 0.0 * c
+
+    shaft_length = s_h
+
+    dx = shaft_length * c + 0.0 * (-s)
+    dy = shaft_length * s + 0.0 * c
+
+    head_width = abs(shaft_length) * 0.1
+    head_length = head_width * 2.0
+
+    arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
+
+    # length of the arrow including the head
+    dxe = (shaft_length + head_length) * c + 0.0 * (-s)
+    dye = (shaft_length + head_length) * s + 0.0 * c
+
+    # add an invisible plot to make sure the arrow is included in the axis
+    arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+
+def get_cos_sin(angle_deg):
+    angle_rad = np.deg2rad(angle_deg)
+    c, s = np.cos(angle_rad), np.sin(angle_rad)
+    return c, s
 
 
 if __name__ == '__main__':
