@@ -276,7 +276,6 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     plt.grid(True)
 
     ax.axis('equal')
-    plt.show()
 
 
 def draw_arrow_sigma_r(ax, s_h, angle_deg):
