@@ -387,7 +387,7 @@ def test_stress_2d():
 
     for k, angle_deg in enumerate(angle_deg_list):
         ax = plt.subplot(2, 2, k + 1)
-        draw_stress_2d(sx, sy, txy, ax=ax, angle_deg=angle_deg)
+        draw_stress_2d(sx, sy, ((-1) ** k) * txy, ax=ax, angle_deg=angle_deg)
 
     plt.show()
 
