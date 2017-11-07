@@ -277,6 +277,7 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
 
     # prepare the sigma x arrow right
     draw_arrow_sigma_x_r(ax, sx / den, angle_deg)
+    draw_arrow_sigma_x_l(ax, sx / den, angle_deg)
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
@@ -309,6 +310,10 @@ def draw_arrow_sigma_x_r(ax, s_h, angle_deg):
 
     # add an invisible plot to make sure the arrow is included in the axis
     arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+
+def draw_arrow_sigma_x_l(ax, s_h, angle_deg):
+    draw_arrow_sigma_x_r(ax, s_h, angle_deg + 180)
 
 
 def get_cos_sin(angle_deg):
