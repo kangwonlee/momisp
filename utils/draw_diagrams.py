@@ -310,7 +310,7 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
     head_width = abs(s_h) * 0.1
     head_length = head_width * 2.0
 
-    shape = 'left'
+    shape = decide_right_or_left(x_start, y_start, dx, dy)
 
     arrow = ax.arrow(x_start, y_start,
                      dx, dy,
@@ -323,6 +323,15 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
 
     # add an invisible plot to make sure the arrow is included in the axis
     arrow_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+
+def decide_right_or_left(x_start, y_start, dx, dy):
+    cross = np.cross((x_start, y_start), (dx, dy))
+    if 0 >= cross:
+        shape = 'right'
+    else:
+        shape = 'left'
+    return shape
 
 
 def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
