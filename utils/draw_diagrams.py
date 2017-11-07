@@ -310,5 +310,13 @@ def get_cos_sin(angle_deg):
     return c, s
 
 
+def test_stress_2d():
+    ax1 = plt.subplot(1, 2, 1)
+    draw_stress_2d(40, 20, 16, ax=ax1, angle_deg=0.0)
+    ax2 = plt.subplot(1, 2, 2)
+    draw_stress_2d(40, 20, 16, ax=ax2, angle_deg=30.0)
+    plt.show()
+
+
 if __name__ == '__main__':
-    draw_stress_2d(40, 20, 16, angle_deg=0.0)
+    test_stress_2d()
