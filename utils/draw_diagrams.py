@@ -276,7 +276,7 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     ax.add_patch(square)
 
     # prepare the sigma x arrow right
-    draw_arrow_sigma_r(ax, s_h, angle_deg)
+    draw_arrow_sigma_x_r(ax, sx / den, angle_deg)
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
@@ -285,7 +285,7 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     ax.axis('equal')
 
 
-def draw_arrow_sigma_r(ax, s_h, angle_deg):
+def draw_arrow_sigma_x_r(ax, s_h, angle_deg):
     arrow_angle_deg = angle_deg + 0
     c, s = get_cos_sin(arrow_angle_deg)
 
