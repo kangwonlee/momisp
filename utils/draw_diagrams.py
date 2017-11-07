@@ -281,11 +281,48 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     draw_arrow_sigma_y_u(ax, s_h, sy / den, angle_deg)
     draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
 
+    # tau arrows
+    draw_arrow_tau(ax, s_h, txy / den, angle_deg)
+
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
     plt.grid(True)
 
     ax.axis('equal')
+
+
+def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
+    # right vertical arrow
+    arrow_center_x = s_h * 1.1
+    arrow_center_y = 0
+
+    c, s = get_cos_sin(angle_deg)
+
+    arrow_start_x = arrow_center_x
+    arrow_start_y = arrow_center_y - 0.5 * shaft_length
+
+    x_start = arrow_start_x * c + arrow_start_y * (-s)
+    y_start = arrow_start_x * s + arrow_start_y * c
+
+    dx = 0.0 * c + shaft_length * (-s)
+    dy = 0.0 * s + shaft_length * c
+
+    head_width = abs(s_h) * 0.1
+    head_length = head_width * 2.0
+
+    shape = 'left'
+
+    arrow = ax.arrow(x_start, y_start,
+                     dx, dy,
+                     head_width=head_width, head_length=head_length,
+                     fc='k', ec='k', shape=shape)
+
+    # length of the arrow including the head
+    dxe = (shaft_length + head_length) * c + 0.0 * (-s)
+    dye = (shaft_length + head_length) * s + 0.0 * c
+
+    # add an invisible plot to make sure the arrow is included in the axis
+    arrow_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
 
 
 def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
@@ -299,7 +336,7 @@ def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
     dx = shaft_length * c + 0.0 * (-s)
     dy = shaft_length * s + 0.0 * c
 
-    head_width = abs(shaft_length) * 0.1
+    head_width = abs(s_h) * 0.1
     head_length = head_width * 2.0
 
     arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
