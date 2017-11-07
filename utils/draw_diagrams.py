@@ -240,3 +240,28 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
 
         ax.text(float(moment_dict['x_m']), y_load + 0.1,
                 moment_dict['text'], horizontalalignment='center')
+
+
+def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
+
+    # Nick Charton, Drawing and Animating Shapes with Matplotlib, nickcharton.net, https://nickcharlton.net/posts/drawing-animating-shapes-matplotlib.html
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    # square size
+    s = 1.0
+
+    square = patches.Rectangle((0, 0), s, s, angle=angle_deg)
+
+    ax.add_patch(square)
+
+    plt.xlabel('$\\sigma$')
+    plt.ylabel('$\\tau$')
+    plt.grid(True)
+
+    ax.axis('equal')
+    plt.show()
+
+
+if __name__ == '__main__':
+    draw_stress_2d(40, 20, 16, angle_deg=0.0)
