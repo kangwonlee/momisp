@@ -282,7 +282,8 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
     draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
 
     # tau arrows
-    draw_arrow_tau(ax, s_h, txy / den, angle_deg)
+    draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
+    draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
@@ -292,7 +293,6 @@ def draw_stress_2d(sx, sy, txy, ax=None, angle_deg=0.0):
 
 
 def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
-    # right vertical arrow
     arrow_center_x = s_h * 1.1
     arrow_center_y = 0
 
