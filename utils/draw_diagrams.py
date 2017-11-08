@@ -382,30 +382,45 @@ def get_cos_sin(angle_deg):
 
 
 def plot_3d_mohr_circle_123(s1_i, s2_i, s3_i=0, ax=None):
+    """
+
+    :param float s1_i: principal stress 1
+    :param float s2_i: principal stress 2
+    :param float s3_i: principal stress 3
+    :param AxesSubplot ax: axis to plot
+    :return:
+    """
     if ax is None:
         ax = plt.gca()
 
+    # in case input needs to be converted
     s1, s2, s3 = float(s1_i), float(s2_i), float(s3_i),
 
-    tau_abs = (abs(s1 - s2) / 2, abs(s2 - s3) / 2, abs(s3 - s1) / 2)
-
+    # diameters of all possible combinations of the principal stress components
     diameters_tuple = (
         (s1, s2),
         (s2, s3),
         (s3, s1),
     )
 
+    # diameter loop
     for diameter in diameters_tuple:
         x1, x2 = diameter
 
+        # center of the circle
         center_x = (x1 + x2) * 0.5
         center_y = 0.0
+
+        # radius of the circle
         r = abs(x2 - center_x)
 
+        # prepare a circle patch
         circle = patches.Circle((center_x, center_y), r, fill=False)
 
+        # add circle patch to the axis
         ax.add_patch(circle)
 
+    # add axis labels
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
 
