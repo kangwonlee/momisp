@@ -381,16 +381,79 @@ def get_cos_sin(angle_deg):
     return c, s
 
 
+def plot_3d_mohr_circle_123(s1_i, s2_i, s3_i=0, ax=None):
+    """
+
+    :param float s1_i: principal stress 1
+    :param float s2_i: principal stress 2
+    :param float s3_i: principal stress 3
+    :param AxesSubplot ax: axis to plot
+    :return:
+    """
+    if ax is None:
+        ax = plt.gca()
+
+    # in case input needs to be converted
+    s1, s2, s3 = float(s1_i), float(s2_i), float(s3_i),
+
+    # diameters of all possible combinations of the principal stress components
+    diameters_tuple = (
+        (s1, s2),
+        (s2, s3),
+        (s3, s1),
+    )
+
+    # diameter loop
+    for diameter in diameters_tuple:
+        x1, x2 = diameter
+
+        # center of the circle
+        center_x = (x1 + x2) * 0.5
+        center_y = 0.0
+
+        # radius of the circle
+        r = abs(x2 - center_x)
+
+        # prepare a circle patch
+        circle = patches.Circle((center_x, center_y), r, fill=False)
+
+        # add circle patch to the axis
+        ax.add_patch(circle)
+
+    # add axis labels
+    plt.xlabel('$\\sigma$')
+    plt.ylabel('$\\tau$')
+
+    plt.grid(True)
+    plt.axis('equal')
+
+
+def test_mohr_circle_3d():
+    s123_list = (
+        (50, 20, 0),
+        (50, -20, 0),
+        (5, 2, 1),
+        (-5, -2, 0),
+    )
+
+    for k, s123 in enumerate(s123_list):
+        ax = plt.subplot(2, 2, k + 1)
+        s1, s2, s3 = s123
+        plot_3d_mohr_circle_123(s1, s2, s3, ax=ax)
+
+    plt.show()
+
+
 def test_stress_2d():
     sx, sy, txy = 40, 20, 16
     angle_deg_list = (0.0, 30, -30, 120)
 
     for k, angle_deg in enumerate(angle_deg_list):
         ax = plt.subplot(2, 2, k + 1)
-        draw_stress_2d(sx, sy, txy, ax=ax, angle_deg=angle_deg)
+        draw_stress_2d(sx, sy, ((-1) ** k) * txy, ax=ax, angle_deg=angle_deg)
 
     plt.show()
 
 
 if __name__ == '__main__':
-    test_stress_2d()
+    test_mohr_circle_3d()
