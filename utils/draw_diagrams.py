@@ -381,6 +381,54 @@ def get_cos_sin(angle_deg):
     return c, s
 
 
+def plot_3d_mohr_circle_123(s1_i, s2_i, s3_i=0, ax=None):
+    if ax is None:
+        ax = plt.gca()
+
+    s1, s2, s3 = float(s1_i), float(s2_i), float(s3_i),
+
+    tau_abs = (abs(s1 - s2) / 2, abs(s2 - s3) / 2, abs(s3 - s1) / 2)
+
+    diameters_tuple = (
+        (s1, s2),
+        (s2, s3),
+        (s3, s1),
+    )
+
+    for diameter in diameters_tuple:
+        x1, x2 = diameter
+
+        center_x = (x1 + x2) * 0.5
+        center_y = 0.0
+        r = abs(x2 - center_x)
+
+        circle = patches.Circle((center_x, center_y), r, fill=False)
+
+        ax.add_patch(circle)
+
+    plt.xlabel('$\\sigma$')
+    plt.ylabel('$\\tau$')
+
+    plt.grid(True)
+    plt.axis('equal')
+
+
+def test_mohr_circle_3d():
+    s123_list = (
+        (50, 20, 0),
+        (50, -20, 0),
+        (5, 2, 1),
+        (-5, -2, 0),
+    )
+
+    for k, s123 in enumerate(s123_list):
+        ax = plt.subplot(2, 2, k + 1)
+        s1, s2, s3 = s123
+        plot_3d_mohr_circle_123(s1, s2, s3, ax=ax)
+
+    plt.show()
+
+
 def test_stress_2d():
     sx, sy, txy = 40, 20, 16
     angle_deg_list = (0.0, 30, -30, 120)
@@ -393,4 +441,4 @@ def test_stress_2d():
 
 
 if __name__ == '__main__':
-    test_stress_2d()
+    test_mohr_circle_3d()
