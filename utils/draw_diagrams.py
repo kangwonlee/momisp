@@ -381,6 +381,47 @@ def get_cos_sin(angle_deg):
     return c, s
 
 
+def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None):
+    if ax is None:
+        ax = plt.gca()
+
+    # in case input needs to be converted
+    sx, sy, tau = float(sx_i), float(sy_i), float(tau_i)
+
+    s_bar = (sx + sy) * 0.5
+    radius = (((sx - sy) * 0.5) ** 2 + tau ** 2) ** 0.5
+
+    # prepare circle patch
+    circle = patches.Circle((s_bar, 0), radius, fill=None)
+
+    # add circle patch to axis
+    ax.add_patch(circle)
+
+    xlims = plt.xlim()
+    if 0 < xlims[0]:
+        xlims[0] = 0
+    elif 0 > xlims[1]:
+        xlims[1] = 0
+
+    # indicate stress status direction
+    plt.plot((0, sx, sy, 0), (-tau, -tau, tau, tau), '.-')
+
+    # sigma 1
+    plt.text(s_bar + radius, 0, '$\\sigma_1$ = %g' % (s_bar + radius), ha='center')
+    # sigma 2
+    plt.text(s_bar - radius, 0, '$\\sigma_2$ = %g' % (s_bar - radius), ha='center')
+    # |tau max|
+    plt.text(s_bar, radius, '$\\left|\\tau_{max}\\right|= %g$' % radius, ha='center')
+    # primary direction
+    plt.text((s_bar + sx) * 0.5, (0 - tau) * 0.5,
+             '$2\\theta$ = %g(deg)' % np.rad2deg(np.arctan2(tau, (sx - sy) * 0.5)), ha='center')
+
+    plt.axis('equal')
+    plt.grid(True)
+    plt.xlabel('$\\sigma$')
+    plt.ylabel('$\\tau$')
+
+
 def plot_3d_mohr_circle_123(s1_i, s2_i, s3_i=0, ax=None):
     """
 
@@ -455,5 +496,11 @@ def test_stress_2d():
     plt.show()
 
 
+def test_mohr_circle_2d():
+    plot_mohr_circle(40, 20, 16)
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    test_mohr_circle_3d()
+    test_mohr_circle_2d()
