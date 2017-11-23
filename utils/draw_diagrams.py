@@ -406,6 +406,15 @@ def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None):
     # indicate stress status direction
     plt.plot((0, sx, sy, 0), (-tau, -tau, tau, tau), '.-')
 
+    # sigma 1
+    plt.text(s_bar + radius, 0, s_bar + radius)
+    # sigma 2
+    plt.text(s_bar - radius, 0, s_bar - radius)
+    # |tau max|
+    plt.text(s_bar, radius, radius)
+    # primary direction
+    plt.text((s_bar + sx) * 0.5, (0 - tau) * 0.5, np.rad2deg(np.arctan2(tau, (sx - sy) * 0.5)))
+
     plt.axis('equal')
     plt.grid(True)
     plt.xlabel('$\\sigma$')
