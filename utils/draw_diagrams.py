@@ -413,7 +413,8 @@ def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None):
     # |tau max|
     plt.text(s_bar, radius, radius)
     # primary direction
-    plt.text((s_bar + sx) * 0.5, (0 - tau) * 0.5, np.rad2deg(np.arctan2(tau, (sx - sy) * 0.5)))
+    plt.text((s_bar + sx) * 0.5, (0 - tau) * 0.5,
+             '$2\\theta$ = %g(deg)' % np.rad2deg(np.arctan2(tau, (sx - sy) * 0.5)))
 
     plt.axis('equal')
     plt.grid(True)
