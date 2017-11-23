@@ -381,6 +381,37 @@ def get_cos_sin(angle_deg):
     return c, s
 
 
+def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None):
+    if ax is None:
+        ax = plt.gca()
+
+    # in case input needs to be converted
+    sx, sy, tau = float(sx_i), float(sy_i), float(tau_i)
+
+    s_bar = (sx + sy) * 0.5
+    radius = (((sx - sy) * 0.5) ** 2 + tau ** 2) ** 0.5
+
+    # prepare circle patch
+    circle = patches.Circle((s_bar, 0), radius, fill=None)
+
+    # add circle patch to axis
+    ax.add_patch(circle)
+
+    xlims = plt.xlim()
+    if 0 < xlims[0]:
+        xlims[0] = 0
+    elif 0 > xlims[1]:
+        xlims[1] = 0
+
+    # indicate stress status direction
+    plt.plot((0, sx, sy, 0), (-tau, -tau, tau, tau), '.-')
+
+    plt.axis('equal')
+    plt.grid(True)
+    plt.xlabel('$\\sigma$')
+    plt.ylabel('$\\tau$')
+
+
 def plot_3d_mohr_circle_123(s1_i, s2_i, s3_i=0, ax=None):
     """
 
@@ -455,5 +486,11 @@ def test_stress_2d():
     plt.show()
 
 
+def test_mohr_circle_2d():
+    plot_mohr_circle(40, 20, 16)
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    test_mohr_circle_3d()
+    test_mohr_circle_2d()
