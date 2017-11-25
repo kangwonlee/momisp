@@ -381,7 +381,7 @@ def get_cos_sin(angle_deg):
     return c, s
 
 
-def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None):
+def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None, b_stress=True):
     if ax is None:
         ax = plt.gca()
 
@@ -406,20 +406,27 @@ def plot_mohr_circle(sx_i, sy_i, tau_i, ax=None):
     # indicate stress status direction
     plt.plot((0, sx, sy, 0), (-tau, -tau, tau, tau), '.-')
 
+    if b_stress:
+        normal_symbol = '\\sigma'
+        shear_symbol = '\\tau'
+    else:
+        normal_symbol = '\\epsilon'
+        shear_symbol = '\\frac{1}{2}\\gamma'
+
     # sigma 1
-    plt.text(s_bar + radius, 0, '$\\sigma_1$ = %g' % (s_bar + radius), ha='center')
+    plt.text(s_bar + radius, 0, '$%s_1$ = %g' % (normal_symbol, (s_bar + radius)), ha='center')
     # sigma 2
-    plt.text(s_bar - radius, 0, '$\\sigma_2$ = %g' % (s_bar - radius), ha='center')
+    plt.text(s_bar - radius, 0, '$%s_2$ = %g' % (normal_symbol, (s_bar - radius)), ha='center')
     # |tau max|
-    plt.text(s_bar, radius, '$\\left|\\tau_{max}\\right|= %g$' % radius, ha='center')
+    plt.text(s_bar, radius, '$\\left|%s_{max}\\right|= %g$' % (shear_symbol, radius), ha='center')
     # primary direction
     plt.text((s_bar + sx) * 0.5, (0 - tau) * 0.5,
              '$2\\theta$ = %g(deg)' % np.rad2deg(np.arctan2(tau, (sx - sy) * 0.5)), ha='center')
 
     plt.axis('equal')
     plt.grid(True)
-    plt.xlabel('$\\sigma$')
-    plt.ylabel('$\\tau$')
+    plt.xlabel('$%s$' % normal_symbol)
+    plt.ylabel('$%s$' % shear_symbol)
 
 
 def plot_3d_mohr_circle_123(s1_i, s2_i, s3_i=0, ax=None):
