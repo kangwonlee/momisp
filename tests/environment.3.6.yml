@@ -8,6 +8,7 @@ dependencies:
 - python=3.6.*
 - numpy>=1.13.1
 - scipy>=0.19.1
+- mpmath>=0.19
 - sympy>=1.1.1
 - jupyter>=1.0.0
 - pytest>=3.2.1
