@@ -25,8 +25,120 @@ def _exec_notebook(path):
         subprocess.check_call(args)
 
 
-def test():
-    path = os.pardir
+def test_02():
+    path = os.path.join(os.pardir, 'Ch02_Strain')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_03():
+    path = os.path.join(os.pardir, 'Ch03_Torsion')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_04():
+    path = os.path.join(os.pardir, 'Ch04_SFD.BMD')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_05():
+    path = os.path.join(os.pardir, 'Ch05_Stress.in.Beams')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_06():
+    path = os.path.join(os.pardir, 'Ch06_Deflection')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_07():
+    path = os.path.join(os.pardir, 'Ch07_Stat.Indet')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_08():
+    path = os.path.join(os.pardir, 'Ch08_Stress_Due.To_Combined.Loads')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_10():
+    path = os.path.join(os.pardir, 'Ch10_Column')
+    ext = 'ipynb'
+
+    # recursive loop
+    for root, dirnames, filenames in os.walk(path):
+        if 'ipynb_checkpoints' not in root:
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    print('test() : %s %s' % (root, filename))
+                    _exec_notebook(os.path.join(root, filename))
+
+
+def test_12():
+    path = os.path.join(os.pardir, 'Ch12_SpecialTopic')
     ext = 'ipynb'
 
     # recursive loop
