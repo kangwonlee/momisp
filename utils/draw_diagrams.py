@@ -242,7 +242,7 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
                 moment_dict['text'], horizontalalignment='center')
 
 
-def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0):
+def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
     sx, sy, txy = float(sx_i), float(sy_i), float(txy_i)
 
     s_bar = (sx + sy) / 2
@@ -276,18 +276,32 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0):
     square = patches.Rectangle((x_sw_t, y_sw_t), square_size, square_size, angle=angle_deg)
     ax.add_patch(square)
 
-    # prepare the sigma x arrow right
-    draw_arrow_sigma_x_r(ax, s_h, sx / den, angle_deg)
-    draw_arrow_sigma_x_l(ax, s_h, sx / den, angle_deg)
-    draw_arrow_sigma_y_u(ax, s_h, sy / den, angle_deg)
-    draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
+    if not b_label:
+        # prepare the sigma x arrow right
+        draw_arrow_sigma_x_r(ax, s_h, sx / den, angle_deg)
+        draw_arrow_sigma_x_l(ax, s_h, sx / den, angle_deg)
+        draw_arrow_sigma_y_u(ax, s_h, sy / den, angle_deg)
+        draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
+    else:
+        # prepare the sigma x arrow right
+        draw_arrow_sigma_x_r(ax, s_h, sx / den, angle_deg, sx)
+        draw_arrow_sigma_x_l(ax, s_h, sx / den, angle_deg)
+        draw_arrow_sigma_y_u(ax, s_h, sy / den, angle_deg, sy)
+        draw_arrow_sigma_y_l(ax, s_h, sy / den, angle_deg)
 
     # tau arrows
     if 1e-6 < abs(txy / den):
-        draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
-        draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
-        draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
-        draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+        if not b_label:
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+        else:
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg, txy)  # right vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
@@ -297,7 +311,7 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0):
     ax.axis('off')
 
 
-def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
+def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
     arrow_center_x = s_h * 1.1
     arrow_center_y = 0
 
@@ -323,11 +337,38 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
                      fc='k', ec='k', shape=shape)
 
     # length of the arrow including the head
-    dxe = (shaft_length + head_length) * c + 0.0 * (-s)
-    dye = (shaft_length + head_length) * s + 0.0 * c
+    dxe = 0.0 * c + (shaft_length + head_length) * (-s)
+    dye = 0.0 * s + (shaft_length + head_length) * c
 
     # add an invisible plot to make sure the arrow is included in the axis
     arrow_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+    # indicate stress value
+    if label_txt is not None:
+        plt.text(x_start + dxe, y_start + dye, get_stress_str(label_txt))
+
+
+def get_stress_str(label_txt):
+    """
+    Convert stress value into a string ending with, for example, MPa 
+    
+    :param str|int|float label_txt: 
+    :return: 
+    """
+
+    level_text = ['', 'k', 'M', 'G', 'T', 'p', 'n', 'μ', 'm']
+
+    result = label_txt
+    if label_txt is str:
+        result = label_txt
+    elif isinstance(label_txt, (int, float)):
+        if 1000 ** (-5) < abs(label_txt) < 1000 ** 5:
+            level = int(np.log10(abs(label_txt)) // 3)
+        else:
+            level = 0
+        result = '%s%sPa' % (str(label_txt / (1000.0 ** level)), level_text[level])
+
+    return result
 
 
 def decide_right_or_left(x_start, y_start, dx, dy):
@@ -339,7 +380,7 @@ def decide_right_or_left(x_start, y_start, dx, dy):
     return shape
 
 
-def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
+def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
     arrow_angle_deg = angle_deg + 0
     c, s = get_cos_sin(arrow_angle_deg)
 
@@ -362,17 +403,21 @@ def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg):
     # add an invisible plot to make sure the arrow is included in the axis
     arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
 
-
-def draw_arrow_sigma_x_l(ax, s_h, shaft_length, angle_deg):
-    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 180)
-
-
-def draw_arrow_sigma_y_u(ax, s_h, shaft_length, angle_deg):
-    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 90)
+    # indicate stress value
+    if label_txt is not None:
+        plt.text(x_start + dxe, y_start + dye, get_stress_str(label_txt))
 
 
-def draw_arrow_sigma_y_l(ax, s_h, shaft_length, angle_deg):
-    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 270)
+def draw_arrow_sigma_x_l(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 180, label_txt=label_txt)
+
+
+def draw_arrow_sigma_y_u(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 90, label_txt=label_txt)
+
+
+def draw_arrow_sigma_y_l(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg + 270, label_txt=label_txt)
 
 
 def get_cos_sin(angle_deg):
