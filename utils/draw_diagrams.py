@@ -304,7 +304,7 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
     ax.axis('off')
 
 
-def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
+def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
     arrow_center_x = s_h * 1.1
     arrow_center_y = 0
 
@@ -335,6 +335,10 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg):
 
     # add an invisible plot to make sure the arrow is included in the axis
     arrow_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+
+    # indicate stress value
+    if label_txt is not None:
+        plt.text(x_start + dxe, y_start + dye, str(label_txt))
 
 
 def decide_right_or_left(x_start, y_start, dx, dy):
