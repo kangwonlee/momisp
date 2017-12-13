@@ -291,10 +291,17 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
 
     # tau arrows
     if 1e-6 < abs(txy / den):
-        draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
-        draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
-        draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
-        draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+        if not b_label:
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg)  # right vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+        else:
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg, txy)  # right vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 90)  # top arrow
+            draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
+            draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
+
 
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
