@@ -330,8 +330,8 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
                      fc='k', ec='k', shape=shape)
 
     # length of the arrow including the head
-    dxe = (shaft_length + head_length) * c + 0.0 * (-s)
-    dye = (shaft_length + head_length) * s + 0.0 * c
+    dxe = 0.0 * c + (shaft_length + head_length) * (-s)
+    dye = 0.0 * s + (shaft_length + head_length) * c
 
     # add an invisible plot to make sure the arrow is included in the axis
     arrow_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
