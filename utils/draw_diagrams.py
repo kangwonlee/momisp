@@ -349,11 +349,24 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
 
 
 def get_stress_str(label_txt):
+    """
+    Convert stress value into a string ending with, for example, MPa 
+    
+    :param str|int|float label_txt: 
+    :return: 
+    """
+
+    level_text = ['', 'k', 'M', 'G', 'T', 'p', 'n', 'μ', 'm']
+
     result = label_txt
     if label_txt is str:
         result = label_txt
-    elif label_txt is (int, float):
-        result = str(label_txt)
+    elif isinstance(label_txt, (int, float)):
+        if 1000 ** (-5) < abs(label_txt) < 1000 ** 5:
+            level = int(np.log10(abs(label_txt)) // 3)
+        else:
+            level = 0
+        result = '%s%sPa' % (str(label_txt / (1000.0 ** level)), level_text[level])
 
     return result
 
