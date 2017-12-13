@@ -345,7 +345,17 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
 
     # indicate stress value
     if label_txt is not None:
-        plt.text(x_start + dxe, y_start + dye, str(label_txt))
+        plt.text(x_start + dxe, y_start + dye, get_stress_str(label_txt))
+
+
+def get_stress_str(label_txt):
+    result = label_txt
+    if label_txt is str:
+        result = label_txt
+    elif label_txt is (int, float):
+        result = str(label_txt)
+
+    return result
 
 
 def decide_right_or_left(x_start, y_start, dx, dy):
@@ -382,7 +392,7 @@ def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
 
     # indicate stress value
     if label_txt is not None:
-        plt.text(x_start + dxe, y_start + dye, str(label_txt))
+        plt.text(x_start + dxe, y_start + dye, get_stress_str(label_txt))
 
 
 def draw_arrow_sigma_x_l(ax, s_h, shaft_length, angle_deg, label_txt=None):
