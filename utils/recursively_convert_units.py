@@ -29,7 +29,7 @@ def main():
             for filename in filename_list:
                 if is_ipynb(filename):
                     full_path = os.path.join(root_name, filename)
-                    fp.process_nb_file(full_path, b_write_file=False)
+                    fp.process_nb_file(full_path, b_write_file=True)
 
 
 if __name__ == '__main__':
