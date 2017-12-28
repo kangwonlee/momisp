@@ -238,7 +238,7 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
         arrow = patches.FancyArrowPatch(start, end, connectionstyle=connection_style_str, mutation_scale=20)
         ax.add_patch(arrow)
 
-        ax.text(float(moment_dict['x_m']), y_load + 0.1,
+        ax.text(float(moment_dict['x_m']), y_load,
                 moment_dict['text'], horizontalalignment='center')
 
 
