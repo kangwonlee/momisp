@@ -98,7 +98,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     beam_patch = plt.Rectangle((0, 0), L_m, h_beam_m)
     ax.add_patch(beam_patch)
 
-    y_text = -1
+    y_text = L_m * (-0.10)
 
     for point_dict in points_list:
         ax.text(float(point_dict['x_m']), y_text, point_dict['text'])
@@ -108,7 +108,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     # Reaction force
     for reaction_dict in reaction_list:
         ax.arrow(float(reaction_dict['x_m']), y_arrow,
-                 0, abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
+                 0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
 
     y_load = h_beam_m * 3
     # 집중하중 P
@@ -117,11 +117,11 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
         # arrow heading upward
         if 0 < v_load_dict['sign']:
             ax.arrow(float(v_load_dict['x_m']), h_beam_m + 0.1,
-                     0, abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
+                     0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
         # arrow heading downward
         elif 0 > v_load_dict['sign']:
             ax.arrow(float(v_load_dict['x_m']), y_load,
-                     0, - abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
+                     0, - abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
 
     # 분포하중 w0
     # Distributed load w0
@@ -135,7 +135,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
         ax.quiver(x_load_m_array, y_load_m_array,
                   u_load_m_array, v_load_m_array)
 
-        ax.text((float(dist_load_dict['x_begin_m']) + float(dist_load_dict['x_end_m'])) * 0.5, y_load + 0.1,
+        ax.text((float(dist_load_dict['x_begin_m']) + float(dist_load_dict['x_end_m'])) * 0.5, y_load + L_m * 0.01,
                 dist_load_dict['text'], horizontalalignment='center')
 
     # 모멘트
