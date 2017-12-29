@@ -563,5 +563,11 @@ def test_mohr_circle_2d():
     plt.show()
 
 
+def test_draw_stress():
+    draw_stress_2d(40, -20, 10, angle_deg=30)
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    test_mohr_circle_2d()
+    test_draw_stress()
