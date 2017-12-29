@@ -592,5 +592,12 @@ def test_draw_stress():
     plt.show()
 
 
+def test_draw_stress0():
+    draw_stress_2d(40, -20, 10, angle_deg=30, ax=plt.subplot(121))
+    draw_stress_2d(40, 0, 10, angle_deg=30, ax=plt.subplot(122))
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    test_draw_stress()
+    test_draw_stress0()
