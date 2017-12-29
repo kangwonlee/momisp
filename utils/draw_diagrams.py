@@ -60,7 +60,6 @@ def rect_section_base(centroid_overhang=0.25):
 
 
 def rect_section_c():
-
     centroid_overhang = 0.125
 
     ax1, width, height, corner_sw, corner_ne, center = rect_section_base(centroid_overhang)
@@ -68,7 +67,7 @@ def rect_section_c():
     # add a new rotation axis c
     overhang_x = width * 0.25
     offset = height * (-0.25)
-    plt.plot((corner_sw[0]-overhang_x, corner_ne[0]+overhang_x), 
+    plt.plot((corner_sw[0] - overhang_x, corner_ne[0] + overhang_x),
              (offset + center[1], offset + center[1]), 'k-.')
     plt.text(corner_ne[0] + overhang_x + 0.01, offset + center[1] - .01, 'c')
 
@@ -302,7 +301,6 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
             draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
             draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
 
-
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
     plt.grid(True)
@@ -351,9 +349,9 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
 def get_stress_str(label_txt):
     """
     Convert stress value into a string ending with, for example, MPa 
-    
-    :param str|int|float label_txt: 
-    :return: 
+
+    :param str|int|float label_txt:
+    :return:
     """
 
     level_text = ['', 'k', 'M', 'G', 'T', 'p', 'n', 'μ', 'm']
@@ -394,7 +392,8 @@ def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
     head_width = abs(s_h) * 0.1
     head_length = head_width * 2.0
 
-    arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
+    if 0 < abs(shaft_length):
+        arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
 
     # length of the arrow including the head
     dxe = (shaft_length + head_length) * c + 0.0 * (-s)
