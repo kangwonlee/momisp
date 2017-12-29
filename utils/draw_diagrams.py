@@ -310,6 +310,16 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
 
 
 def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    """
+    draw an arrow and an invisible plot
+
+    :param ax:
+    :param float s_h: half of square size
+    :param float shaft_length: shaft length
+    :param int | float angle_deg: square rotation angle
+    :param str label_txt:
+    :return:
+    """
     arrow_center_x = s_h * 1.1
     arrow_center_y = 0
 
