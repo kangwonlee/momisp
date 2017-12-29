@@ -60,7 +60,6 @@ def rect_section_base(centroid_overhang=0.25):
 
 
 def rect_section_c():
-
     centroid_overhang = 0.125
 
     ax1, width, height, corner_sw, corner_ne, center = rect_section_base(centroid_overhang)
@@ -68,7 +67,7 @@ def rect_section_c():
     # add a new rotation axis c
     overhang_x = width * 0.25
     offset = height * (-0.25)
-    plt.plot((corner_sw[0]-overhang_x, corner_ne[0]+overhang_x), 
+    plt.plot((corner_sw[0] - overhang_x, corner_ne[0] + overhang_x),
              (offset + center[1], offset + center[1]), 'k-.')
     plt.text(corner_ne[0] + overhang_x + 0.01, offset + center[1] - .01, 'c')
 
@@ -98,7 +97,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     beam_patch = plt.Rectangle((0, 0), L_m, h_beam_m)
     ax.add_patch(beam_patch)
 
-    y_text = -1
+    y_text = L_m * (-0.10)
 
     for point_dict in points_list:
         ax.text(float(point_dict['x_m']), y_text, point_dict['text'])
@@ -108,7 +107,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     # Reaction force
     for reaction_dict in reaction_list:
         ax.arrow(float(reaction_dict['x_m']), y_arrow,
-                 0, abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
+                 0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
 
     y_load = h_beam_m * 3
     # 집중하중 P
@@ -117,11 +116,11 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
         # arrow heading upward
         if 0 < v_load_dict['sign']:
             ax.arrow(float(v_load_dict['x_m']), h_beam_m + 0.1,
-                     0, abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
+                     0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
         # arrow heading downward
         elif 0 > v_load_dict['sign']:
             ax.arrow(float(v_load_dict['x_m']), y_load,
-                     0, - abs(y_arrow) * 0.7, head_width=0.1, head_length=abs(y_arrow) * 0.2)
+                     0, - abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
 
     # 분포하중 w0
     # Distributed load w0
@@ -135,7 +134,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
         ax.quiver(x_load_m_array, y_load_m_array,
                   u_load_m_array, v_load_m_array)
 
-        ax.text((float(dist_load_dict['x_begin_m']) + float(dist_load_dict['x_end_m'])) * 0.5, y_load + 0.1,
+        ax.text((float(dist_load_dict['x_begin_m']) + float(dist_load_dict['x_end_m'])) * 0.5, y_load + L_m * 0.01,
                 dist_load_dict['text'], horizontalalignment='center')
 
     # 모멘트
@@ -238,7 +237,7 @@ def draw_moment_arrows(ax, moment_list, moment_radius_m, y_load):
         arrow = patches.FancyArrowPatch(start, end, connectionstyle=connection_style_str, mutation_scale=20)
         ax.add_patch(arrow)
 
-        ax.text(float(moment_dict['x_m']), y_load + 0.1,
+        ax.text(float(moment_dict['x_m']), y_load,
                 moment_dict['text'], horizontalalignment='center')
 
 
@@ -302,7 +301,6 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
             draw_arrow_tau(ax, s_h, txy / den, angle_deg + 180)  # left vertical arrow
             draw_arrow_tau(ax, s_h, -txy / den, angle_deg + 270)  # bottom arrow
 
-
     plt.xlabel('$\\sigma$')
     plt.ylabel('$\\tau$')
     plt.grid(True)
@@ -312,6 +310,16 @@ def draw_stress_2d(sx_i, sy_i, txy_i, ax=None, angle_deg=0.0, b_label=False):
 
 
 def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    """
+    draw an arrow and an invisible plot
+
+    :param ax:
+    :param float s_h: half of square size
+    :param float shaft_length: shaft length
+    :param int | float angle_deg: square rotation angle
+    :param str label_txt:
+    :return:
+    """
     arrow_center_x = s_h * 1.1
     arrow_center_y = 0
 
@@ -351,9 +359,9 @@ def draw_arrow_tau(ax, s_h, shaft_length, angle_deg, label_txt=None):
 def get_stress_str(label_txt):
     """
     Convert stress value into a string ending with, for example, MPa 
-    
-    :param str|int|float label_txt: 
-    :return: 
+
+    :param str|int|float label_txt:
+    :return:
     """
 
     level_text = ['', 'k', 'M', 'G', 'T', 'p', 'n', 'μ', 'm']
@@ -381,6 +389,21 @@ def decide_right_or_left(x_start, y_start, dx, dy):
 
 
 def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    """
+
+    :param ax:
+    :param float s_h: half of the square width
+    :param float shaft_length: length of the arrow shaft
+    :param int | float angle_deg: rotation angle of the arrow in degree
+    :param str label_txt:
+    :return:
+    """
+
+    sign_shaft_length = np.sign(shaft_length)
+
+    # at first, use absolute value of the shaft length
+    shaft_length = abs(shaft_length)
+
     arrow_angle_deg = angle_deg + 0
     c, s = get_cos_sin(arrow_angle_deg)
 
@@ -394,14 +417,23 @@ def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
     head_width = abs(s_h) * 0.1
     head_length = head_width * 2.0
 
-    arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
-
     # length of the arrow including the head
     dxe = (shaft_length + head_length) * c + 0.0 * (-s)
     dye = (shaft_length + head_length) * s + 0.0 * c
 
+    x_end = x_start + dxe
+    y_end = y_start + dye
+
+    if 0 > sign_shaft_length:
+        # if negative shaft length
+        x_start, x_end, dx, dxe = x_end, x_start, -dx, -dxe
+        y_start, y_end, dy, dxe = y_end, y_start, -dy, -dxe
+
+    if 0 < abs(shaft_length):
+        arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
+
     # add an invisible plot to make sure the arrow is included in the axis
-    arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+    arrow_x_r_pt = ax.plot((x_start, x_end), (y_start, y_end), 'r.', alpha=0.0)
 
     # indicate stress value
     if label_txt is not None:
@@ -554,5 +586,18 @@ def test_mohr_circle_2d():
     plt.show()
 
 
+def test_draw_stress():
+    draw_stress_2d(40, -20, 10, angle_deg=30)
+
+    plt.show()
+
+
+def test_draw_stress0():
+    draw_stress_2d(40, -20, 10, angle_deg=30, ax=plt.subplot(121))
+    draw_stress_2d(40, 0, 10, angle_deg=30, ax=plt.subplot(122))
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    test_mohr_circle_2d()
+    test_draw_stress0()
