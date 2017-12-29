@@ -389,6 +389,21 @@ def decide_right_or_left(x_start, y_start, dx, dy):
 
 
 def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
+    """
+
+    :param ax:
+    :param float s_h: half of the square width
+    :param float shaft_length: length of the arrow shaft
+    :param int | float angle_deg: rotation angle of the arrow in degree
+    :param str label_txt:
+    :return:
+    """
+
+    sign_shaft_length = np.sign(shaft_length)
+
+    # at first, use absolute value of the shaft length
+    shaft_length = abs(shaft_length)
+
     arrow_angle_deg = angle_deg + 0
     c, s = get_cos_sin(arrow_angle_deg)
 
@@ -402,15 +417,23 @@ def draw_arrow_sigma_x_r(ax, s_h, shaft_length, angle_deg, label_txt=None):
     head_width = abs(s_h) * 0.1
     head_length = head_width * 2.0
 
-    if 0 < abs(shaft_length):
-        arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
-
     # length of the arrow including the head
     dxe = (shaft_length + head_length) * c + 0.0 * (-s)
     dye = (shaft_length + head_length) * s + 0.0 * c
 
+    x_end = x_start + dxe
+    y_end = y_start + dye
+
+    if 0 > sign_shaft_length:
+        # if negative shaft length
+        x_start, x_end, dx, dxe = x_end, x_start, -dx, -dxe
+        y_start, y_end, dy, dxe = y_end, y_start, -dy, -dxe
+
+    if 0 < abs(shaft_length):
+        arrow_x_r = ax.arrow(x_start, y_start, dx, dy, head_width=head_width, head_length=head_length, fc='k', ec='k')
+
     # add an invisible plot to make sure the arrow is included in the axis
-    arrow_x_r_pt = ax.plot((x_start, x_start + dxe), (y_start, y_start + dye), 'r.', alpha=0)
+    arrow_x_r_pt = ax.plot((x_start, x_end), (y_start, y_end), 'r.', alpha=0.0)
 
     # indicate stress value
     if label_txt is not None:
