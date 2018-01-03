@@ -5,7 +5,8 @@ language: python
 
 python:
   - "3.5"
-  # - "nightly"
+  - "3.6"
+  - "nightly"
 
 install:
   - sudo apt-get update
@@ -26,7 +27,11 @@ install:
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then
         conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.5.yml;
     else
-        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
+        if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
+            conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
+        else
+            conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
+        fi
     fi
   - source activate test-environment
   - conda list
