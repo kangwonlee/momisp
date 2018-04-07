@@ -20,6 +20,8 @@ For Windows, after install, please check [creating a virtual environment](https:
 PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
 * [Microsoft Visual Studio Code](https://code.visualstudio.com/download)<br>
+Anaconda 설치 후 설치 선택 가능<br>
+Installation button available at the end of Anaconda installation<br>
 [Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview)<br>
 [Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
 
