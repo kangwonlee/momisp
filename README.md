@@ -19,8 +19,8 @@ For Windows, after install, please check [creating a virtual environment](https:
 * [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
 PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
-* [Microsoft Visual Studio Code](https://code.visualstudio.com/download)
-[Setup Overview]<br>(https://code.visualstudio.com/docs/setup/setup-overview)
+* [Microsoft Visual Studio Code](https://code.visualstudio.com/download)<br>
+[Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview)<br>
 [Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
 
 #### 설치 동영상<br>Installation video
