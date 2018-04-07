@@ -12,7 +12,7 @@ Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
 For Windows, after install, please check [creating a virtual environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) and [switching between environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#activating-an-environment) more than twice.
 
 #### 깃 버전 관리 소프트웨어 Git Version Control Software
-* 명령행 Commandline [Git for Windows](https://git-scm.com/download/win)
+* 명령행 Commandline [Git for Windows](https://git-scm.com/download/win)<br>실습실 환경에서는 credential manager 설치 삼가<br>Credential manager may not be a best choice for a computer lab
 * GUI [SourceTree](https://www.sourcetreeapp.com/download/) 또는 or [Github Desktop](https://desktop.github.com/)
 
 #### 통합 개발 환경 Integrated Development Environment
