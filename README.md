@@ -24,7 +24,7 @@ Anaconda 설치 후 설치 선택 가능<br>
 Installation [button](https://blogs.msdn.microsoft.com/pythonengineering/2018/02/15/visual-studio-code-is-now-shipping-with-anaconda/) available at the end of Anaconda installation<br>
 다운로드 받아서 설치도 가능<br>
 Possible to download and install from the website<br>
-[Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview)<br>
+[Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview) / 
 [Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
 
 #### 설치 동영상<br>Installation video
