@@ -21,7 +21,7 @@ For Windows, after install, please check [creating a virtual environment](https:
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
 
 #### 설치 동영상<br>Installation video
-[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
+[![설치 동영상 Installation video](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
 
 ### `jupyter` 노트북 실행시키는 법<br>How to start a `jupyter` notebook
 이 저장소 는 주로 [`jupyter` 노트북](http://blog.ncsoft.com/?p=21870)으로 만들어져 있음.<br>
@@ -36,4 +36,4 @@ Through a web browser, `jupyter` notebook enables editing & running program code
 * `jupyter notebook` 실행 <br>Run `jupyter notebook`
 
 #### 실행 동영상<br>Instruction video
-[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/W6ynqGKJFSs/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJO9HeSC74wqxECtwpUPJfdm)
+[![실행 동영상 Instruction video](https://i.ytimg.com/vi/W6ynqGKJFSs/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJO9HeSC74wqxECtwpUPJfdm)
