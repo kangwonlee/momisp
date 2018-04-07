@@ -16,7 +16,7 @@ For Windows, after install, please check [creating a virtual environment](https:
 * GUI [SourceTree](https://www.sourcetreeapp.com/download/) 또는 or [Github Desktop](https://desktop.github.com/)
 
 #### 통합 개발 환경 Integrated Development Environment
-* [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
+* [PyCharm Community](https://www.jetbrains.com/pycharm/download/)<br>
 PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
 * [Microsoft Visual Studio Code](https://code.visualstudio.com/download)<br>
