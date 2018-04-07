@@ -21,7 +21,7 @@ PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
 * [Microsoft Visual Studio Code](https://code.visualstudio.com/download)<br>
 Anaconda 설치 후 설치 선택 가능<br>
-Installation button available at the end of Anaconda installation<br>
+Installation [button](https://blogs.msdn.microsoft.com/pythonengineering/2018/02/15/visual-studio-code-is-now-shipping-with-anaconda/) available at the end of Anaconda installation<br>
 [Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview)<br>
 [Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
 
