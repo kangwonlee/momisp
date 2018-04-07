@@ -16,13 +16,13 @@ For Windows, after install, please check [creating a virtual environment](https:
 * GUI [SourceTree](https://www.sourcetreeapp.com/download/) 또는 or [Github Desktop](https://desktop.github.com/)
 
 #### 통합 개발 환경 Integrated Development Environment
-* [PyCharm Community](https://www.jetbrains.com/pycharm/download/)<br>
-PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
+##### [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
+* PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
-* [Microsoft Visual Studio Code](https://code.visualstudio.com/download)<br>
-Anaconda 설치 후 설치 선택 가능<br>
+##### [Microsoft Visual Studio Code](https://code.visualstudio.com/download)
+* Anaconda 설치 후 설치 선택 가능<br>
 Installation [button](https://blogs.msdn.microsoft.com/pythonengineering/2018/02/15/visual-studio-code-is-now-shipping-with-anaconda/) available at the end of Anaconda installation<br>
-[다운로드](https://code.visualstudio.com/download) 받아서 설치도 가능<br>
+* [다운로드](https://code.visualstudio.com/download) 받아서 설치도 가능<br>
 Possible to [download](https://code.visualstudio.com/download) and install from the website<br>
 [Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview) / 
 [Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
