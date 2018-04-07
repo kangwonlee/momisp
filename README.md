@@ -1,4 +1,4 @@
-# 재료역학 ][ 2017
+# 재료역학 ][ 2017<br>Mechanics of Materials ][ 2017
 
 교재 : Pytel 외 저, 이주성 외 역, 재료역학 2판, 한티미디어, 2013.<br>
 Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
