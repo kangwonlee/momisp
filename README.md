@@ -1,4 +1,4 @@
-# 재료역학 ][ 2017
+# 재료역학 ][ 2017<br>Mechanics of Materials ][ 2017
 
 교재 : Pytel 외 저, 이주성 외 역, 재료역학 2판, 한티미디어, 2013.<br>
 Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
@@ -12,16 +12,41 @@ Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
 For Windows, after install, please check [creating a virtual environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) and [switching between environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#activating-an-environment) more than twice.
 
 #### 깃 버전 관리 소프트웨어 Git Version Control Software
-* 명령행 Commandline [Git for Windows](https://git-scm.com/download/win)
-* GUI [SourceTree](https://www.sourcetreeapp.com/download/) 또는 or [Github Desktop](https://desktop.github.com/)
+##### CUI : [Git for Windows](https://git-scm.com/download/win)
+* 명령행에서 사용 Command line interface<br>
+* 실습실 환경에서는 credential manager 설치 삼가<br>Credential manager may not be a best choice for a computer lab
+* 아래 IDE 가운데 MS VS Code 선택시 다음과 같이 생각해 볼 수 있음<br>
+To use MS VS Code among IDEs below, may consider followings<br>
+
+| 항목<br>Key | 값<br>Value |
+|:-------:|:-------:|
+| git 기본 편집기 <br> Default editor for Git | MS VS Code |
+| 경로 환경 조정 <br> Adjusting Path environment | Use Git from the Windows Command Prompt |
+| 터미널 에뮬레이터 <br>Terminal emulator | Use Windows' default console window |
+| 자격 인증 관리자 활성화  <br> Enable Git Credential Manager | 전산 실습 환경의 경우, 선택 해제<br>If computer lab, unselect |
+
+#### GUI
+아래 가운데 택일 Choose one from below 
+* [SourceTree](https://www.sourcetreeapp.com/download/) 
+* [Github Desktop](https://desktop.github.com/)
 
 #### 통합 개발 환경 Integrated Development Environment
-* [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
+아래 가운데 택일 Choose one from below 
+##### Spyder
+* Anaconda 5.x 와 함께 설치됨.<br>Anaconda 5.x includes spyder.
+##### [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
 * PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
+##### [Microsoft Visual Studio Code](https://code.visualstudio.com/download)
+* Anaconda 설치 후 설치 선택 가능<br>
+Installation [button](https://blogs.msdn.microsoft.com/pythonengineering/2018/02/15/visual-studio-code-is-now-shipping-with-anaconda/) available at the end of Anaconda installation<br>
+* [다운로드](https://code.visualstudio.com/download) 받아서 설치도 가능<br>
+Possible to [download](https://code.visualstudio.com/download) and install from the website<br>
+[Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview) / 
+[Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
 
 #### 설치 동영상<br>Installation video
-[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
+[![설치 동영상 Installation video](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
 
 ### `jupyter` 노트북 실행시키는 법<br>How to start a `jupyter` notebook
 이 저장소 는 주로 [`jupyter` 노트북](http://blog.ncsoft.com/?p=21870)으로 만들어져 있음.<br>
@@ -36,4 +61,4 @@ Through a web browser, `jupyter` notebook enables editing & running program code
 * `jupyter notebook` 실행 <br>Run `jupyter notebook`
 
 #### 실행 동영상<br>Instruction video
-[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/W6ynqGKJFSs/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJO9HeSC74wqxECtwpUPJfdm)
+[![실행 동영상 Instruction video](https://i.ytimg.com/vi/W6ynqGKJFSs/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJO9HeSC74wqxECtwpUPJfdm)
