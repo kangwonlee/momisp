@@ -6,10 +6,10 @@ Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
 ### 설치 항목 Software to install
 
 #### 파이썬 프로그래밍 언어 Python Programming Language
-* [Anaconda 5.0.x Python 3.6.x version](https://www.continuum.io/downloads) <br>
-경로 이름에 한글을 사용할 수 없음 Use ASCII characters for path name<br>
-윈도우즈의 경우, 설치 후 [가상 환경 생성, 전환 2회 이상](https://graspthegist.com/post/learn-conda-1/) 확인 추천<br>
-For Windows, after install, please check [creating a virtual environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) and [switching between environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#activating-an-environment) more than twice.
+##### [Anaconda 5.0.x Python 3.6.x version](https://www.continuum.io/downloads) <br>
+* 명령행에서 실행해야 할 경우, 경로에 추가하도록 설정 To run from a command line, configure to add python to the PATH
+* 경로 이름에 한글을 사용할 수 없음 Use ASCII characters for path name
+* 윈도우즈의 경우, 설치 후 [가상 환경 생성, 전환 2회 이상](https://graspthegist.com/post/learn-conda-1/) 확인 추천<br>For Windows, after install, please check [creating a virtual environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) and [switching between environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#activating-an-environment) more than twice.
 
 #### 깃 버전 관리 소프트웨어 Git Version Control Software
 ##### CUI : [Git for Windows](https://git-scm.com/download/win)
