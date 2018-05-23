@@ -1,7 +1,8 @@
 import nbutils.symbol_converter as sc
 import os
 
-ignore_path_list = {'__pycache__', '.ipynb_checkpoints', '.git', '.cache', '.idea', 'nbutils', 'tests'}
+ignore_path_list = {'__pycache__', '.ipynb_checkpoints', '.git', '.cache', '.idea', 
+                    'nbutils', 'tests'}
 
 
 def is_ignore(path):
