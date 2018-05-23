@@ -1,4 +1,6 @@
-import nb_file_util as fu
+import os
+
+import nbutils.nb_file_util as fu
 from recursively_convert_units import ignore_path_list, is_ignore, is_ipynb
 
 
