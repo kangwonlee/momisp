@@ -50,7 +50,7 @@ def main():
     # Chapter loop
     for root_name, _, filename_list in os_walk_if_not_ignore(os.pardir):
         # ipynb file loop
-        for ipynb_filename in gen_filename_ipynb(filename_list):
+        for ipynb_filename in filter(is_ipynb, filename_list):
             full_path = os.path.join(root_name, ipynb_filename)
             fp.process_nb_file(full_path, b_write_file=True)
 
