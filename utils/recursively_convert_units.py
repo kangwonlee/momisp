@@ -24,7 +24,7 @@ def main():
     # file processor
     fp = sc.IpynbUnitConverter(None)
 
-    for root_name, dir_list, filename_list in os.walk(os.pardir):
+    for root_name, _, filename_list in os.walk(os.pardir):
         if not is_ignore(root_name):
             for filename in filename_list:
                 if is_ipynb(filename):
