@@ -31,6 +31,17 @@ def is_ipynb(path):
     return '.ipynb' == os.path.splitext(path)[-1]
 
 
+def gen_filename_ipynb(filename_list):
+    """
+    Generator for ipynb filenames in the filename_list
+
+    filename_list : list of filenames within a folder
+    """
+    for filename in filename_list:
+        if is_ipynb(filename):
+            yield filename    
+
+
 def main():
 
     # file processor
@@ -39,10 +50,9 @@ def main():
     # Chapter loop
     for root_name, _, filename_list in os_walk_if_not_ignore(os.pardir):
         # ipynb file loop
-        for filename in filename_list:
-            if is_ipynb(filename):
-                full_path = os.path.join(root_name, filename)
-                fp.process_nb_file(full_path, b_write_file=True)
+        for ipynb_filename in gen_filename_ipynb(filename_list):
+            full_path = os.path.join(root_name, ipynb_filename)
+            fp.process_nb_file(full_path, b_write_file=True)
 
 
 if __name__ == '__main__':
