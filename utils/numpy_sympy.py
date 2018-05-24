@@ -39,16 +39,7 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     print(conversion_cmd)
 
-    p = subprocess.Popen(conversion_cmd, 
-                         stdout=subprocess.PIPE, 
-                         stderr=subprocess.PIPE)
-    fo, fe = p.stdout, p.stderr
-
-    stdout = fo.read().decode('utf-8')
-    stderr = fe.read().decode('utf-8')
-
-    fo.close()
-    fe.close()
+    stdout, stderr = run_cmd(conversion_cmd)
 
     if stdout:
         print('stdout:\n%s' % stdout)
@@ -60,6 +51,20 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     if os.path.exists(py_filename_full_path):
         raise IOError('unable to remove file %s.' % py_filename_full_path)
+
+
+def run_cmd(conversion_cmd):
+    p = subprocess.Popen(conversion_cmd, 
+                         stdout=subprocess.PIPE, 
+                         stderr=subprocess.PIPE)
+    fo, fe = p.stdout, p.stderr
+
+    stdout = fo.read().decode('utf-8')
+    stderr = fe.read().decode('utf-8')
+
+    fo.close()
+    fe.close()
+    return stdout, stderr
 
 
 def get_conversion_cmd_list(root_dir, ipynb_filename):
