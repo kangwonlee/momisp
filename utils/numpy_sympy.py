@@ -35,6 +35,28 @@ def main(argv):
 
             print(conversion_cmd)
 
+            p = subprocess.Popen(conversion_cmd, 
+                                 stdout=subprocess.PIPE, 
+                                 stderr=subprocess.PIPE)
+            fo, fe = p.stdout, p.stderr
+
+            stdout = fo.read().decode('utf-8')
+            stderr = fe.read().decode('utf-8')
+
+            fo.close()
+            fe.close()
+
+            if stdout:
+                print('stdout: %s' % stdout)
+            if stderr:
+                print('stderr: %s' % stderr)
+
+            if os.path.exists(py_filename_full_path):
+                os.remove(py_filename_full_path)
+
+            if os.path.exists(py_filename_full_path):
+                raise IOError('unable to remove file %s.' % py_filename_full_path)
+
 
 def get_conversion_cmd_list(root_dir, ipynb_filename):
     # convert a .ipynb file into a .py file
