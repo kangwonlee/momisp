@@ -2,6 +2,7 @@ import ast
 import os
 import subprocess
 import sys
+import tokenize
 
 import nbformat
 
@@ -46,7 +47,25 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     if stderr:
         print('stderr:\n%s' % stderr)
 
+    # end of conversion
+    try:
+        # using tokenize module to understand converted file
+        with open(py_filename_full_path, encoding='utf-8') as f:
+            for toktype, tok, start, end, line in python_lines(f.readline):
+                if 'import' in tok:
+                    print(toktype, tok, start, end, line)
+    except BaseException as e:
+        tear_down(py_filename_full_path)
+        raise e
+
     tear_down(py_filename_full_path)
+
+
+def python_lines(readline_obj):
+    for toktype, tok, start, end, line in tokenize.generate_tokens(readline_obj):
+        # skip comment lines
+        if (tokenize.COMMENT != toktype):
+            yield toktype, tok, start, end, line
 
 
 def tear_down(py_filename_full_path):
