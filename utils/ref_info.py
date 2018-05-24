@@ -1,7 +1,7 @@
 import os
 
 import nbutils.nb_file_util as fu
-from recursively_convert_units import ignore_path_list, is_ignore, is_ipynb
+import recursively_convert_units as rcu
 
 
 class RefCellCorrector(fu.CellProcessorBase):
@@ -23,12 +23,12 @@ class ReferenceTypoCorrector(fu.FileProcessor):
 def main():
     fp = ReferenceTypoCorrector(None)
 
-    for root_name, dir_list, filename_list in os.walk(os.pardir):
-        if not is_ignore(root_name):
-            for filename in filename_list:
-                if is_ipynb(filename):
-                    full_path = os.path.join(root_name, filename)
-                    fp.process_nb_file(full_path, b_write_file=True)
+    # Chapter loop
+    for root_name, _, filename_list in rcu.os_walk_if_not_ignore(os.pardir):
+        # Notebook file loop
+        for filename in filter(rcu.is_ipynb, filename_list):
+            full_path = os.path.join(root_name, filename)
+            fp.process_nb_file(full_path, b_write_file=True)
 
 
 if __name__ == '__main__':
