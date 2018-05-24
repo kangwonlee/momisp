@@ -46,6 +46,10 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     if stderr:
         print('stderr:\n%s' % stderr)
 
+    tear_down(py_filename_full_path)
+
+
+def tear_down(py_filename_full_path):
     if os.path.exists(py_filename_full_path):
         os.remove(py_filename_full_path)
 
