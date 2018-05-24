@@ -23,39 +23,43 @@ def main(argv):
         # Notebook file loop
         for ipynb_filename in filter(rcu.is_ipynb, filename_list):
 
-            ipynb_filename_name = os.path.splitext(ipynb_filename)[0]
+            process_one_ipynb_file(root_dir, ipynb_filename,)
 
-            py_filename_full_path = os.path.join(root_dir, ipynb_filename_name + '.py')
 
-            if os.path.exists(py_filename_full_path):
-                raise IOError('file %s already exists.' % py_filename_full_path)
+def process_one_ipynb_file(root_dir, ipynb_filename,):
+    ipynb_filename_name = os.path.splitext(ipynb_filename)[0]
 
-            # convert a .ipynb file into a .py file
-            conversion_cmd = get_conversion_cmd_list(root_dir, ipynb_filename)
+    py_filename_full_path = os.path.join(root_dir, ipynb_filename_name + '.py')
 
-            print(conversion_cmd)
+    if os.path.exists(py_filename_full_path):
+        raise IOError('file %s already exists.' % py_filename_full_path)
 
-            p = subprocess.Popen(conversion_cmd, 
-                                 stdout=subprocess.PIPE, 
-                                 stderr=subprocess.PIPE)
-            fo, fe = p.stdout, p.stderr
+    # convert a .ipynb file into a .py file
+    conversion_cmd = get_conversion_cmd_list(root_dir, ipynb_filename)
 
-            stdout = fo.read().decode('utf-8')
-            stderr = fe.read().decode('utf-8')
+    print(conversion_cmd)
 
-            fo.close()
-            fe.close()
+    p = subprocess.Popen(conversion_cmd, 
+                         stdout=subprocess.PIPE, 
+                         stderr=subprocess.PIPE)
+    fo, fe = p.stdout, p.stderr
 
-            if stdout:
-                print('stdout: %s' % stdout)
-            if stderr:
-                print('stderr: %s' % stderr)
+    stdout = fo.read().decode('utf-8')
+    stderr = fe.read().decode('utf-8')
 
-            if os.path.exists(py_filename_full_path):
-                os.remove(py_filename_full_path)
+    fo.close()
+    fe.close()
 
-            if os.path.exists(py_filename_full_path):
-                raise IOError('unable to remove file %s.' % py_filename_full_path)
+    if stdout:
+        print('stdout:\n%s' % stdout)
+    if stderr:
+        print('stderr:\n%s' % stderr)
+
+    if os.path.exists(py_filename_full_path):
+        os.remove(py_filename_full_path)
+
+    if os.path.exists(py_filename_full_path):
+        raise IOError('unable to remove file %s.' % py_filename_full_path)
 
 
 def get_conversion_cmd_list(root_dir, ipynb_filename):
