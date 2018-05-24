@@ -53,7 +53,8 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
         with open(py_filename_full_path, encoding='utf-8') as f:
             for toktype, tok, start, end, line in python_lines(f.readline):
                 if 'import' in tok:
-                    print(toktype, tok, start, end, line)
+                    if ('numpy' in line) or ('sympy' in line):
+                        print(toktype, tok, start, end, line)
     except BaseException as e:
         tear_down(py_filename_full_path)
         raise e
