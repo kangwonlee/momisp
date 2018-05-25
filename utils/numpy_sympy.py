@@ -54,6 +54,7 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
             for toktype, tok, start, end, line in python_lines(f.readline):
                 if 'import' in tok:
                     if ('numpy' in line) or ('sympy' in line):
+                        # remove comment
                         if '#' in line:
                             line = line[0:line.find('#')].strip()
                         print(toktype, tok, start, end, line)
