@@ -37,15 +37,29 @@ def main(argv):
     for key in cases:
         print('key =', key)
         for item in cases[key]:
-            filename = item[-1]
-            if key not in filename:
-                split = filename.split('.')
-                split.insert(2, key)
-                new_filename = '.'.join(split)
-            else:
-                new_filename = filename
+            new_filename = get_new_filename_with_usage_marker(key, item[-1])
         
             print(list(item)+[new_filename])
+
+
+def get_new_filename_with_usage_marker(usage_marker, filename):
+    """
+    ('numpy', 'ch08.005.2D.Stress.Transform.ipynb') -> 'ch08.005.numpy.2D.Stress.Transform.ipynb'
+    ('numpy', 'ch08.005.a.2D.Stress.Transform.ipynb') -> 'ch08.005.numpy.2D.Stress.Transform.ipynb'    
+    ('numpy', 'ch08.005.2D.numpy.Stress.Transform.ipynb') -> 'ch08.005.2D.numpy.Stress.Transform.ipynb'    
+    ('numpy', 'ch08.005.2D.numpyStress.Transform.ipynb') -> 'ch08.005.numpy.2D.numpyStress.Transform.ipynb'    
+    """
+
+    split = filename.split('.')
+
+    if usage_marker not in split:
+        # put usage marker into the filename
+        split.insert(2, usage_marker)
+        new_filename = '.'.join(split)
+    else:
+        new_filename = filename
+
+    return new_filename
 
 
 def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
