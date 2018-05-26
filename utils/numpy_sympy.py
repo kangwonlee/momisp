@@ -32,12 +32,22 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     modules = []
 
+    # module name loop
     for key in used_dict:
-        if used_dict[key]:
+        # skip if not used or degrees module
+        if used_dict[key] and 'degrees' != key:
+            # representative 'numpy' or 'sympy' only
             if (('.' not in key) or (key.split('.')[0] not in modules)):
                 modules.append(key)
-                
-    print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, '_'.join(modules)))
+
+    # build marker
+    result = '_'.join(modules)
+
+    # present result
+    print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, result))
+
+    # return result
+    # return result
 
 
 def get_module_usage(root_dir, ipynb_filename, b_verbose=False):
