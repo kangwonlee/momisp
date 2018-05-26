@@ -29,7 +29,7 @@ def main(argv):
 
 def process_one_ipynb_file(root_dir, ipynb_filename,):
     used_dict = get_module_usage(root_dir, ipynb_filename,)
-    print('used_dict :', used_dict)
+    print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, used_dict))
 
 
 def get_module_usage(root_dir, ipynb_filename, b_verbose=False):
