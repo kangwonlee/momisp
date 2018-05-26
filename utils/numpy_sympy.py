@@ -114,5 +114,12 @@ def get_conversion_cmd_list(root_dir, ipynb_filename):
     return conversion_cmd
 
 
+def get_chapter_par_dir():
+    """
+    Absolute path to the parent directory of chapter folders
+    """
+    return os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
+
+
 if "__main__" == __name__:
     main(sys.argv[1:])
