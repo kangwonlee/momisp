@@ -29,7 +29,7 @@ def test_process_one_ipynb_file():
     result = ns.process_one_ipynb_file(chapter_dir, filename)
 
     # TODO : The function under test and this test function are not finished. Verify later.
-    assert result is None
+    assert 'numpy' == result
 
 # https://docs.pytest.org/en/latest/parametrize.html#parametrize
 @pytest.mark.parametrize(
