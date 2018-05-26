@@ -48,6 +48,7 @@ def test_get_module_and_import_names_as():
 
     assert expected_dict == result_dict
 
+
 def test_get_module_and_import_names():
     expected_dict = {'module': 'something', 'as': 'something'}
 
