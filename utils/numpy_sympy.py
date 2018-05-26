@@ -48,9 +48,11 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
         print('stderr:\n%s' % stderr)
 
     # end of conversion
+
+    # using tokenize module to understand converted file
+    results_list = []
+
     try:
-        result = []
-        # using tokenize module to understand converted file
         with open(py_filename_full_path, encoding='utf-8') as f:
             for toktype, tok, start, end, line in gen_python_lines(f.readline):
                 if 'import' in tok:
@@ -58,10 +60,14 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
                         # remove comment
                         if '#' in line:
                             line = line[0:line.find('#')].strip()
-                        print(toktype, tok, start, end, line)
+                        results_list.append({'toktype':toktype, 'tok':tok, 'start':start, 'end':end, 'line':line})
     except BaseException as e:
         tear_down(py_filename_full_path)
         raise e
+
+    # end obtaining import lines
+    for results_dict in results_list:
+        print(results_dict)
 
     tear_down(py_filename_full_path)
 
