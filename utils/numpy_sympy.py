@@ -64,10 +64,16 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     except BaseException as e:
         tear_down(py_filename_full_path)
         raise e
-
     # end obtaining import lines
-    for results_dict in results_list:
-        print(results_dict)
+
+    # import line loop
+    for import_dict in results_list:
+        line_split = import_dict['line'].split()
+        if 'as' in line_split:
+            i = line_split.index('as')
+
+        print(import_dict['line'], i)
+    # end import line loop
 
     tear_down(py_filename_full_path)
 
