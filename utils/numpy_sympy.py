@@ -66,6 +66,8 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
         raise e
     # end obtaining import lines
 
+    # TODO : what if module name overwrite happens later?
+
     # import line loop
     for import_dict in results_list:
         import_as_dict = get_module_and_import_names(import_dict['line'])
