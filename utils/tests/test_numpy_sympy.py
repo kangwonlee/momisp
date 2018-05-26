@@ -32,6 +32,19 @@ def test_process_one_ipynb_file():
     assert result is None
 
 
+def test_get_module_usage_04_003():
+    # ../../Ch?? relative to the location of the file instead of the test execution location
+    chapter_dir = os.path.abspath(os.path.join(ns.get_chapter_par_dir(), 'Ch04_SFD.BMD'))
+    filename = 'ex04.003.simply.supported_v.w.ipynb'
+
+    # Function under test
+    result = ns.get_module_usage(chapter_dir, filename)
+
+    expected = {'numpy': True, 'numpy.linalg': False, 'sympy': False}
+
+    assert expected == result
+
+
 def test_get_chapter_par_dir():
     # Function under test
     chapter_par_dir = ns.get_chapter_par_dir()
