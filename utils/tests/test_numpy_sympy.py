@@ -38,3 +38,19 @@ def test_get_chapter_par_dir():
 
     # at least some of the     
     assert 4 < len(list(filter(lambda x: x.startswith('Ch'), os.listdir(chapter_par_dir))))
+
+def test_get_module_and_import_names_as():
+    expected_dict = {'module': 'something', 'as': 'sth'}
+
+    # Function under test
+    result_dict = ns.get_module_and_import_names('import {module} as {as}'.format(**expected_dict))
+
+    assert expected_dict == result_dict
+
+def test_get_module_and_import_names():
+    expected_dict = {'module': 'something', 'as': 'something'}
+
+    # Function under test
+    result_dict = ns.get_module_and_import_names('import {module}'.format(**expected_dict))
+
+    assert expected_dict == result_dict
