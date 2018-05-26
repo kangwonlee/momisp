@@ -22,7 +22,7 @@ def test_get_conversion_cmd_list():
 
 def test_process_one_ipynb_file():
     # ../../Ch?? relative to the location of the file instead of the test execution location
-    chapter_dir = os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir, os.pardir, 'Ch04_SFD.BMD'))
+    chapter_dir = os.path.abspath(os.path.join(ns.get_chapter_par_dir(), 'Ch04_SFD.BMD'))
     filename = 'ex04.003.simply.supported_v.w.ipynb'
 
     # Function under test
@@ -30,3 +30,11 @@ def test_process_one_ipynb_file():
 
     # TODO : The function under test and this test function are not finished. Verify later.
     assert result is None
+
+
+def test_get_chapter_par_dir():
+    # Function under test
+    chapter_par_dir = ns.get_chapter_par_dir()
+
+    # at least some of the     
+    assert 4 < len(list(filter(lambda x: x.startswith('Ch'), os.listdir(chapter_par_dir))))
