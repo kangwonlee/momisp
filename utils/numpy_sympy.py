@@ -213,10 +213,10 @@ def tear_down(py_filename_full_path):
         raise IOError('unable to remove file %s.' % py_filename_full_path)
 
 
-def run_cmd(conversion_cmd):
+def run_cmd(conversion_cmd, shell=False):
     p = subprocess.Popen(conversion_cmd, 
                          stdout=subprocess.PIPE, 
-                         stderr=subprocess.PIPE)
+                         stderr=subprocess.PIPE, shell=shell)
     fo, fe = p.stdout, p.stderr
 
     stdout = fo.read().decode('utf-8')
