@@ -35,18 +35,14 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     if os.path.exists(py_filename_full_path):
         raise IOError('file %s already exists.' % py_filename_full_path)
 
-    # convert a .ipynb file into a .py file
+    # prepare conversion command
     conversion_cmd = get_conversion_cmd_list(root_dir, ipynb_filename)
 
-    print(conversion_cmd)
+    # convert a .ipynb file into a .py file
+    _, stderr = run_cmd(conversion_cmd)
 
-    stdout, stderr = run_cmd(conversion_cmd)
-
-    if stdout:
-        print('stdout:\n%s' % stdout)
-    if stderr:
-        print('stderr:\n%s' % stderr)
-
+    if ('error' in stderr) or ('fatal' in stderr) or ('fail' in stderr) or not (os.path.exists(py_filename_full_path)):
+        raise SystemError('ipynb -> py conversion seemingly failed : %s' % stderr)
     # end of conversion
 
     # using tokenize module to understand converted file
