@@ -55,13 +55,20 @@ for t in cases:
 keys_list = list(keys_set)
 keys_list.sort()
 
+
 def key_fun(t):
     d = t[-1]
     result = tuple([int(d.get(key, -1)) for key in keys_list])
     return result
 
-cases.sort(key=key_fun)
 
-import pprint
+d_o = {}
+for t in cases:
+    key = key_fun(t)
+    this_list = d_o.get(key, [])
+    this_list.append(t)
+    d_o[key] = this_list
 
-pprint.pprint(cases)
+for key in d_o:
+    if 'degrees' not in d_o[key][0][-1]:
+        print('%s,' % repr(d_o[key][0]))
