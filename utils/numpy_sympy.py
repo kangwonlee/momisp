@@ -102,6 +102,7 @@ def get_module_and_import_names(import_line):
         else:
             raise SystemError("The location of 'as' seems not normal in %r" % (import_line))
 
+    # import something
     elif 'import' in line_split:
         i = line_split.index('import')
         if len(line_split[i - 1]) > (1 + i):
