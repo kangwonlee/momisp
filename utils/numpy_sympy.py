@@ -77,6 +77,7 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
                         # ignore
                         if '.init_printing' not in line:
                             print(toktype, tok, start, end, line)
+                            used_dict[as_module_dict[tok]] = True
                     
     except BaseException as e:
         tear_down(py_filename_full_path)
