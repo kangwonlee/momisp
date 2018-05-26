@@ -28,6 +28,11 @@ def main(argv):
 
 
 def process_one_ipynb_file(root_dir, ipynb_filename,):
+    used_dict = get_module_usage(root_dir, ipynb_filename,)
+    print('used_dict :', used_dict)
+
+
+def get_module_usage(root_dir, ipynb_filename):
     ipynb_filename_name = os.path.splitext(ipynb_filename)[0]
 
     py_filename_full_path = os.path.join(root_dir, ipynb_filename_name + '.py')
@@ -78,16 +83,16 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
                         if '.init_printing' not in line:
                             print(toktype, tok, start, end, line)
                             used_dict[as_module_dict[tok]] = True
-                    
+
     except BaseException as e:
         tear_down(py_filename_full_path)
         raise e
     # end obtaining import lines
 
-    print('used_dict :', used_dict)
-    print('as_module_dict :', as_module_dict)
-
     tear_down(py_filename_full_path)
+
+    print('as_module_dict :', as_module_dict)
+    return used_dict
 
 
 def get_module_and_import_names(import_line):
