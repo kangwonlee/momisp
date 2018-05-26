@@ -46,8 +46,7 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     # present result
     print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, result))
 
-    # return result
-    # return result
+    return result
 
 
 def get_module_usage(root_dir, ipynb_filename, b_verbose=False):
