@@ -37,7 +37,15 @@ def main(argv):
     for key in cases:
         print('key =', key)
         for item in cases[key]:
-            print(item)
+            filename = item[-1]
+            if key not in filename:
+                split = filename.split('.')
+                split.insert(2, key)
+                new_filename = '.'.join(split)
+            else:
+                new_filename = filename
+        
+            print(list(item)+[new_filename])
 
 
 def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
