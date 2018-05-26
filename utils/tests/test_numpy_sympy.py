@@ -39,6 +39,7 @@ def test_get_chapter_par_dir():
     # at least some of the     
     assert 4 < len(list(filter(lambda x: x.startswith('Ch'), os.listdir(chapter_par_dir))))
 
+
 def test_get_module_and_import_names_as():
     expected_dict = {'module': 'something', 'as': 'sth'}
 
