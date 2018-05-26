@@ -50,7 +50,7 @@ def get_new_filename_with_usage_marker(usage_marker, filename):
 
     split = filename.split('.')
 
-    if usage_marker not in split:
+    if (usage_marker not in split) and usage_marker:
         # put usage marker into the filename
         split.insert(2, usage_marker)
         new_filename = '.'.join(split)
