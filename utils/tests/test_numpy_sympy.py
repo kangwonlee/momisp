@@ -86,3 +86,17 @@ def test_get_module_and_import_names():
     result_dict = ns.get_module_and_import_names('import {module}'.format(**expected_dict))
 
     assert expected_dict == result_dict
+
+
+# https://docs.pytest.org/en/latest/parametrize.html#parametrize
+@pytest.mark.parametrize(
+    "usage_dict, expected",
+    [
+        ({'numpy': True}, 'numpy'),
+        ({'numpy': False, 'numpy.linalg': False, 'sympy': True}, 'sympy'),
+    ],
+)
+def test_get_usage_marker(usage_dict, expected):
+    result = ns.get_usage_marker(usage_dict)
+
+    assert expected == result
