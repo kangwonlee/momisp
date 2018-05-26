@@ -68,35 +68,46 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     # import line loop
     for import_dict in results_list:
-        line_split = import_dict['line'].split()
-
-        import_as_dict = {}
-        # import something as sth
-        if 'as' in line_split:
-            i = line_split.index('as')
-
-            # something
-            if 0 < (i - 1):
-                import_as_dict['module'] = line_split[i - 1]
-            else:
-                raise SystemError("The location of 'as' seems not normal in %r" % (import_dict['line']))
-
-            # sth
-            if len(line_split[i - 1]) > (i + 1):
-                import_as_dict['as'] = line_split[i + 1]
-            else:
-                raise SystemError("The location of 'as' seems not normal in %r" % (import_dict['line']))
-
-        elif 'import' in line_split:
-            i = line_split.index('import')
-            if len(line_split[i - 1]) > (1 + i):
-                import_as_dict['as'] = import_as_dict['module'] = line_split[i + 1]
+        import_as_dict = get_module_and_import_names(import_dict['line'])
 
         import_dict.update(import_as_dict)
         print(import_dict['line'], import_as_dict)
     # end import line loop
 
     tear_down(py_filename_full_path)
+
+
+def get_module_and_import_names(import_line):
+    """
+    'import something as sth' -> {'module': 'something', 'as': 'sth'}
+    """
+    line_split = import_line.split()
+
+    import_as_dict = {}
+    # import something as sth
+    if 'as' in line_split:
+        i = line_split.index('as')
+
+        # something
+        if 0 < (i - 1):
+            import_as_dict['module'] = line_split[i - 1]
+        else:
+            raise SystemError("The location of 'as' seems not normal in %r" % (import_line))
+
+        # sth
+        if len(line_split[i - 1]) > (i + 1):
+            import_as_dict['as'] = line_split[i + 1]
+        else:
+            raise SystemError("The location of 'as' seems not normal in %r" % (import_line))
+
+    elif 'import' in line_split:
+        i = line_split.index('import')
+        if len(line_split[i - 1]) > (1 + i):
+            import_as_dict['as'] = import_as_dict['module'] = line_split[i + 1]
+    else:
+        raise SystemError('Something seems not right in %r' % (import_line))
+
+    return import_as_dict
 
 
 def gen_python_lines(readline_obj):
