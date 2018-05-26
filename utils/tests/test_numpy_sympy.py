@@ -36,11 +36,10 @@ def test_get_module_usage_04_003():
     # ../../Ch?? relative to the location of the file instead of the test execution location
     chapter_full_dir = os.path.abspath(os.path.join(ns.get_chapter_par_dir(), 'Ch04_SFD.BMD'))
     filename = 'ex04.003.simply.supported_v.w.ipynb'
+    expected = {'numpy': True, 'numpy.linalg': False, 'sympy': False}
 
     # Function under test
     result = ns.get_module_usage(chapter_full_dir, filename)
-
-    expected = {'numpy': True, 'numpy.linalg': False, 'sympy': False}
 
     assert expected == result
 
