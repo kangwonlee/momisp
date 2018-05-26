@@ -73,6 +73,13 @@ def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
         else:
             mv_cmd = ('mv', old_full_path, new_full_path,)
             print(mv_cmd)
+            stdout, stderr = run_cmd(mv_cmd)
+            if stdout:
+                print('stdout :', stdout)
+            
+            if stderr:
+                print('stderr :', stderr)
+
 
     return usage_marker
 
