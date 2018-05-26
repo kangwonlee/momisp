@@ -14,7 +14,7 @@ def main(argv):
 
     # no argument
     if not argv:
-        root = os.pardir
+        root = get_chapter_par_dir()
     else:
         root = argv[0]
 
