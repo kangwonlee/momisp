@@ -27,17 +27,12 @@ def main(argv):
 
         # Notebook file loop
         for ipynb_filename in filter(rcu.is_ipynb, filename_list):
-            print('processing', chapter_folder, ipynb_filename)
+            # print('processing', chapter_folder, ipynb_filename)
 
             marker = process_one_ipynb_file(root_dir, ipynb_filename,)
             this_list = cases.get(marker, [])
             this_list.append((chapter_folder, ipynb_filename))
             cases[marker] = this_list
-
-    for key in cases:
-        print('key =', key)
-        for item in cases[key]:
-            get_new_filename_with_usage_marker(key, item[-1])
 
 
 def get_new_filename_with_usage_marker(usage_marker, filename):
