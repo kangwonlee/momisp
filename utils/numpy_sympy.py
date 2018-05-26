@@ -51,12 +51,12 @@ def main(argv):
 def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
     used_dict = get_module_usage(root_dir, ipynb_filename,)
 
-    result = get_usage_marker(used_dict)
+    usage_marker = get_usage_marker(used_dict)
 
     # present result
-    if b_verbose: print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, result))
+    if b_verbose: print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, usage_marker))
 
-    return result
+    return usage_marker
 
 
 def get_usage_marker(used_dict):
