@@ -1,6 +1,6 @@
 {
     "python.unitTest.pyTestArgs": [
-        "--verbose",
+        "--capture=no",
         "./tests/", "./utils/tests",
     ],
     "python.unitTest.pyTestEnabled": true
