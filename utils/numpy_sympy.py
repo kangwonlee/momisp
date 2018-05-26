@@ -49,9 +49,10 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     # end of conversion
     try:
+        result = []
         # using tokenize module to understand converted file
         with open(py_filename_full_path, encoding='utf-8') as f:
-            for toktype, tok, start, end, line in python_lines(f.readline):
+            for toktype, tok, start, end, line in gen_python_lines(f.readline):
                 if 'import' in tok:
                     if ('numpy' in line) or ('sympy' in line):
                         # remove comment
@@ -65,7 +66,10 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     tear_down(py_filename_full_path)
 
 
-def python_lines(readline_obj):
+def gen_python_lines(readline_obj):
+    """
+    Generator of python lines not comments
+    """
     for toktype, tok, start, end, line in tokenize.generate_tokens(readline_obj):
         # skip comment lines
         if (tokenize.COMMENT != toktype):
