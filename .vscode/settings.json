@@ -1,5 +1,6 @@
 {
     "python.unitTest.pyTestArgs": [
+        "--verbose",
         "./tests/", "./utils/tests",
     ],
     "python.unitTest.pyTestEnabled": true
