@@ -35,7 +35,7 @@ def main(argv):
             cases[marker] = this_list
 
 
-def get_new_filename_with_usage_marker(usage_marker, filename):
+def get_new_filename_with_usage_marker(usage_marker, filename, b_verbose=False):
     """
     ('numpy', 'ch08.005.2D.Stress.Transform.ipynb') -> 'ch08.005.numpy.2D.Stress.Transform.ipynb'
     ('numpy', 'ch08.005.a.2D.Stress.Transform.ipynb') -> 'ch08.005.numpy.2D.Stress.Transform.ipynb'    
@@ -52,7 +52,7 @@ def get_new_filename_with_usage_marker(usage_marker, filename):
     else:
         new_filename = filename
 
-    print('(%r, %r, %r),' % (usage_marker, filename, new_filename))
+    if b_verbose : print('(%r, %r, %r),' % (usage_marker, filename, new_filename))
 
     return new_filename
 
