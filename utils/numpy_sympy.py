@@ -37,9 +37,7 @@ def main(argv):
     for key in cases:
         print('key =', key)
         for item in cases[key]:
-            new_filename = get_new_filename_with_usage_marker(key, item[-1])
-        
-            print(list(item)+[new_filename])
+            get_new_filename_with_usage_marker(key, item[-1])
 
 
 def get_new_filename_with_usage_marker(usage_marker, filename):
@@ -58,6 +56,8 @@ def get_new_filename_with_usage_marker(usage_marker, filename):
         new_filename = '.'.join(split)
     else:
         new_filename = filename
+
+    print('(%r, %r, %r),' % (usage_marker, filename, new_filename))
 
     return new_filename
 
