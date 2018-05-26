@@ -31,6 +31,37 @@ def test_process_one_ipynb_file():
     # TODO : The function under test and this test function are not finished. Verify later.
     assert result is None
 
+# https://docs.pytest.org/en/latest/parametrize.html#parametrize
+@pytest.mark.parametrize(
+    "chapter_folder, filename, expected",
+    [
+        ('Ch02_Strain', 'ex02.002.numpy.varying.width.ipynb',                                   {'numpy': True}),
+        ('Ch02_Strain', 'ex02.007.numpy.reinforced.concrete.column.ipynb',                      {'numpy': True, 'numpy.linalg': True}),
+        ('Ch03_Torsion', 'ex03.001.torsional.displacement.ipynb',                               {'numpy': True, 'numpy.linalg': False, 'sympy': True}),
+        ('Ch04_SFD.BMD', 'ch04.004.SFD.BMD.area.ipynb',                                         {'numpy': False, 'numpy.linalg': False, 'sympy': True}),
+        ('Ch03_Torsion', 'ex03.000.radian.degree.ipynb',                                        {'numpy': True, 'numpy.linalg': False, 'sympy': False}),
+        ('Ch02_Strain', 'ex02.011.eq.thermal.stress.ipynb',                                     {'numpy': False, 'numpy.linalg': False, 'sympy': False}),
+        ('Ch05_Stress.in.Beams', 'ex05.002.BendingStress.T.section_simple.overhang_w.p.ipynb',  {'numpy': True, 'numpy.linalg': False, 'numpy.matlib': True, 'sympy': True}),
+        ('Ch05_Stress.in.Beams', 'ex05.001.BendingStress.BMD_rect_simple_w.p.ipynb',            {'numpy': True, 'numpy.linalg': False, 'numpy.matlib': True, 'sympy': False}),
+        ('Ch05_Stress.in.Beams', 'ex05.004.BendingStress.W200.section_cantilever_m.ipynb',      {'numpy': True, 'numpy.linalg': False, 'sympy': True, 'sympy.plotting': True}),        
+        ('Ch05_Stress.in.Beams', 'ex05.007.ShearStress.H.beam.v.ipynb',                         {'numpy': True, 'numpy.linalg': False, 'sympy': True, 'sympy.plotting': False}),
+        ('Ch07_Stat.Indet', 'ex07.003.Double.Integral_bracket_fix_simple_v.ipynb',              {'numpy': True, 'numpy.linalg': True, 'sympy': False, 'sympy.plotting': False}),
+        ('Ch05_Stress.in.Beams', 'ch05.004.ShearStressBeam.ipynb',                              {'numpy': False, 'numpy.linalg': False, 'sympy': True, 'sympy.plotting': True}),
+        ('Ch05_Stress.in.Beams', 'ch05.000.Second.Moment.Of.Inertia.ipynb',                     {'numpy': False, 'numpy.linalg': False, 'sympy': True, 'sympy.plotting': False}),
+        ('Ch05_Stress.in.Beams', 'ch05.002.BendingStress.ipynb',                                {'numpy': True, 'numpy.linalg': False, 'sympy': False, 'sympy.plotting': False}),
+        ('Ch08_Stress_Due.To_Combined.Loads', 'ch08.009.Strain.Transform.ipynb',                {'numpy': False, 'numpy.linalg': False, 'sympy': False, 'sympy.plotting': False}),
+        ('Ch05_Stress.in.Beams', 'ex05.003.BendingStress.rect.two.h_cantilever_v.ipynb',        {'numpy': True, 'numpy.linalg': False, 'numpy.matlib': False, 'sympy': True, 'sympy.plotting': True}),
+    ],
+)
+def test_get_module_usage(chapter_folder, filename, expected):
+    # ../../Ch?? relative to the location of the file instead of the test execution location
+    chapter_full_dir = os.path.abspath(os.path.join(ns.get_chapter_par_dir(), chapter_folder))
+
+    # Function under test
+    result = ns.get_module_usage(chapter_full_dir, filename)
+
+    assert expected == result
+
 
 def test_get_module_usage_04_003():
     # ../../Ch?? relative to the location of the file instead of the test execution location
