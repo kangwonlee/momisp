@@ -55,7 +55,8 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     try:
         with open(py_filename_full_path, encoding='utf-8') as f:
             for toktype, tok, start, end, line in gen_python_lines(f.readline):
-                if 'import' in tok:
+                # process import
+                if 'import' == tok:
                     if ('numpy' in line) or ('sympy' in line):
                         # remove comment
                         if '#' in line:
@@ -69,7 +70,14 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
                         as_module_dict[import_as_dict['as']] = import_as_dict['module']
                         # Initialize (or update) entry in the checklist
                         used_dict[import_as_dict['module']] = used_dict.get(import_as_dict['module'], False)
-                        
+                # tokens other than import
+                else:
+                    # if tok is one of import names
+                    if ('import' not in line) and tok in as_module_dict:
+                        # ignore
+                        if '.init_printing' not in line:
+                            print(toktype, tok, start, end, line)
+                    
     except BaseException as e:
         tear_down(py_filename_full_path)
         raise e
