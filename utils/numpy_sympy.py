@@ -67,8 +67,17 @@ def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
 
     usage_marker = get_usage_marker(used_dict)
 
+    new_filename = get_new_filename_with_usage_marker(usage_marker, ipynb_filename)
+
     # present result
-    if b_verbose: print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, usage_marker))
+    if b_verbose:
+        old_full_path = os.path.join(root_dir, ipynb_filename)
+        new_full_path = os.path.join(root_dir, new_filename)
+        if not os.path.exists(old_full_path):
+            raise SystemError('unable to find %r' % old_full_path)
+        else:
+            mv_cmd = ('mv', old_full_path, new_full_path,)
+            print(mv_cmd)
 
     return usage_marker
 
