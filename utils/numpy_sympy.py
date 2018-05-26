@@ -29,7 +29,15 @@ def main(argv):
 
 def process_one_ipynb_file(root_dir, ipynb_filename,):
     used_dict = get_module_usage(root_dir, ipynb_filename,)
-    print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, used_dict))
+
+    modules = []
+
+    for key in used_dict:
+        if used_dict[key]:
+            if (('.' not in key) or (key.split('.')[0] not in modules)):
+                modules.append(key)
+                
+    print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, '_'.join(modules)))
 
 
 def get_module_usage(root_dir, ipynb_filename, b_verbose=False):
