@@ -64,13 +64,24 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     # TODO : what if module name overwrite happens later?
 
+    # Checklist of import name usage
+    used_dict = {}
+
+    # Conversion table from import name to module name
+    as_module_dict ={}
+
     # import line loop
     for import_dict in results_list:
         import_as_dict = get_module_and_import_names(import_dict['line'])
+        used_dict[import_as_dict['as']] = used_dict.get(import_as_dict['as'], False)
+        as_module_dict[import_as_dict['as']] = import_as_dict['module']
 
         import_dict.update(import_as_dict)
         print(import_dict['line'], import_as_dict)
     # end import line loop
+
+    print('used_dict :', used_dict)
+    print('as_module_dict :', as_module_dict)
 
     tear_down(py_filename_full_path)
 
