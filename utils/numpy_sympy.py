@@ -69,10 +69,29 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     # import line loop
     for import_dict in results_list:
         line_split = import_dict['line'].split()
+
+        # import something as sth
         if 'as' in line_split:
             i = line_split.index('as')
 
-        print(import_dict['line'], i)
+            # something
+            if 0 < (i - 1):
+                import_dict['module'] = line_split[i - 1]
+            else:
+                raise SystemError("The location of 'as' seems not normal in %r" % (import_dict['line']))
+
+            # sth
+            if len(line_split[i - 1]) > (i + 1):
+                import_dict['as'] = line_split[i + 1]
+            else:
+                raise SystemError("The location of 'as' seems not normal in %r" % (import_dict['line']))
+
+        elif 'import' in line_split:
+            i = line_split.index('import')
+            if len(line_split[i - 1]) > (1 + i):
+                import_dict['as'] = import_dict['module'] = line_split[i + 1]
+
+        print(import_dict, i)
     # end import line loop
 
     tear_down(py_filename_full_path)
