@@ -18,16 +18,29 @@ def main(argv):
     else:
         root = argv[0]
 
+    cases = {}
+
     # Chapter folder
     for root_dir, _, filename_list in rcu.os_walk_if_not_ignore(root):
 
+        chapter_folder = os.path.split(root_dir)[-1]
+
         # Notebook file loop
         for ipynb_filename in filter(rcu.is_ipynb, filename_list):
+            print('processing', chapter_folder, ipynb_filename)
 
-            process_one_ipynb_file(root_dir, ipynb_filename,)
+            marker = process_one_ipynb_file(root_dir, ipynb_filename,)
+            this_list = cases.get(marker, [])
+            this_list.append((chapter_folder, ipynb_filename))
+            cases[marker] = this_list
+
+    for key in cases:
+        print('key =', key)
+        for item in cases[key]:
+            print(item)
 
 
-def process_one_ipynb_file(root_dir, ipynb_filename,):
+def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
     used_dict = get_module_usage(root_dir, ipynb_filename,)
 
     modules = []
@@ -44,7 +57,7 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
     result = '_'.join(modules)
 
     # present result
-    print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, result))
+    if b_verbose: print('(%r, %r, %r),' % (os.path.split(root_dir)[-1], ipynb_filename, result))
 
     return result
 
