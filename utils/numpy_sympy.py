@@ -47,6 +47,10 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
 
     # using tokenize module to understand converted file
     results_list = []
+    # Checklist of import name usage
+    used_dict = {}
+    # Conversion table from import name to module name
+    as_module_dict ={}
 
     try:
         with open(py_filename_full_path, encoding='utf-8') as f:
@@ -56,29 +60,20 @@ def process_one_ipynb_file(root_dir, ipynb_filename,):
                         # remove comment
                         if '#' in line:
                             line = line[0:line.find('#')].strip()
+
                         results_list.append({'toktype':toktype, 'tok':tok, 'start':start, 'end':end, 'line':line})
+
+                        # Get module name and import name
+                        import_as_dict = get_module_and_import_names(line)
+                        # Add to the lookup table
+                        as_module_dict[import_as_dict['as']] = import_as_dict['module']
+                        # Initialize (or update) entry in the checklist
+                        used_dict[import_as_dict['module']] = used_dict.get(import_as_dict['module'], False)
+                        
     except BaseException as e:
         tear_down(py_filename_full_path)
         raise e
     # end obtaining import lines
-
-    # TODO : what if module name overwrite happens later?
-
-    # Checklist of import name usage
-    used_dict = {}
-
-    # Conversion table from import name to module name
-    as_module_dict ={}
-
-    # import line loop
-    for import_dict in results_list:
-        import_as_dict = get_module_and_import_names(import_dict['line'])
-        used_dict[import_as_dict['as']] = used_dict.get(import_as_dict['as'], False)
-        as_module_dict[import_as_dict['as']] = import_as_dict['module']
-
-        import_dict.update(import_as_dict)
-        print(import_dict['line'], import_as_dict)
-    # end import line loop
 
     print('used_dict :', used_dict)
     print('as_module_dict :', as_module_dict)
