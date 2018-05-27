@@ -1,7 +1,7 @@
-# 재료역학 ][ 2017<br>Mechanics of Materials ][ 2017
+# 재료역학 SciPy 사례집<br>Mechanics of Materials in SciPy
 
-교재 : Pytel 외 저, 이주성 외 역, 재료역학 2판, 한티미디어, 2013.<br>
-Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
+주 참고문헌 : Pytel 외 저, 이주성 외 역, 재료역학 2판, 한티미디어, 2013.<br>
+Main Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
 
 ### 설치 항목 Software to install
 
