@@ -6,6 +6,19 @@ import nbformat
 import recursively_convert_units as rcu
 
 
+class NotebookFile(object):
+    def __init__(self, ipynb_full_path):
+        self.ipynb_full_path = ipynb_full_path
+        self.nb_node = nbformat.read(ipynb_full_path, nbformat.NO_CONVERT)
+
+    def gen_cells(self):
+        for cell in self.nb_node.cells:
+            yield cell
+
+    def write(self, new_file_full_path):
+        nbformat.write(self.nb_node, new_file_full_path)
+        
+
 def main(argv):
 
     if 2 <= len(argv):
@@ -38,7 +51,9 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_ver
     # Full path to the ipynb file to reuse later
     ipynb_full_path = os.path.join(chapter_path, ipynb_filename)
 
-    for nb_node, cell in gen_cells_in_ipynb(ipynb_full_path):
+    nb = NotebookFile(ipynb_full_path)
+
+    for cell in nb.gen_cells():
         source = cell.get('source')
         if replace_this in source:
             if b_verbose:
@@ -53,19 +68,7 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_ver
 
     # write
     if b_verbose and b_arm:
-        nbformat.write(nb_node, ipynb_full_path)
-
-
-def gen_cells_in_ipynb(ipynb_filename):
-    with open(ipynb_filename, 'rb') as nb_file:
-        txt = nb_file.read()
-    
-    nb_node = nbformat.reads(txt.decode(), nbformat.NO_CONVERT)
-
-    # TODO : Make it a class instead of yielding nb_node
-
-    for cell in nb_node.cells:
-        yield nb_node, cell
+        nb.write(ipynb_full_path)
 
 
 def get_chapter_par_dir():
