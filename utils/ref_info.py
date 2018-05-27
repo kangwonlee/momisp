@@ -30,7 +30,7 @@ def main(argv):
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
 def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=False, b_arm=False):
-    for cell in gen_cells_in_ipynb(os.path.join(chapter_path, ipynb_filename)):
+    for nb_node, cell in gen_cells_in_ipynb(os.path.join(chapter_path, ipynb_filename)):
         source = cell.get('source')
         if replace_this in source:
             if b_verbose:
@@ -51,7 +51,7 @@ def gen_cells_in_ipynb(ipynb_filename):
     nb_node = nbformat.reads(txt.decode(), nbformat.NO_CONVERT)
 
     for cell in nb_node.cells:
-        yield cell
+        yield nb_node, cell
 
 
 def get_chapter_par_dir():
