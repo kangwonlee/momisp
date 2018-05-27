@@ -24,8 +24,8 @@ class NotebookFile(object):
 
 def main(argv):
 
-    if 4 <= len(argv):
-        replace_this, to_this, b_verbose, b_arm = argv[0], argv[1], argv[2], argv[3]
+    if 5 <= len(argv):
+        replace_this, to_this, b_replace, b_verbose, b_arm = argv[0], argv[1], argv[2], argv[3], argv[4]
     # If commandline argument missing
     else:
         config = configparser.ConfigParser()
@@ -49,17 +49,21 @@ def main(argv):
         # control parameters
         b_verbose = ('True' == config['control']['verbose'])
         b_arm = ('True' == config['control']['arm'])
+        b_replace = ('True' == config['control']['replace'])
 
     if b_verbose:
-        print('Will try to find %s' % replace_this)
+        if b_replace:
+            print('Will try to replace %r to %r' % (replace_this, to_this))
+        else:
+            print('Will try to find %r' % replace_this)
 
     # Chapter loop + file loop
     for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
-        process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=b_verbose, b_arm=b_arm)
+        process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=b_verbose, b_arm=b_arm)
 
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
-def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=False, b_arm=False):
+def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=False, b_arm=False):
     """
     When ready to use, first set b_verbose to True and evaluate the result even if you are confident
     After a sufficient review, if you still feel confident, if possible commit your files before applying changes
@@ -75,16 +79,23 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_ver
         if replace_this in source:
             if b_verbose:
                 print(chapter_path, ipynb_filename)
-                print('before '.ljust(60, '-'))
+
+                if b_replace:
+                    marker = 'before'
+                else:
+                    marker = 'found'
+
+                print(('%s ' % marker).ljust(60, '-'))
                 print(cell)
-                # Replacing here
-                cell['source'] = source.replace(replace_this, to_this)
-                print('after '.ljust(60, '-'))
-                print(cell)
+                if b_replace:
+                    # Replacing here
+                    cell['source'] = source.replace(replace_this, to_this)
+                    print('after '.ljust(60, '-'))
+                    print(cell)
                 print('=' * 80)
 
     # write
-    if b_verbose and b_arm:
+    if b_replace and b_verbose and b_arm:
         nb.write(ipynb_full_path)
 
 
