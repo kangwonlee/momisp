@@ -57,7 +57,8 @@ def get_new_filename_with_usage_marker(usage_marker, filename, b_verbose=False):
     return new_filename
 
 
-def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
+def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False, b_arm=False):
+    # Do commit `b_verbose=False, b_arm=False` for safety
     used_dict = get_module_usage(root_dir, ipynb_filename,)
 
     usage_marker = get_usage_marker(used_dict)
@@ -67,19 +68,24 @@ def process_one_ipynb_file(root_dir, ipynb_filename, b_verbose=False):
     # present result
     if b_verbose:
         old_full_path = os.path.join(root_dir, ipynb_filename)
-        new_full_path = os.path.join(root_dir, new_filename)
         if not os.path.exists(old_full_path):
             raise SystemError('unable to find %r' % old_full_path)
         else:
+            # change to this name
+            new_full_path = os.path.join(root_dir, new_filename)
+            # mv command that would rename files
             mv_cmd = ('mv', old_full_path, new_full_path,)
             print(mv_cmd)
-            stdout, stderr = run_cmd(mv_cmd)
-            if stdout:
-                print('stdout :', stdout)
-            
-            if stderr:
-                print('stderr :', stderr)
 
+            # execute the command
+            # behind two switches for safety : b_verbose and b_arm
+            if b_arm:
+                stdout, stderr = run_cmd(mv_cmd)
+                if stdout:
+                    print('stdout :', stdout)
+                
+                if stderr:
+                    print('stderr :', stderr)
 
     return usage_marker
 
