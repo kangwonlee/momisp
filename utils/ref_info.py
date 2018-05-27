@@ -33,7 +33,13 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this):
         source = cell.get('source')
         if replace_this in source:
             print(chapter_path, ipynb_filename)
+            print('before '.ljust(60, '-'))
             print(cell)
+            # Replacing here
+            cell['source'] = source.replace(replace_this, to_this)
+            print('after '.ljust(60, '-'))
+            print(cell)
+            print('=' * 80 )
 
 
 def gen_cells_in_ipynb(ipynb_filename):
