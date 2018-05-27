@@ -8,7 +8,7 @@ import nbformat
 sys.path.append(os.path.split(os.path.split(__file__)[0])[0])
 
 
-import ref_info as ri
+import find_in_notebook_files as ri
 
 
 def test_gen_cells_in_ipynb():
