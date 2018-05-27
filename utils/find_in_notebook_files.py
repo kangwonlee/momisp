@@ -64,7 +64,7 @@ class FindOrReplaceNotebookFile(NotebookFile):
         See if this cell is of interest
         cell_dict : one of the dicts in nb_node.cells
         """
-        return self.replace_this in cell_dict.get('source')
+        return (self.replace_this in cell_dict.get('source')) and (self.to_this not in cell_dict.get('source'))
 
     def find_or_replace_in_one_cell(self, cell):
         """
