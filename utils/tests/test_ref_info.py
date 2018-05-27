@@ -15,8 +15,10 @@ def test_gen_cells_in_ipynb():
 
     ch_par_dir = ri.get_chapter_par_dir()
     ipynb_full_path = os.path.join(ch_par_dir, 'Ch04_SFD.BMD', 'ex04.003.numpy.simply.supported_v.w.ipynb')
-    for nbnodes, cell in ri.gen_cells_in_ipynb(ipynb_full_path):
-        assert isinstance(nbnodes, nbformat.NotebookNode)
+
+    nb = ri.NotebookFile(ipynb_full_path)
+
+    for cell in nb.gen_cells():
         assert isinstance(cell, dict)
         assert 'cell_type' in cell
         if 'code' == cell['cell_type']:
