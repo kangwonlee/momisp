@@ -23,7 +23,7 @@ def test_get_conversion_cmd_list():
 def test_process_one_ipynb_file():
     # ../../Ch?? relative to the location of the file instead of the test execution location
     chapter_dir = os.path.abspath(os.path.join(ns.get_chapter_par_dir(), 'Ch04_SFD.BMD'))
-    filename = 'ex04.003.simply.supported_v.w.ipynb'
+    filename = 'ex04.003.numpy.simply.supported_v.w.ipynb'
 
     # Function under test
     result = ns.process_one_ipynb_file(chapter_dir, filename)
@@ -36,8 +36,8 @@ def test_process_one_ipynb_file():
     "chapter_folder, filename, expected",
     [
         ('Ch02_Strain', 'ex02.002.numpy.varying.width.ipynb',                                   {'numpy': True}),
-        ('Ch03_Torsion', 'ex03.001.torsional.displacement.ipynb',                               {'numpy': True, 'numpy.linalg': False, 'sympy': True}),
-        ('Ch05_Stress.in.Beams', 'ex05.002.BendingStress.T.section_simple.overhang_w.p.ipynb',  {'numpy': True, 'numpy.linalg': False, 'numpy.matlib': True, 'sympy': True}),
+        ('Ch03_Torsion', 'ex03.001.numpy_sympy.torsional.displacement.ipynb',                               {'numpy': True, 'numpy.linalg': False, 'sympy': True}),
+        ('Ch05_Stress.in.Beams', 'ex05.002.numpy_sympy.BendingStress.T.section_simple.overhang_w.p.ipynb',  {'numpy': True, 'numpy.linalg': False, 'numpy.matlib': True, 'sympy': True}),
     ],
 )
 def test_get_module_usage(chapter_folder, filename, expected):
@@ -53,7 +53,7 @@ def test_get_module_usage(chapter_folder, filename, expected):
 def test_get_module_usage_04_003():
     # ../../Ch?? relative to the location of the file instead of the test execution location
     chapter_full_dir = os.path.abspath(os.path.join(ns.get_chapter_par_dir(), 'Ch04_SFD.BMD'))
-    filename = 'ex04.003.simply.supported_v.w.ipynb'
+    filename = 'ex04.003.numpy.simply.supported_v.w.ipynb'
     expected = {'numpy': True, 'numpy.linalg': False, 'sympy': False}
 
     # Function under test
@@ -111,7 +111,7 @@ def test_get_usage_marker(usage_dict, expected):
         ('numpy', 'ex03.000.radian.degree.ipynb', 'ex03.000.numpy.radian.degree.ipynb'),
         ('numpy', 'ex04.001.simply.supported_v_numerical.arrows.ipynb', 'ex04.001.numpy.simply.supported_v_numerical.arrows.ipynb'),
         ('numpy', 'ex04.002.simply.supported_m.only.ipynb', 'ex04.002.numpy.simply.supported_m.only.ipynb'),
-        ('numpy', 'ex04.003.simply.supported_v.w.ipynb', 'ex04.003.numpy.simply.supported_v.w.ipynb'),
+        ('numpy', 'ex04.003.numpy.simply.supported_v.w.ipynb', 'ex04.003.numpy.simply.supported_v.w.ipynb'),
         ('numpy', 'ex04.005.area_simple_v.m.ipynb', 'ex04.005.numpy.area_simple_v.m.ipynb'),
         ('numpy', 'ex04.006.area_simple_v.w.ipynb', 'ex04.006.numpy.area_simple_v.w.ipynb'),
         ('numpy', 'ch05.002.BendingStress.ipynb', 'ch05.002.numpy.BendingStress.ipynb'),
