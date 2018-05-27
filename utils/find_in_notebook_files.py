@@ -127,6 +127,11 @@ class FindOrReplaceNotebookFileRegex(FindOrReplaceNotebookFile):
 
         self.replace_this_re = re.compile(replace_this)
 
+    def __del__(self):
+        del self.replace_this_re
+
+        super().__del__()
+
     def found(self, cell_dict):
         return self.replace_this_re.findall(cell_dict.get('source'))
 
