@@ -60,9 +60,14 @@ def main(argv):
         else:
             print('Will try to find %r' % replace_this)
 
+    count_files = 0
+    count_found = 0
     # Chapter loop + file loop
     for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
-        process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=b_verbose, b_arm=b_arm)
+        count_files += 1
+        count_found += process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=b_verbose, b_arm=b_arm)
+
+    print('Found %d/%d cases' % (count_found, count_files))
 
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
@@ -77,9 +82,15 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_rep
 
     nb = NotebookFile(ipynb_full_path)
 
+    # to indicate search result
+    count = 0
+
     for cell in nb.gen_cells():
         source = cell.get('source')
         if replace_this in source:
+            # to indicate search result
+            count += 1
+
             if b_verbose:
                 print(chapter_path, ipynb_filename)
 
@@ -100,6 +111,8 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_rep
     # write
     if b_replace and b_verbose and b_arm:
         nb.write(ipynb_full_path)
+
+    return count
 
 
 def get_chapter_par_dir():
