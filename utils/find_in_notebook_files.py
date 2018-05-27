@@ -1,3 +1,5 @@
+import ast
+import configparser as configparser
 import os
 import sys
 
@@ -8,6 +10,7 @@ import recursively_convert_units as rcu
 
 class NotebookFile(object):
     def __init__(self, ipynb_full_path):
+        # constructor
         self.ipynb_full_path = ipynb_full_path
         self.nb_node = nbformat.read(ipynb_full_path, nbformat.NO_CONVERT)
 
@@ -21,24 +24,38 @@ class NotebookFile(object):
 
 def main(argv):
 
-    if 2 <= len(argv):
-        replace_this, to_this = argv[0], argv[1]
+    if 4 <= len(argv):
+        replace_this, to_this, b_verbose, b_arm = argv[0], argv[1], argv[2], argv[3]
     # If commandline argument missing
     else:
-        if os.path.exists('ref_info.txt'):
-            with open('ref_info.txt', 'r') as in_file:
-                replace_this = in_file.readline().strip()
-                to_this = in_file.readline().strip()
-        else:
-            with open('ref_info.txt', 'w') as out_file:
-                replace_this = 'abc'
-                to_this = 'abc'
-                out_file.write(replace_this + '\n')
-                out_file.write(to_this + '\n')            
+        config = configparser.ConfigParser()
+
+        default_filename = 'finf.cfg'
+
+        if not os.path.exists(default_filename):
+            raise IOError('Unable to find {filename} from {cwd}'.format(filename=default_filename, cwd=os.getcwd()))
+
+        config.read(default_filename)
+
+        # to enable more precise control, adopts ast.litearl_eval
+        try:
+            replace_this = ast.literal_eval(config['string']['replace this'])
+            to_this = ast.literal_eval(config['string']['to this'])
+        except KeyError as e:
+            print("%r\nconfig has sections : %r" % ('string', config.sections()))
+            print('config = %r' % config)
+            raise e
+
+        # control parameters
+        b_verbose = ('True' == config['control']['verbose'])
+        b_arm = ('True' == config['control']['arm'])
+
+    if b_verbose:
+        print('Will try to find %s' % replace_this)
 
     # Chapter loop + file loop
     for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
-        process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this)
+        process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=b_verbose, b_arm=b_arm)
 
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
