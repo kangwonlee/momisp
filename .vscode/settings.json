@@ -1,0 +1,7 @@
+{
+    "python.unitTest.pyTestArgs": [
+        "--capture=no",
+        "./tests/", "./utils/tests",
+    ],
+    "python.unitTest.pyTestEnabled": true
+}
