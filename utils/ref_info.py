@@ -30,7 +30,10 @@ def main(argv):
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
 def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=False, b_arm=False):
-    for nb_node, cell in gen_cells_in_ipynb(os.path.join(chapter_path, ipynb_filename)):
+    # Full path to the ipynb file to reuse later
+    ipynb_full_path = os.path.join(chapter_path, ipynb_filename)
+
+    for nb_node, cell in gen_cells_in_ipynb(ipynb_full_path):
         source = cell.get('source')
         if replace_this in source:
             if b_verbose:
