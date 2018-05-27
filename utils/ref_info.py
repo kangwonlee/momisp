@@ -29,7 +29,11 @@ def main(argv):
 
 
 def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this):
-    pass
+    for cell in gen_cells_in_ipynb(os.path.join(chapter_path, ipynb_filename)):
+        source = cell.get('source')
+        if replace_this in source:
+            print(chapter_path, ipynb_filename)
+            print(cell)
 
 
 def gen_cells_in_ipynb(ipynb_filename):
