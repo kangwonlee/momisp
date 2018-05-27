@@ -62,6 +62,8 @@ def gen_cells_in_ipynb(ipynb_filename):
     
     nb_node = nbformat.reads(txt.decode(), nbformat.NO_CONVERT)
 
+    # TODO : Make it a class instead of yielding nb_node
+
     for cell in nb_node.cells:
         yield nb_node, cell
 
