@@ -10,10 +10,18 @@ def main(argv):
 
     if 2 <= len(argv):
         replace_this, to_this = argv[0], argv[1]
+    # If commandline argument missing
     else:
-        with open('ref_info.txt', 'r') as in_file:
-            replace_this = in_file.readline().strip()
-            to_this = in_file.readline().strip()
+        if os.path.exists('ref_info.txt'):
+            with open('ref_info.txt', 'r') as in_file:
+                replace_this = in_file.readline().strip()
+                to_this = in_file.readline().strip()
+        else:
+            with open('ref_info.txt', 'w') as out_file:
+                replace_this = 'abc'
+                to_this = 'abc'
+                out_file.write(replace_this + '\n')
+                out_file.write(to_this + '\n')            
 
     # Chapter loop + file loop
     for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
