@@ -1,20 +1,26 @@
 import os
+import sys
 
 import nbformat
 
 import recursively_convert_units as rcu
 
 
-def main():
+def main(argv):
 
-    help(nbformat)
+    if 2 <= len(argv):
+        replace_this, to_this = argv[0], argv[1]
+    else:
+        with open('ref_info.txt', 'r') as in_file:
+            replace_this = in_file.readline().strip()
+            to_this = in_file.readline().strip()
 
-    # Chapter loop
+    # Chapter loop + file loop
     for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
-        process_one_ipynb(chapter_path, ipynb_filename)
+        process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this)
 
 
-def process_one_ipynb(chapter_path, ipynb_filename):
+def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this):
     pass
 
 
@@ -36,4 +42,4 @@ def get_chapter_par_dir():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
