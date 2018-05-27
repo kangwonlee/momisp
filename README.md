@@ -6,17 +6,21 @@ Text: Pytel et. al, Mechanics of Materials, 2nd Ed, 2013.
 ### 설치 항목 Software to install
 
 #### 파이썬 프로그래밍 언어 Python Programming Language
-##### [Anaconda 5.0.x Python 3.6.x version](https://www.continuum.io/downloads) <br>
+##### [Anaconda 5.x Python 3.6.x version](https://www.continuum.io/downloads) <br>
 * 명령행에서 실행해야 할 경우, 경로에 추가하도록 설정 To run from a command line, configure to add python to the PATH
 * 경로 이름에 한글을 사용할 수 없음 Use ASCII characters for path name
 * 윈도우즈의 경우, 설치 후 [가상 환경 생성, 전환 2회 이상](https://graspthegist.com/post/learn-conda-1/) 확인 추천<br>For Windows, after install, please check [creating a virtual environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) and [switching between environment](https://conda.io/docs/user-guide/tasks/manage-environments.html#activating-an-environment) more than twice.
 
 #### 깃 버전 관리 소프트웨어 Git Version Control Software
-##### CUI : [Git for Windows](https://git-scm.com/download/win)
+##### CUI
+아래 소프트웨어를 설치 Please install following software
+* [Git for Windows](https://git-scm.com/download/win)
+
+간단한 추천 사항 A few simple recommendations
 * 명령행에서 사용 Command line interface<br>
 * 실습실 환경에서는 credential manager 설치 삼가<br>Credential manager may not be a best choice for a computer lab
-* 아래 IDE 가운데 MS VS Code 선택시 다음과 같이 생각해 볼 수 있음<br>
-To use MS VS Code among IDEs below, may consider followings<br>
+* 아래 IDE 가운데 Microsoft Visual Studio Code 선택시 다음과 같이 생각해 볼 수 있음<br>
+To use Microsoft Visual Studio Code among IDEs below, an administrator may consider followings<br>
 
 | 항목<br>Key | 값<br>Value |
 |:-------:|:-------:|
@@ -24,6 +28,9 @@ To use MS VS Code among IDEs below, may consider followings<br>
 | 경로 환경 조정 <br> Adjusting Path environment | Use Git from the Windows Command Prompt |
 | 터미널 에뮬레이터 <br>Terminal emulator | Use Windows' default console window |
 | 자격 인증 관리자 활성화  <br> Enable Git Credential Manager | 전산 실습 환경의 경우, 선택 해제<br>If computer lab, unselect |
+
+이후 MS vscode 에서도 한두가지 추가 설정을 실시하면 내장 터미널로 `git-bash` 를 사용할 수 있음<br>
+With a few additional configurations in MS vscode, one could use `git-bash` as the integrated terminal.
 
 #### GUI
 아래 가운데 택일 Choose one from below 
