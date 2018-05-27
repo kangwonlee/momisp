@@ -27,13 +27,36 @@ class NotebookFile(object):
 
 def main(argv):
 
+    replace_this, to_this, b_replace, b_verbose, b_arm = get_param(argv)
+
+    if b_verbose:
+        if b_replace:
+            print('Will try to replace %r to %r' % (replace_this, to_this))
+        else:
+            print('Will try to find %r' % replace_this)
+
+    count_files = 0
+    count_found = 0
+
+    # Chapter loop + file loop
+    for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
+        count_files += 1
+        count_found += process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=b_verbose, b_arm=b_arm)
+
+    print('Found %d/%d cases' % (count_found, count_files))
+
+
+def get_param(argv, default_filename='finf.cfg'):
+    """
+    Get parameters from commandline argument or default file
+    """
+
+    # If commandline argument
     if 5 <= len(argv):
         replace_this, to_this, b_replace, b_verbose, b_arm = argv[0], argv[1], argv[2], argv[3], argv[4]
     # If commandline argument missing
     else:
         config = configparser.ConfigParser()
-
-        default_filename = 'finf.cfg'
 
         if not os.path.exists(default_filename):
             raise IOError('Unable to find {filename} from {cwd}'.format(filename=default_filename, cwd=os.getcwd()))
@@ -54,20 +77,7 @@ def main(argv):
         b_arm = ('True' == config['control']['arm'])
         b_replace = ('True' == config['control']['replace'])
 
-    if b_verbose:
-        if b_replace:
-            print('Will try to replace %r to %r' % (replace_this, to_this))
-        else:
-            print('Will try to find %r' % replace_this)
-
-    count_files = 0
-    count_found = 0
-    # Chapter loop + file loop
-    for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
-        count_files += 1
-        count_found += process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=b_verbose, b_arm=b_arm)
-
-    print('Found %d/%d cases' % (count_found, count_files))
+    return replace_this, to_this, b_replace, b_verbose, b_arm
 
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
