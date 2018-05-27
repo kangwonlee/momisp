@@ -14,6 +14,9 @@ class NotebookFile(object):
         self.ipynb_full_path = ipynb_full_path
         self.nb_node = nbformat.read(ipynb_full_path, nbformat.NO_CONVERT)
 
+    def __del__(self):
+        del self.nb_node
+
     def gen_cells(self):
         for cell in self.nb_node.cells:
             yield cell
