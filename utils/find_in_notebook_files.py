@@ -23,6 +23,46 @@ class NotebookFile(object):
 
     def write(self, new_file_full_path):
         nbformat.write(self.nb_node, new_file_full_path)
+
+    def find_or_replace_in_cells(self, replace_this, to_this, b_verbose=False, b_replace=False):
+        """
+        For all cells in the notebook file, replace_this -> to_this
+        If not b_verbose : does not present results
+        If not b_replace : search only
+        """
+        # To indicate search result
+        count = 0
+
+        # Cell loop
+        for cell in self.gen_cells():
+            source = cell.get('source')
+
+            # Found
+            if replace_this in source:
+                # to indicate search result
+                count += 1
+
+                if b_verbose:
+                    print(self.ipynb_full_path)
+
+                    if b_replace:
+                        marker = 'before'
+                    else:
+                        marker = 'found'
+
+                    # Separate found case
+                    print(('%s ' % marker).ljust(60, '-'))
+                    print(cell)
+                    if b_replace:
+                        # Replacing here
+                        cell['source'] = source.replace(replace_this, to_this)
+                        print('after '.ljust(60, '-'))
+                        print(cell)
+
+                    # Separate file
+                    print('=' * 80)
+
+        return count
         
 
 def main(argv):
@@ -93,30 +133,8 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_rep
     nb = NotebookFile(ipynb_full_path)
 
     # to indicate search result
-    count = 0
-
-    for cell in nb.gen_cells():
-        source = cell.get('source')
-        if replace_this in source:
-            # to indicate search result
-            count += 1
-
-            if b_verbose:
-                print(chapter_path, ipynb_filename)
-
-                if b_replace:
-                    marker = 'before'
-                else:
-                    marker = 'found'
-
-                print(('%s ' % marker).ljust(60, '-'))
-                print(cell)
-                if b_replace:
-                    # Replacing here
-                    cell['source'] = source.replace(replace_this, to_this)
-                    print('after '.ljust(60, '-'))
-                    print(cell)
-                print('=' * 80)
+    # replace_this, to_this, b_verbose=False, b_replace=False
+    count = nb.find_or_replace_in_cells(replace_this, to_this, b_verbose=b_verbose, b_replace=b_replace)
 
     # write
     if b_replace and b_verbose and b_arm:
