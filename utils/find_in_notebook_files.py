@@ -1,6 +1,7 @@
 import ast
 import configparser as configparser
 import os
+import re
 import sys
 
 import nbformat
@@ -9,8 +10,8 @@ import recursively_convert_units as rcu
 
 
 class NotebookFile(object):
+    # constructor
     def __init__(self, ipynb_full_path):
-        # constructor
         self.ipynb_full_path = ipynb_full_path
         self.nb_node = nbformat.read(ipynb_full_path, nbformat.NO_CONVERT)
 
@@ -118,6 +119,20 @@ class FindOrReplaceNotebookFile(NotebookFile):
                ):
                # If same filename but no replacement count, do not overwrite
                 super().write(ipynb_full_path)
+
+
+class FindOrReplaceNotebookFileRegex(FindOrReplaceNotebookFile):
+    def __init__(self, ipynb_full_path, replace_this, to_this, b_verbose=False, b_replace=False, b_arm=False):
+        super().__init__(ipynb_full_path, replace_this, to_this, b_verbose, b_replace, b_arm)
+
+        self.replace_this_re = re.compile(replace_this)
+
+    def found(self, cell_dict):
+        return self.replace_this_re.findall(cell_dict.get('source'))
+
+    def update_found_cell_dict(self, cell_dict):
+        new_source = self.replace_this_re.sub(self.to_this, cell_dict.get('source'))
+        cell_dict['source'] = new_source
 
 
 def main(argv):
