@@ -205,7 +205,7 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_rep
     # Full path to the ipynb file to reuse later
     ipynb_full_path = os.path.join(chapter_path, ipynb_filename)
 
-    nb = FindOrReplaceNotebookFile(ipynb_full_path, replace_this, to_this, b_verbose=b_verbose, b_replace=b_replace, b_arm=b_arm)
+    nb = FindOrReplaceNotebookFileRegex(ipynb_full_path, replace_this, to_this, b_verbose=b_verbose, b_replace=b_replace, b_arm=b_arm)
 
     # Count number of found items to indicate search result
     count = nb.for_all_cells_in_file_find_or_replace()
