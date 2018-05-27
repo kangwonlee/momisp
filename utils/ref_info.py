@@ -30,6 +30,11 @@ def main(argv):
 
 # Please commit as `b_verbose=False, b_arm=False` for safety
 def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=False, b_arm=False):
+    """
+    When ready to use, first set b_verbose to True and evaluate the result even if you are confident
+    After a sufficient review, if you still feel confident, if possible commit your files before applying changes
+    As you now have a measure to undo the changes, set b_arm to True and run. I hope you best of luck.
+    """
     # Full path to the ipynb file to reuse later
     ipynb_full_path = os.path.join(chapter_path, ipynb_filename)
 
