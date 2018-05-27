@@ -24,46 +24,101 @@ class NotebookFile(object):
     def write(self, new_file_full_path):
         nbformat.write(self.nb_node, new_file_full_path)
 
-    def find_or_replace_in_cells(self, replace_this, to_this, b_verbose=False, b_replace=False):
+
+class FindOrReplaceNotebookFile(NotebookFile):
+    def __init__(self, ipynb_full_path, replace_this, to_this, b_verbose=False, b_replace=False, b_arm=False):
         """
-        For all cells in the notebook file, replace_this -> to_this
         If not b_verbose : does not present results
         If not b_replace : search only
+        If not b_arm : display only
+        If b_arm : rewrite the file
         """
+        super().__init__(ipynb_full_path)
+
+        # Find or replace        
+        self.replace_this = replace_this
+        self.to_this = to_this
+
+        # Operation switches
+        self.b_verbose = b_verbose
+        self.b_replace = b_replace
+        self.b_arm = b_arm
         # To indicate search result
-        count = 0
+        self.count = 0
+
+    def for_all_cells_in_file_find_or_replace(self):
+        """
+        For all cells in the notebook file, replace_this -> to_this
+        """
+        # To initialize the counter everytime a search starts
+        self.count = 0
 
         # Cell loop
         for cell in self.gen_cells():
-            source = cell.get('source')
+            self.count = self.find_or_replace_in_one_cell(cell)
 
-            # Found
-            if replace_this in source:
-                # to indicate search result
-                count += 1
+        return self.count
 
-                if b_verbose:
-                    print(self.ipynb_full_path)
+    def found(self, cell_dict):
+        """
+        See if this cell is of interest
+        cell_dict : one of the dicts in nb_node.cells
+        """
+        return self.replace_this in cell_dict.get('source')
 
-                    if b_replace:
-                        marker = 'before'
-                    else:
-                        marker = 'found'
+    def find_or_replace_in_one_cell(self, cell):
+        """
+        Within one cell of the notebook file, replace_this -> to_this
+        If not b_verbose : does not present results
+        If not b_replace : search only
+        """
 
-                    # Separate found case
-                    print(('%s ' % marker).ljust(60, '-'))
+        # Found
+        if self.found(cell):
+            # to indicate search result
+            self.count += 1
+
+            if self.b_verbose:
+                print(self.ipynb_full_path)
+
+                if self.b_replace:
+                    marker = 'before'
+                else:
+                    marker = 'found'
+
+                # Separate found case
+                print(('%s ' % marker).ljust(60, '-'))
+                print(cell)
+                if self.b_replace:
+                    # Replacing here
+                    self.update_found_cell_dict(cell)
+                    print('after '.ljust(60, '-'))
                     print(cell)
-                    if b_replace:
-                        # Replacing here
-                        cell['source'] = source.replace(replace_this, to_this)
-                        print('after '.ljust(60, '-'))
-                        print(cell)
 
-                    # Separate file
-                    print('=' * 80)
+                # Separate file
+                print('=' * 80)
 
-        return count
-        
+        return self.count
+
+    def update_found_cell_dict(self, cell_dict):
+        """
+        Update the cell of interest
+        """
+        cell_dict['source'] = cell_dict.get('source').replace(self.replace_this, self.to_this)
+
+    def write(self, ipynb_full_path):
+        """
+        Write if (b_replace and b_verbose and b_arm)
+        If same filename but no replacement count, do not overwrite
+        """
+        if self.b_replace and self.b_verbose and self.b_arm:
+            if (
+                (ipynb_full_path != self.ipynb_full_path) 
+                or (0 < self.count)
+               ):
+               # If same filename but no replacement count, do not overwrite
+                super().write(ipynb_full_path)
+
 
 def main(argv):
 
@@ -130,15 +185,13 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_rep
     # Full path to the ipynb file to reuse later
     ipynb_full_path = os.path.join(chapter_path, ipynb_filename)
 
-    nb = NotebookFile(ipynb_full_path)
+    nb = FindOrReplaceNotebookFile(ipynb_full_path, replace_this, to_this, b_verbose=b_verbose, b_replace=b_replace, b_arm=b_arm)
 
-    # to indicate search result
-    # replace_this, to_this, b_verbose=False, b_replace=False
-    count = nb.find_or_replace_in_cells(replace_this, to_this, b_verbose=b_verbose, b_replace=b_replace)
+    # Count number of found items to indicate search result
+    count = nb.for_all_cells_in_file_find_or_replace()
 
-    # write
-    if b_replace and b_verbose and b_arm:
-        nb.write(ipynb_full_path)
+    # overwrite
+    nb.write(ipynb_full_path)
 
     return count
 
