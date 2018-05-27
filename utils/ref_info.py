@@ -28,18 +28,20 @@ def main(argv):
         process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this)
 
 
-def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this):
+# Please commit as `b_verbose=False, b_arm=False` for safety
+def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_verbose=False, b_arm=False):
     for cell in gen_cells_in_ipynb(os.path.join(chapter_path, ipynb_filename)):
         source = cell.get('source')
         if replace_this in source:
-            print(chapter_path, ipynb_filename)
-            print('before '.ljust(60, '-'))
-            print(cell)
-            # Replacing here
-            cell['source'] = source.replace(replace_this, to_this)
-            print('after '.ljust(60, '-'))
-            print(cell)
-            print('=' * 80 )
+            if b_verbose:
+                print(chapter_path, ipynb_filename)
+                print('before '.ljust(60, '-'))
+                print(cell)
+                # Replacing here
+                cell['source'] = source.replace(replace_this, to_this)
+                print('after '.ljust(60, '-'))
+                print(cell)
+                print('=' * 80)
 
 
 def gen_cells_in_ipynb(ipynb_filename):
