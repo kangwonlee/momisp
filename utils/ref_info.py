@@ -46,6 +46,10 @@ def process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_ver
                 print(cell)
                 print('=' * 80)
 
+    # write
+    if b_verbose and b_arm:
+        nbformat.write(nb_node, ipynb_full_path)
+
 
 def gen_cells_in_ipynb(ipynb_filename):
     with open(ipynb_filename, 'rb') as nb_file:
