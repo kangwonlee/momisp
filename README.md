@@ -56,11 +56,8 @@ Possible to [download](https://code.visualstudio.com/download) and install from 
 * Windows 에서 `git-bash`를 내장 터미널로 사용하려면 다음과 같은 추가 설정이 필요함.\[[참고](https://code.visualstudio.com/docs/editor/integrated-terminal)\]<br>
 In Windows, to use `git-bash` as the integrated terminal, following additional settings would enable it.\[[Ref](https://code.visualstudio.com/docs/editor/integrated-terminal)\]
 
-1. File > Preferences > Settings[참고 Ref](https://code.visualstudio.com/docs/getstarted/settings)\]
-2. 
-```json
-"terminal.integrated.shell.windows": **path to bash.exe here**
-```
+1. File > Preferences > [Settings](https://code.visualstudio.com/docs/getstarted/settings)
+2. ```"terminal.integrated.shell.windows": **path to bash.exe here**```
 
 #### 설치 동영상<br>Installation video
 [![설치 동영상 Installation video](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
