@@ -1,11 +1,25 @@
 # https://beenje.github.io/blog/posts/gitlab-ci-and-conda/
 image: continuumio/miniconda3:latest
 
-before_script:
-  - conda env create -f tests/environment.3.5.yml
-  - source activate travis_anaconda_jupyter
-
-tests:
+tests_35:
   stage : test
   script:
+  - conda env create -f tests/environment.3.5.yml
+  - source activate travis_anaconda_jupyter
+  - cd tests && py.test
+
+
+tests_36:
+  stage : test
+  script:
+  - conda env create -f tests/environment.3.6.yml
+  - source activate travis_anaconda_jupyter
+  - cd tests && py.test
+
+
+tests_nightly:
+  stage : test
+  script:
+  - conda env create -f tests/environment.nightly.yml
+  - source activate travis_anaconda_jupyter
   - cd tests && py.test
