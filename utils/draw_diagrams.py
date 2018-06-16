@@ -74,6 +74,25 @@ def rect_section_c():
     show_diagram(ax1)
 
 
+def vf_arrow(axis, x, y_base, y_length):
+    """
+    Draws an arrow for a vertical force
+
+    If length is positive, upward arrow.
+    If length is negative, downward.
+
+    >>> _, ax = plt.subplots()
+    >>> x_position = 0
+    >>> y_base = 0
+    >>> y_length = 1
+    >>> vf_arrow(ax, x_position, y_base, y_length)
+    """
+
+    axis.arrow(x, y_base, 
+         0, y_length * 0.9, 
+         head_width=0.05, head_length=0.1 * abs(y_length), fc='k', ec='k')
+
+
 def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[], moment_list=[]):
     """
 
