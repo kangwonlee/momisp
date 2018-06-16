@@ -1,3 +1,17 @@
+"""
+Find (and possibly Replace) in Notebook Files
+
+1. Commandline arguments
+$ python find_in_notebook_files.py replace_this to_this b_replace b_verbose b_arm
+
+replace_this : Find this string
+to_this : Replace to this string
+b_replace : Replace if true
+b_verbose : Show all cases
+b_arm : If true, overwrite
+"""
+
+
 import ast
 import configparser as configparser
 import os
