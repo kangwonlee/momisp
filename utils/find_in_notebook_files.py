@@ -1,6 +1,7 @@
 """
 Find (and possibly Replace) in Notebook Files
 
+
 1. Commandline arguments
 $ python find_in_notebook_files.py replace_this to_this b_replace b_verbose b_arm
 
@@ -9,6 +10,24 @@ to_this : Replace to this string
 b_replace : Replace if true
 b_verbose : Show all cases
 b_arm : If true, overwrite
+
+
+2. Config file
+If not all arguments available, this program would try to use "finf.cfg" file
+
+--------------------
+Sample finf.cfg file
+--------------------
+[control]
+verbose = True
+replace = True
+arm = False
+
+[string]
+replace this = r'#+\s+(하중)$'
+to this = '''하중<br>Load'''
+--------------------
+[string] section can be regular expressions
 """
 
 
