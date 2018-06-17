@@ -126,8 +126,7 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     # 반력
     # Reaction force
     for reaction_dict in reaction_list:
-        ax.arrow(float(reaction_dict['x_m']), y_arrow,
-                 0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
+        vf_arrow(ax, float(reaction_dict['x_m']), y_arrow, abs(y_arrow) * 0.9, L_m*0.01)
 
     y_load = h_beam_m * 3
     # 집중하중 P
