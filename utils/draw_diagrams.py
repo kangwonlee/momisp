@@ -74,7 +74,7 @@ def rect_section_c():
     show_diagram(ax1)
 
 
-def vf_arrow(axis, x, y_base, y_length):
+def vf_arrow(axis, x, y_base, y_length, head_width=0.05):
     """
     Draws an arrow for a vertical force
 
@@ -85,12 +85,13 @@ def vf_arrow(axis, x, y_base, y_length):
     >>> x_position = 0
     >>> y_base = 0
     >>> y_length = 1
-    >>> vf_arrow(ax, x_position, y_base, y_length)
+    >>> beam_length_m = 1
+    >>> vf_arrow(ax, x_position, y_base, y_length, head_width=0.05*beam_length_m)
     """
 
     axis.arrow(x, y_base, 
          0, y_length * 0.9, 
-         head_width=0.05, head_length=0.1 * abs(y_length), fc='k', ec='k')
+         head_width=head_width, head_length=0.1 * abs(y_length), fc='k', ec='k')
 
 
 def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[], moment_list=[]):
