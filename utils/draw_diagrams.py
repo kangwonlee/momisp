@@ -74,6 +74,26 @@ def rect_section_c():
     show_diagram(ax1)
 
 
+def vf_arrow(axis, x, y_base, y_length, head_width=0.05):
+    """
+    Draws an arrow for a vertical force
+
+    If length is positive, upward arrow.
+    If length is negative, downward.
+
+    >>> _, ax = plt.subplots()
+    >>> x_position = 0
+    >>> y_base = 0
+    >>> y_length = 1
+    >>> beam_length_m = 1
+    >>> vf_arrow(ax, x_position, y_base, y_length, head_width=0.05*beam_length_m)
+    """
+
+    axis.arrow(x, y_base, 
+         0, y_length * 0.9, 
+         head_width=head_width, head_length=0.1 * abs(y_length), fc='k', ec='k')
+
+
 def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[], moment_list=[]):
     """
 
@@ -106,21 +126,21 @@ def draw_beam(L_m, points_list, reaction_list, v_load_list=[], dist_load_list=[]
     # 반력
     # Reaction force
     for reaction_dict in reaction_list:
-        ax.arrow(float(reaction_dict['x_m']), y_arrow,
-                 0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
+        vf_arrow(ax, float(reaction_dict['x_m']), y_arrow, abs(y_arrow) * 0.9, L_m*0.01)
 
     y_load = h_beam_m * 3
     # 집중하중 P
     # Concentrated shear force load P
     for v_load_dict in v_load_list:
+        x_locatiom_m = float(v_load_dict['x_m'])
+        head_width = L_m * 0.01
+
         # arrow heading upward
         if 0 < v_load_dict['sign']:
-            ax.arrow(float(v_load_dict['x_m']), h_beam_m + 0.1,
-                     0, abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
+            vf_arrow(ax, x_locatiom_m, h_beam_m + 0.1, abs(y_arrow)*0.9, head_width)
         # arrow heading downward
         elif 0 > v_load_dict['sign']:
-            ax.arrow(float(v_load_dict['x_m']), y_load,
-                     0, - abs(y_arrow) * 0.7, head_width=L_m * 0.01, head_length=abs(y_arrow) * 0.2)
+            vf_arrow(ax, x_locatiom_m, y_load, -abs(y_arrow)*0.9, head_width)
 
     # 분포하중 w0
     # Distributed load w0
