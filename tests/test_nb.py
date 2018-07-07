@@ -14,15 +14,25 @@ def check_kernel_spec():
     print(kernel_spec_manager.get_all_specs())
 
 
-def _exec_notebook(path):
+def get_tempfile_name(ext='.ipynb'):
+    # https://stackoverflow.com/questions/26541416/generate-temporary-file-names-without-creating-actual-file-in-python
+    return next(tempfile._get_candidate_names()) + ext
+
+
+def _exec_notebook(path_filename):
     # http://nbconvert.readthedocs.io/en/latest/execute_api.html
     # ijstokes et al, Command line execution of a jupyter notebook fails in default Anaconda 4.1, https://github.com/Anaconda-Platform/nb_conda_kernels/issues/34
-    with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
-        args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
-                "--ExecutePreprocessor.timeout=1000",
-                "--ExecutePreprocessor.kernel_name=python",
-                "--output", fout.name, path]
-        subprocess.check_call(args)
+    fout_name = get_tempfile_name()
+    args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
+            "--ExecutePreprocessor.timeout=1000",
+            "--ExecutePreprocessor.kernel_name=python",
+            "--output", fout_name, path_filename]
+    subprocess.check_call(args)
+
+    path, _ = os.path.split(path_filename)
+
+    if os.path.exists(os.path.join(path, fout_name)):
+        os.remove(os.path.join(path, fout_name))
 
 
 folder_list = (
