@@ -7,4 +7,5 @@ __pycache__/
 .vscode/
 
 sorted.txt
-
+.pytest_cache/
+*.cfg
