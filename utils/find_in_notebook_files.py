@@ -39,7 +39,7 @@ import sys
 
 import nbformat
 
-import recursively_convert_units as rcu
+import nbutils.nb_file_util as nf
 
 
 class NotebookFile(object):
@@ -187,7 +187,7 @@ def main(argv):
     count_found = 0
 
     # Chapter loop + file loop
-    for chapter_path, ipynb_filename in rcu.gen_ipynb(get_chapter_par_dir()):
+    for chapter_path, ipynb_filename in nf.gen_ipynb(get_chapter_par_dir()):
         count_files += 1
         count_found += process_one_ipynb(chapter_path, ipynb_filename, replace_this, to_this, b_replace, b_verbose=b_verbose, b_arm=b_arm)
 
