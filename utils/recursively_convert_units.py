@@ -1,19 +1,6 @@
 import nbutils.symbol_converter as sc
+import nbutils.nb_file_util as nf
 import os
-
-ignore_path_list = {'__pycache__', '.ipynb_checkpoints', '.git', '.cache', '.idea', 
-                    'nbutils', 'tests'}
-
-
-def is_ignore(path):
-    result = False
-    path_split_set = set(os.path.split(path))
-    for ignore in ignore_path_list:
-        if ignore in path_split_set:
-            result= True
-            break
-
-    return result
 
 
 def os_walk_if_not_ignore(root):
@@ -23,7 +10,7 @@ def os_walk_if_not_ignore(root):
     root : a path string to a folder
     """
     for root_name, dir_list, filename_list in os.walk(root):
-        if not is_ignore(root_name):
+        if not nf.is_ignore(root_name):
             yield root_name, dir_list, filename_list
 
 
