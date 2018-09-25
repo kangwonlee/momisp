@@ -14,10 +14,6 @@ def os_walk_if_not_ignore(root):
             yield root_name, dir_list, filename_list
 
 
-def is_ipynb(path):
-    return '.ipynb' == os.path.splitext(path)[-1]
-
-
 def gen_filename_ipynb(filename_list):
     """
     Generator for ipynb filenames in the filename_list
@@ -25,7 +21,7 @@ def gen_filename_ipynb(filename_list):
     filename_list : list of filenames within a folder
     """
     for filename in filename_list:
-        if is_ipynb(filename):
+        if nf.is_ipynb(filename):
             yield filename    
 
 
@@ -38,7 +34,7 @@ def gen_ipynb(root):
     for chapter_path, _, filename_list in os_walk_if_not_ignore(root):
 
         # Notebook file loop
-        for ipynb_filename in filter(is_ipynb, filename_list):
+        for ipynb_filename in filter(nf.is_ipynb, filename_list):
             yield chapter_path, ipynb_filename
 
 
@@ -50,7 +46,7 @@ def main():
     # Chapter loop
     for root_name, _, filename_list in os_walk_if_not_ignore(os.pardir):
         # ipynb file loop
-        for ipynb_filename in filter(is_ipynb, filename_list):
+        for ipynb_filename in filter(nf.is_ipynb, filename_list):
             full_path = os.path.join(root_name, ipynb_filename)
             fp.process_nb_file(full_path, b_write_file=True)
 
