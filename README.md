@@ -41,9 +41,11 @@ With a few additional configurations in MS vscode, one could use `git-bash` as t
 아래 가운데 택일 Choose one from below 
 ##### Spyder
 * Anaconda 5.x 와 함께 설치됨.<br>Anaconda 5.x includes spyder.
+
 ##### [PyCharm Community](https://www.jetbrains.com/pycharm/download/)
 * PyCharm 을 실행시키기 위해 [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 를 설치해야 할 수 있음 (2016 09)<br>
 PyCharm may need [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run.
+
 ##### [Microsoft Visual Studio Code](https://code.visualstudio.com/download)
 * Anaconda 설치 후 설치 선택 가능<br>
 Installation [button](https://blogs.msdn.microsoft.com/pythonengineering/2018/02/15/visual-studio-code-is-now-shipping-with-anaconda/) available at the end of Anaconda installation<br>
@@ -52,13 +54,10 @@ Possible to [download](https://code.visualstudio.com/download) and install from 
 [Setup Overview](https://code.visualstudio.com/docs/setup/setup-overview) / 
 [Python Configuration Instruction](https://code.visualstudio.com/docs/python/python-tutorial)
 * Windows 에서 `git-bash`를 내장 터미널로 사용하려면 다음과 같은 추가 설정이 필요함.\[[참고](https://code.visualstudio.com/docs/editor/integrated-terminal)\]<br>
-In Windows, to use `git-bash` as the integrated terminal, following additional settings would eable it.\[[Ref](https://code.visualstudio.com/docs/editor/integrated-terminal)\]
+In Windows, to use `git-bash` as the integrated terminal, following additional settings would enable it.\[[Ref](https://code.visualstudio.com/docs/editor/integrated-terminal)\]
 
-1. File > Preferences > Settings[참고 Ref](https://code.visualstudio.com/docs/getstarted/settings)\]
-2. 
-```json
-"terminal.integrated.shell.windows": **path to bash.exe here**
-```
+1. File > Preferences > [Settings](https://code.visualstudio.com/docs/getstarted/settings)
+2. ```"terminal.integrated.shell.windows": **path to bash.exe here**```
 
 #### 설치 동영상<br>Installation video
 [![설치 동영상 Installation video](https://i.ytimg.com/vi/NAQn1jQws3Q/hqdefault.jpg)](https://www.youtube.com/embed/videoseries?list=PLA6B0Lmr9oJOuvxMPNjDcnAfmqw907Bqy)
