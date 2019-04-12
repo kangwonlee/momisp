@@ -80,3 +80,10 @@ Through a web browser, `jupyter` notebook enables editing & running program code
 ## 알림 <br> Acknowledgement
 이 소프트웨어는 대한민국 국토교통부 건설교통과학기술진흥원 교통물류연구사업의 지원을 받았음 (18TLRP-B117133-03)
 This software was supported by the Korea Ministry of Land, Infrastructure, and Transportation. It was also supported by the Korean Agency for Infrastructure Technology Advancement. (18TLRP-B117133-03)
+
+## Build Status
+
+| branch | status |
+|:------:|:------:|
+| master | [![master](https://api.travis-ci.org/kangwonlee/momisp.svg?branch=master)](https://travis-ci.org/kangwonlee/momisp/branches) |
+| develop | [![develop](https://api.travis-ci.org/kangwonlee/momisp.svg?branch=develop)](https://travis-ci.org/kangwonlee/momisp/branches) |
