@@ -17,6 +17,7 @@ before_cache:
   - touch $HOME/miniconda/conda-meta/history;
 
 cache :
+  pip: true
   directories:
     - $HOME/download
     - $HOME/miniconda
