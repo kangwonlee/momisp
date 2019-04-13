@@ -2,20 +2,22 @@
 
 language : python
 
-env:
-  - PYTHON=3.6
-
 matrix:
   include:
     - os : linux
-      python : $PYTHON
+      python : 3.6
+      env:
+        - PYTHON=3.6
     - os : osx
-      osx_image : xcode10.2
-      language : shell
+      python : 3.6
+      env:
+        - PYTHON=3.6
     - os : windows
       language : shell
-      before_install : choco install python --version $PYTHON
-      env : PATH=/c/Python
+      env : 
+        - PATH=/c/Python36:/c/Python36/Scripts:$PATH
+        - PYTHON=3.6
+      before_install : choco install python --version 3.6
 
 os :
   - linux
