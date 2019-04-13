@@ -1,7 +1,21 @@
-language : shell
+# https://github.com/cclaus/Travis-CI-Python-on-three-OSes/
+
+language : python
 
 env:
   - PYTHON=3.6
+
+matrix:
+  include:
+    - os : linux
+      python : $PYTHON
+    - os : osx
+      osx_image : xcode10.2
+      language : shell
+    - os : windows
+      language : shell
+      before_install : choco install python --version $PYTHON
+      env : PATH=/c/Python
 
 os :
   - linux
@@ -11,6 +25,7 @@ cache :
 
 install:
   # pip update
-  - pip install -r tests/req.$PYTHON.txt
+  - pip3 install --upgrade pip
+  - pip3 install -r tests/req.$PYTHON.txt
 
 script: cd tests && py.test -n auto
