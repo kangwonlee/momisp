@@ -11,6 +11,6 @@ cache :
 
 install:
   # pip update
-  - pip install -r req.$PYTHON.txt
+  - pip install -r tests/req.$PYTHON.txt
 
 script: cd tests && py.test -n auto
