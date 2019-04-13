@@ -1,27 +1,13 @@
 language : shell
 
 env:
-  - CONDA_PYTHON=3.5
-  - CONDA_PYTHON=3.6
-  - CONDA_PYTHON=3.7
   - CONDA_PYTHON=3.7.1
-  - CONDA_PYTHON=nightly
 
 os :
   - linux
-  - osx
-  - windows
-
-before_cache:
-  - rm -rf $HOME/miniconda/locks $HOME/miniconda/pkgs $HOME/miniconda/var $HOME/miniconda/conda-meta/history $HOME/miniconda/envs/test-environment/conda-meta/history $HOME/miniconda/lib/python3.5/__pycache__ $HOME/miniconda/lib/python3.6/__pycache__ $HOME/miniconda/lib/python3.7/__pycache__;
-  - touch $HOME/miniconda/conda-meta/history;
 
 cache :
   pip: true
-  directories:
-    - $HOME/download
-    - $HOME/miniconda
-    - $HOME/AppData/Local/Temp/chocolatey
 
 before_install:
   # Set conda path info
