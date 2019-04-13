@@ -92,4 +92,4 @@ install:
   - conda activate test-environment
   - conda list
 
-script: cd tests && py.test
+script: cd tests && py.test -n auto
