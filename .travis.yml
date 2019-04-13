@@ -75,7 +75,7 @@ install:
   - source $MINICONDA_PATH/etc/profile.d/conda.sh;
   - hash -r;
   - echo $TRAVIS_OS_NAME
-  - echo $TRAVIS_PYTHON_VERSION
+  - echo $CONDA_PYTHON
   - conda config --set always_yes yes --set changeps1 no;
   - conda update -q conda;
   # Useful for debugging any issues with conda
@@ -92,4 +92,4 @@ install:
   - conda activate test-environment
   - conda list
 
-script: cd tests && py.test
+script: cd tests && py.test -n auto
