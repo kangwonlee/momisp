@@ -14,7 +14,12 @@ python :
 
 # To accelerate
 cache :
-  pip: true
+  pip : true
+  directories:
+    - $HOME/.cache/pip
+
+before_cache :
+  - rm -f $HOME/.cache/pip/log/debug.log
 
 install:
   # pip update
