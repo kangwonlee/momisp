@@ -2,7 +2,9 @@
 
 language : python
 
-os : linux
+os : 
+  - linux
+  - osx
 
 dist : xenial
 
