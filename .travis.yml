@@ -4,6 +4,8 @@ language : python
 
 os : linux
 
+dist : xenial
+
 python : 
   - "3.5"
   - "3.6"
