@@ -21,6 +21,22 @@ cache :
 before_cache :
   - rm -f $HOME/.cache/pip/log/debug.log
 
+before_install:
+  # https://phthonhosted.org/CodeChat/.travis.yml.html
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      PYTHON=$TRAVIS_PYTHON_VERSION;
+      brew update;
+      brew install openssl readline;
+      brew outdated pyenv || brew upgrad pyenv;
+      brew install pyenv-virtualenv;
+      pyenv install $PYTHON;
+      export PYENV_VERSION=$PYTHON;
+      export PATH="$HOME/.pyenv/shims:${PATH}";
+      pyenv-virtualenv venv;
+      source venv/bin/activate;
+      python --version;
+    fi;
+
 install:
   # pip update
   - pip3 install --upgrade pip
