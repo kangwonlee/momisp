@@ -3,7 +3,7 @@ import re
 import sys
 
 
-sys.path.append(os.path.split(__file__)[0])
+sys.path.append(os.path.dirname(__file__))
 
 import nb_file_util as fu
 
