@@ -30,7 +30,7 @@ if __name__ == '__main__':
             p = fu.FileProcessor(filename, CellProcessorDeleteOutput())
             p.process_nb_file()
         else:
-            print("Usage : python %s <notebook file path>" % os.path.split(__file__)[-1])
+            print("Usage : python %s <notebook file path>" % os.path.basename(__file__))
             help(nbformat)
 
 
