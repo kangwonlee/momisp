@@ -7,7 +7,7 @@ ignore_path_list = {'__pycache__', '.ipynb_checkpoints', '.git', '.cache', '.ide
 
 def is_ignore(path):
     result = False
-    path_split_set = set(os.path.split(path))
+    path_split_set = set(path.split(os.sep))
     for ignore in ignore_path_list:
         if ignore in path_split_set:
             result= True
