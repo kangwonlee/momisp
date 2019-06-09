@@ -253,7 +253,7 @@ def get_chapter_par_dir():
     """
     Absolute path to the parent directory of chapter folders
     """
-    return os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 {
-    "python.unitTest.pyTestArgs": [
+    "python.testing.pyTestArgs": [
         "--capture=no",
         "./tests/", "./utils/tests",
     ],
-    "python.unitTest.pyTestEnabled": true
+    "python.testing.pyTestEnabled": true
 }
