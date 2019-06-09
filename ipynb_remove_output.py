@@ -9,7 +9,7 @@ import sys
 import nbformat
 
 # To enable importing within and out of the package
-sys.path.append(os.path.split(__file__)[0])
+sys.path.append(os.path.dirname(__file__))
 
 import nb_file_util as fu
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
             p = fu.FileProcessor(filename, CellProcessorDeleteOutput())
             p.process_nb_file()
         else:
-            print("Usage : python %s <notebook file path>" % os.path.split(__file__)[-1])
+            print("Usage : python %s <notebook file path>" % os.path.basename(__file__))
             help(nbformat)
 
 
