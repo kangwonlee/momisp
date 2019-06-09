@@ -5,7 +5,7 @@ import sys
 import nbformat
 
 
-sys.path.append(os.path.split(os.path.split(__file__)[0])[0])
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 
 import find_in_notebook_files as ri

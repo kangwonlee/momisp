@@ -23,7 +23,7 @@ def main(argv):
     # Chapter folder
     for root_dir, _, filename_list in rcu.os_walk_if_not_ignore(root):
 
-        chapter_folder = os.path.split(root_dir)[-1]
+        chapter_folder = os.path.basename(root_dir)
 
         # Notebook file loop
         for ipynb_filename in filter(rcu.is_ipynb, filename_list):
@@ -254,7 +254,7 @@ def get_chapter_par_dir():
     """
     Absolute path to the parent directory of chapter folders
     """
-    return os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 
 if "__main__" == __name__:
