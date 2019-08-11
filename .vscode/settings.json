@@ -1,7 +1,0 @@
-{
-    "python.testing.pyTestArgs": [
-        "--capture=no",
-        "./tests/", "./utils/tests",
-    ],
-    "python.testing.pyTestEnabled": true
-}
