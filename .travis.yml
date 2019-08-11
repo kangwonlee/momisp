@@ -1,7 +1,7 @@
 language : shell
 
 matrix:
-  exclude:
+  include:
     - env: CONDA_PYTHON=3.7.1
       os: osx
     - env: CONDA_PYTHON=3.7.3
