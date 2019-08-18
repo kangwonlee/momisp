@@ -36,4 +36,4 @@ before_install:
 install:
   - . tests/install_nix_win_cache.sh
 
-script: cd tests && py.test -n auto
+script: py.test -n auto tests/
