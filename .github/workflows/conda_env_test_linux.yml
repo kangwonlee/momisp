@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: test_ipynb
+    - name: bash_create_env_test_linux
       env:
         WORKFLOWS_OS: ${{ matrix.os }}
         HOME: ..
