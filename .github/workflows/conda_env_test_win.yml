@@ -16,7 +16,7 @@ jobs:
     - name: build environment
       env:
         CONDA_PYTHON: ${{ matrix.anaconda }}
-      run: bash ./.github/workflows/create_env_test_win.sh
+      run: bash ./.github/workflows/build_env.sh
     - name: pytest
       env:
         TEST_IPYNB_IGNORE_FOLDER: tutorial
