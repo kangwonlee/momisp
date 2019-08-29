@@ -1,4 +1,4 @@
-name: CI (OSX)
+name: CI
 
 on: [push]
 
@@ -8,11 +8,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-10.14]
-        conda_script: [bin]
-
-        bashrc: [.bash_profile]
-        anaconda: [3.7.3]
+        os: [ubuntu-18.04, macOS-10.14, windows-2016]
+        anaconda: [2019.07]
 
     steps:
     - uses: actions/checkout@v1
