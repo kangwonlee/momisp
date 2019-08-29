@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: bash_create_env_test_linux
+    - name: bash_create_env_test_posix
       env:
         BASHRC: ${{ matrix.bashrc }}
         CONDA_PYTHON: ${{ matrix.anaconda }}
