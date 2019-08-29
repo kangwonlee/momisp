@@ -1,3 +1,5 @@
+. set_os.env.sh
+
 echo "init conda ================================="
 $CONDA/$CONDA_SCRIPT/conda init bash
 echo "~/$BASHRC =================================="
