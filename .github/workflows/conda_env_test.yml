@@ -1,4 +1,4 @@
-name: CI (OSX)
+name: CI
 
 on: [push]
 
