@@ -1,3 +1,4 @@
+source $CONDA/$CONDA_SCRIPT/activate test-environment
 which py.test
 if [[ $RUNNER_OS !=  "macOS" ]]; then
     CONDA_ENV_ROOT=$CONDA
