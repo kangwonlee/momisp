@@ -18,9 +18,9 @@ jobs:
         BASHRC: ${{ matrix.bashrc }}
         CONDA_PYTHON: ${{ matrix.anaconda }}
         CONDA_SCRIPT: ${{ matrix.conda_script }}
-      bash: ./.github/workflows/build_env.sh
+      run: bash ./.github/workflows/build_env.sh
     - name: pytest
       env:
         CONDA_SCRIPT: ${{ matrix.conda_script }}
         TEST_IPYNB_IGNORE_FOLDER: tutorial
-      bash: ./.github/workflows/run_test.sh
+      run: bash ./.github/workflows/run_test.sh
