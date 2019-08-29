@@ -17,7 +17,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: bash_create_env_test_osx
       env:
-        SHELL: ${{ matrix.shell }}
         BASHRC: ${{ matrix.bashrc }}
         CONDA_PYTHON: ${{ matrix.anaconda }}
         TEST_IPYNB_IGNORE_FOLDER: tutorial
