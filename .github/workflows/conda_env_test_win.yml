@@ -9,9 +9,10 @@ jobs:
     strategy:
       matrix:
         os: [windows-2016]
-        anaconda: [3.7.1, 3.7.3, 2019.07, nightly]
+        conda_script: [Scripts]
 
         bashrc: [.bash_profile]
+        anaconda: [3.7.1, 3.7.3, 2019.07, nightly]
 
     steps:
     - uses: actions/checkout@v1
@@ -19,5 +20,6 @@ jobs:
       env:
         BASHRC: ${{ matrix.bashrc }}
         CONDA_PYTHON: ${{ matrix.anaconda }}
+        CONDA_SCRIPT: ${{ matrix.conda_script }}
         TEST_IPYNB_IGNORE_FOLDER: tutorial
       run: bash ./.github/workflows/create_env_test_win.sh
