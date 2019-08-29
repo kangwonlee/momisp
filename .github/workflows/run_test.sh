@@ -1,4 +1,4 @@
-. set_os.env.sh
+. ./.github/workflows/set_os_env.sh
 
 echo "activate test-environment =================="
 source $CONDA/$CONDA_SCRIPT/activate test-environment

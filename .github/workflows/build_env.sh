@@ -1,4 +1,4 @@
-. set_os.env.sh
+. ./.github/workflows/set_os_env.sh
 
 echo "init conda ================================="
 $CONDA/$CONDA_SCRIPT/conda init bash
