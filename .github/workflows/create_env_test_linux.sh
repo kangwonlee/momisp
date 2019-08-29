@@ -1,8 +1,4 @@
 echo "============================================"
-echo "Available Environmental Variables"
-echo "============================================"
-env
-echo "============================================"
 echo "Setting environment variables"
 echo "============================================"
 export MINICONDA_PATH=$CONDA
