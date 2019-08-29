@@ -15,6 +15,3 @@ echo "conda info -a =============================="
 $CONDA/$CONDA_SCRIPT/conda info -a
 echo "create test-environment ===================="
 $CONDA/$CONDA_SCRIPT/conda env create -n test-environment -f ./tests/environment.${CONDA_PYTHON}.yml
-echo "activate test-environment =================="
-source activate test-environment
-$CONDA/$CONDA_SCRIPT/conda list
