@@ -1,7 +1,14 @@
 . ./.github/workflows/set_os_env.sh
 
+echo "exporting a new path ======================="
+export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH"
+
+if [[ $RUNNER_OS ==  "macOS" ]]; then
+    . ./.github/workflows/wget_install_miniconda.sh
+fi
+
 echo "init conda ================================="
-$CONDA/$CONDA_SCRIPT/conda init bash
+$MINICONDA_SUB_PATH/conda init bash
 echo "~/$BASHRC =================================="
 . ~/$BASHRC
 echo "hash -r ===================================="
@@ -10,10 +17,12 @@ echo "============================================"
 echo "CONDA_PYTHON = $CONDA_PYTHON ==============="
 echo "============================================"
 echo "checking python version ===================="
-$CONDA/python --version
+$MINICONDA_PATH/python --version
 echo "conda config --yes ========================="
-$CONDA/$CONDA_SCRIPT/conda config --set always_yes yes --set changeps1 no;
+$MINICONDA_SUB_PATH/conda config --set always_yes yes --set changeps1 no;
+echo "conda update ==============================="
+$MINICONDA_SUB_PATH/conda update -q conda;
 echo "conda info -a =============================="
-$CONDA/$CONDA_SCRIPT/conda info -a
+$MINICONDA_SUB_PATH/conda info -a
 echo "create test-environment ===================="
-$CONDA/$CONDA_SCRIPT/conda env create -n test-environment -f ./tests/environment.${CONDA_PYTHON}.yml
+$MINICONDA_SUB_PATH/conda env create -n test-environment -f ./tests/environment.${CONDA_PYTHON}.yml

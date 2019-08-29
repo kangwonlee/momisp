@@ -1,18 +1,16 @@
-
-if [[ $RUNNER_OS !=  "Linux" ]]; then
-    export BASHRC=.bash_profile
-else
-    export BASHRC=.bashrc
+if [[ $RUNNER_OS ==  "Linux" ]]; then
+    export MINICONDA_PATH=$CONDA
+    export CONDA_SCRIPT=bin         # l o
+    export BASHRC=.bashrc           # l 
+elif [[ $RUNNER_OS ==  "macOS" ]]; then
+    export MINICONDA_PATH=$RUNNER_WORKSPACE/miniconda
+    export CONDA_SCRIPT=bin         # l o
+    export BASHRC=.bash_profile     # o w
+elif [[ $RUNNER_OS ==  "Windows" ]]; then
+    export MINICONDA_PATH=`cygpath --unix $CONDA`
+    export CONDA_SCRIPT=Scripts     # w
+    export BASHRC=.bash_profile     # o w
 fi
 
-if [[ $RUNNER_OS !=  "macOS" ]]; then
-    export CONDA_ENV_ROOT=$CONDA
-else
-    export CONDA_ENV_ROOT=/Users/runner/.conda
-fi
-
-if [[ $RUNNER_OS !=  "Windows" ]]; then
-    export CONDA_SCRIPT=bin
-else
-    export CONDA_SCRIPT=Scripts
-fi
+export MINICONDA_SUB_PATH=$MINICONDA_PATH/$CONDA_SCRIPT
+export MINICONDA_PYTEST=$MINICONDA_PATH/envs/test-environment/$CONDA_SCRIPT/py.test

@@ -1,7 +1,7 @@
 . ./.github/workflows/set_os_env.sh
 
 echo "activate test-environment =================="
-source $CONDA/$CONDA_SCRIPT/activate test-environment
-$CONDA/$CONDA_SCRIPT/conda list
+source $MINICONDA_SUB_PATH/activate test-environment
+$MINICONDA_SUB_PATH/conda list
 
-$CONDA_ENV_ROOT/envs/test-environment/$CONDA_SCRIPT/py.test --numprocesses=auto tests/
+$MINICONDA_PYTEST --numprocesses=auto tests/
