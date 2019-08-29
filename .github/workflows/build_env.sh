@@ -1,5 +1,3 @@
-echo "exporting a new path ======================="
-export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH"
 echo "init conda ================================="
 $CONDA/$CONDA_SCRIPT/conda init bash
 echo "~/$BASHRC =================================="
