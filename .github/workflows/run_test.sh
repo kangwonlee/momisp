@@ -1,5 +1,5 @@
 which py.test
-if [[ "RUNNER_OS" !=  "macOS" ]]; then
+if [[ $RUNNER_OS !=  "macOS" ]]; then
     CONDA_ENV_ROOT=$CONDA
 else
     CONDA_ENV_ROOT=/Users/runner/.conda
