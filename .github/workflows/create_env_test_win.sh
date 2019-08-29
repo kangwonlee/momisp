@@ -1,4 +1,8 @@
 echo "============================================"
+echo "Available Environmental Variables"
+echo "============================================"
+env
+echo "============================================"
 echo "Setting environment variables"
 echo "============================================"
 if [ $CONDA ]; then
