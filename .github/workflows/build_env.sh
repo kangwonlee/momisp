@@ -20,6 +20,8 @@ echo "checking python version ===================="
 $MINICONDA_PATH/python --version
 echo "conda config --yes ========================="
 $MINICONDA_SUB_PATH/conda config --set always_yes yes --set changeps1 no;
+echo "conda update ==============================="
+$MINICONDA_SUB_PATH/conda update -q conda;
 echo "conda info -a =============================="
 $MINICONDA_SUB_PATH/conda info -a
 echo "create test-environment ===================="
