@@ -9,18 +9,15 @@ jobs:
     strategy:
       matrix:
         os: [macOS-10.14]
-        anaconda: [3.7.1, 3.7.3, 2019.07, nightly]
-
-        bashrc: [.bash_profile]
+        anaconda: [2019.07]
 
     steps:
     - uses: actions/checkout@v1
-    - name: bash_create_env_test_osx
+    - name: build environment
       env:
-        WORKFLOWS_OS: ${{ matrix.os }}
-        HOME: ..
-        SHELL: ${{ matrix.shell }}
-        BASHRC: ${{ matrix.bashrc }}
         CONDA_PYTHON: ${{ matrix.anaconda }}
-        TEST_IPYNB_IGNORE_FOLDER: tutorial
       run: bash ./.github/workflows/create_env_test_osx.sh
+    - name: pytest
+      env:
+        TEST_IPYNB_IGNORE_FOLDER: tutorial
+      run: bash ./.github/workflows/run_test.sh
