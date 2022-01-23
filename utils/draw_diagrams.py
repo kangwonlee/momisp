@@ -36,18 +36,18 @@ def rect_section_base(centroid_overhang=0.25):
     # https://stackoverflow.com/questions/25761717/matplotlib-simple-and-two-head-arrows
     # http://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.annotate.html#matplotlib.axes.Axes.annotate
     offset = height * 0.25
-    plt.annotate(s='$b$',
+    plt.annotate('$b$',
                  xy=(corner_sw[0], offset + center[1]),
                  xytext=(corner_ne[0], offset + center[1] * 0.9625),
                  arrowprops=dict(arrowstyle='<->')
                  )
-    plt.annotate(s='$h$',
+    plt.annotate('$h$',
                  xy=(center[0], corner_sw[1]),
                  xytext=(center[0] * 0.9625, corner_ne[1] / 0.975),
                  arrowprops=dict(arrowstyle='<->')
                  )
     offset_x = width * 0.25
-    plt.annotate(s='$\\frac{h}{2}$',
+    plt.annotate('$\\frac{h}{2}$',
                  xy=(offset_x + center[0], center[1]),
                  xytext=(offset_x + center[0] * 0.9625, corner_ne[1] / 0.955),
                  arrowprops=dict(arrowstyle='<->')
