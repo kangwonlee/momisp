@@ -56,10 +56,12 @@ class NotebookFile(object):
             yield cell
 
     def overwrite_cell(self, index:int, cell:dict):
-        self.nb_node.cells[index] = cell
+        new_cell = nbformat.NotebookNode(cell)
+        self.nb_node.cells[index] = new_cell
 
     def insert_cell(self, index:int, cell:dict):
-        self.nb_node.cells.insert(index, cell)
+        new_cell = nbformat.NotebookNode(cell)
+        self.nb_node.cells.insert(index, new_cell)
 
     def validate(self):
         return nbformat.validate(self.nb_node)
