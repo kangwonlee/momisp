@@ -56,5 +56,21 @@ def get_colab_link(full_path:str, github_id:str="kangwonlee", repo:str="momisp")
     return result
 
 
+def get_colab_button_cell(full_path:str, github_id:str="kangwonlee", repo:str="momisp") -> Dict:
+    result = {
+        "cell_type": "markdown",
+        "metadata": {
+            "id": "view-in-github",
+            "colab_type" : "text",
+        },
+        "source": (
+            f'''<a href="{get_colab_link(full_path, github_id, repo)}" target="_parent">'''
+            '''<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>'''
+            '''</a>'''
+        ),
+    }
+    return result
+
+
 if "__main__" == __name__:
     main()
