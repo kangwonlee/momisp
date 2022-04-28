@@ -55,7 +55,16 @@ def gen_ipynb(root):
             yield chapter_path, ipynb_filename
 
 
-def iter_ipynb(root:str=os.pardir):
+def get_proj_root() -> str:
+    return os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            os.pardir
+        )
+    )
+
+
+def iter_ipynb(root:str=get_proj_root()):
     for root_name, _, filename_list in os_walk_if_not_ignore(root):
         # ipynb file loop
         for ipynb_filename in filter(is_ipynb, filename_list):
