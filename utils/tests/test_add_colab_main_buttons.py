@@ -56,6 +56,24 @@ class TestAddColabMainButtons(unittest.TestCase):
         result = acb.metadata_correct(self.button_cell)
         self.assertTrue(result, msg=self.button_cell)
 
+    def test_get_proj_root(self):
+        result = acb.get_proj_root()
+        self.assertIn("Ch02_Strain", os.listdir(result), result)
+
+    def test_get_rel_path(self):
+        result = acb.get_rel_path(self.with_button_full_path)
+        self.assertEqual(
+            os.path.join(acb.get_proj_root(), result),
+            self.with_button_full_path
+        )
+
+    def test_get_colab_link(self):
+        result = acb.get_colab_link(self.with_button_full_path)
+        self.assertIn(
+            result,
+            self.button_cell["source"]
+        )
+
 
 if "__main__" == __name__:
     unittest.main()
