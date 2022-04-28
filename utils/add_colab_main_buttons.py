@@ -58,7 +58,8 @@ def has_button_img(cell:Dict) -> bool:
 
     if is_markdown(cell):
         soup = bs4.BeautifulSoup(cell["source"], features="lxml")
-        result = soup.img["src"] in get_button_img_tag()
+        if soup.img is not None:
+            result = soup.img["src"] in get_button_img_tag()
 
     return result
 
