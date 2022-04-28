@@ -1,3 +1,4 @@
+import copy
 import os
 import urllib.parse as up
 from typing import Dict
@@ -16,6 +17,27 @@ def main():
 def proc_file(full_path:str):
     notebook = nbf.NotebookFile(full_path)
     cells = list(notebook.gen_cells())
+
+    first_cell = cells[0]
+    union_cell = copy.deepcopy(first_cell)
+    union_cell.update(get_colab_button_cell(full_path))
+
+    b_write = False
+
+    if first_cell == union_cell:
+        # already has the correct button
+        pass
+    elif has_button_img(first_cell):
+        b_write = True
+        notebook.overwrite_cell(0, get_colab_button_cell(full_path))
+    else:
+        b_write = True
+        notebook.insert_cell(0, get_colab_button_cell(full_path))
+
+    notebook.validate()
+
+    if b_write:
+        notebook.write(full_path)
 
 
 def is_markdown(cell:Dict) -> bool:
