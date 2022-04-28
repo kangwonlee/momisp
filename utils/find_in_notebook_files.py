@@ -55,6 +55,15 @@ class NotebookFile(object):
         for cell in self.nb_node.cells:
             yield cell
 
+    def overwrite_cell(self, index:int, cell:dict):
+        self.nb_node.cells[index] = cell
+
+    def insert_cell(self, index:int, cell:dict):
+        self.nb_node.cells.insert(index, cell)
+
+    def validate(self):
+        return nbformat.validate(self.nb_node)
+
     def write(self, new_file_full_path):
         nbformat.write(self.nb_node, new_file_full_path)
 
