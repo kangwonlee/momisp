@@ -76,7 +76,15 @@ class TestAddColabMainButtons(unittest.TestCase):
 
     def test_get_colab_button_cell(self):
         result = acb.get_colab_button_cell(self.with_button_full_path)
-        self.assertDictContainsSubset(result, self.button_cell)
+        self.assertEqual({**result, **self.button_cell}, self.button_cell)
+
+    def test_has_button_img__button_cell(self):
+        result = acb.has_button_img(self.button_cell)
+        self.assertTrue(result)
+
+    def test_has_button_img__code_cell(self):
+        result = acb.has_button_img(self.second_code_cell)
+        self.assertFalse(result)
 
 
 if "__main__" == __name__:

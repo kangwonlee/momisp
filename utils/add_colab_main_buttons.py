@@ -2,6 +2,7 @@ import os
 import urllib.parse as up
 from typing import Dict
 
+import bs4
 
 import recursively_convert_units as rsc
 import find_in_notebook_files as nbf
@@ -28,6 +29,16 @@ def metadata_correct(cell:Dict) -> bool:
     second = ("text" == metadata.get("colab_type"))
 
     return (first and second)
+
+
+def has_button_img(cell:Dict) -> bool:
+    result = False
+
+    if is_markdown(cell):
+        soup = bs4.BeautifulSoup(cell["source"], features="lxml")
+        result = soup.img["src"] in get_button_img_tag()
+
+    return result
 
 
 def get_proj_root() -> str:
