@@ -1,7 +1,9 @@
 import copy
+import functools
 import os
+import subprocess
 import urllib.parse as up
-from typing import Dict
+from typing import Dict, Tuple
 
 import bs4
 
@@ -40,6 +42,32 @@ def proc_file(full_path:str):
         notebook.write(full_path)
 
 
+def get_github_username_repo(full_path:str) -> Tuple[str]:
+    return get_github_username_repo_folder(
+        os.path.dirname(full_path)
+    )
+
+
+@functools.lru_cache()
+def get_github_username_repo_folder(ipynb_path:str) -> Tuple[str]:
+    result = subprocess.check_output(
+        ("git", "remote", "-v"),
+        cwd=ipynb_path,
+        encoding='utf-8',
+    )
+    line0 = result.splitlines()[0]
+    split = line0.split()
+    url = split[1]
+
+    parsed = up.urlparse(url)
+
+    path_split = parsed.path.split('/')
+
+    name = path_split[-2]
+    repo = os.path.splitext(path_split[-1])[0]
+    return name, repo
+
+
 def is_markdown(cell:Dict) -> bool:
     return "markdown" == cell["cell_type"]
 
@@ -72,7 +100,11 @@ def get_rel_path(full_path:str) -> str:
     return os.path.relpath(full_path, get_proj_root())
 
 
-def get_colab_link(full_path:str, github_id:str="kangwonlee", repo:str="momisp") -> str:
+def get_colab_link(full_path:str, github_id:str=None, repo:str=None) -> str:
+
+    if (github_id is None) or (repo is None):
+        github_id, repo = get_github_username_repo(full_path)
+
     rel_path = get_rel_path(full_path)
     rel_path_list = rel_path.split(os.sep)
     result = up.urlunparse(
@@ -94,7 +126,7 @@ def get_button_img_tag() -> str:
     return '''<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>'''
 
 
-def get_colab_button_cell(full_path:str, github_id:str="kangwonlee", repo:str="momisp") -> Dict:
+def get_colab_button_cell(full_path:str,) -> Dict:
     result = {
         "cell_type": "markdown",
         "metadata": {
@@ -102,7 +134,7 @@ def get_colab_button_cell(full_path:str, github_id:str="kangwonlee", repo:str="m
             "colab_type" : "text",
         },
         "source": (
-            f'''<a href="{get_colab_link(full_path, github_id, repo)}" target="_parent">'''
+            f'''<a href="{get_colab_link(full_path)}" target="_parent">'''
             + get_button_img_tag() +
             '''</a>'''
         ),
