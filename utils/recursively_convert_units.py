@@ -1,19 +1,14 @@
-import nbutils.symbol_converter as sc
 import os
+import pathlib
+
 
 ignore_path_list = {'__pycache__', '.ipynb_checkpoints', '.git', '.cache', '.idea', 
-                    'nbutils', 'tests'}
+                    'nbutils', 'tests', 'utils', '.github'}
 
 
-def is_ignore(path):
-    result = False
-    path_split_set = set(path.split(os.sep))
-    for ignore in ignore_path_list:
-        if ignore in path_split_set:
-            result= True
-            break
-
-    return result
+def is_ignore(path:pathlib.Path, ignore_set:set=set(ignore_path_list)) -> bool:
+    path_split_set = set(pathlib.Path(path).parts)
+    return len(ignore_set.intersection(path_split_set))
 
 
 def os_walk_if_not_ignore(root):
@@ -27,8 +22,8 @@ def os_walk_if_not_ignore(root):
             yield root_name, dir_list, filename_list
 
 
-def is_ipynb(path):
-    return '.ipynb' == os.path.splitext(path)[-1]
+def is_ipynb(path:pathlib.Path) -> bool:
+    return '.ipynb' == pathlib.Path(path).suffix
 
 
 def gen_filename_ipynb(filename_list):
@@ -70,17 +65,3 @@ def iter_ipynb(root:str=get_proj_root()):
         for ipynb_filename in filter(is_ipynb, filename_list):
             full_path = os.path.join(root_name, ipynb_filename)
             yield full_path
-
-
-def main():
-
-    # file processor
-    fp = sc.IpynbUnitConverter(None)
-
-    # Chapter loop
-    for full_path in iter_ipynb(os.pardir):
-        fp.process_nb_file(full_path, b_write_file=True)
-
-
-if __name__ == '__main__':
-    main()
