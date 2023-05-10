@@ -7,7 +7,6 @@ import tokenize
 import nbformat
 
 import recursively_convert_units as rcu
-import nbutils.nb_file_util as fu
 
 
 def main(argv):

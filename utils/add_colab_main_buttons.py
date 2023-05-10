@@ -1,11 +1,16 @@
 import copy
 import functools
+import json
 import os
+import pathlib
 import subprocess
 import urllib.parse as up
+
 from typing import Dict, Tuple
 
+
 import bs4
+
 
 import recursively_convert_units as rsc
 import find_in_notebook_files as nbf
@@ -38,8 +43,25 @@ def proc_file(full_path:str):
 
     notebook.validate()
 
+    b_write |= notebook.remove_cell_id_from_nodes()
+
+    notebook.assert_has_not_id()
+
+    ipynb_path = pathlib.Path(full_path)
+
     if b_write:
         notebook.write(full_path)
+
+    ipynb_json = json.loads(ipynb_path.read_text())
+
+    assert_id_not_in(ipynb_json["cells"])
+
+
+def assert_id_not_in(cells, allowed_id=("view-in-github",)) -> bool:
+    for c in cells:
+        assert "id" not in c
+        if "id" in c.get("metadata"):
+            assert c["metadata"]["id"] in allowed_id
 
 
 def get_github_username_repo(full_path:str) -> Tuple[str]:
@@ -92,18 +114,26 @@ def has_button_img(cell:Dict) -> bool:
     return result
 
 
-def get_proj_root() -> str:
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+@functools.lru_cache()
+def get_proj_root() -> pathlib.Path:
+    result = pathlib.Path(__file__).parent.parent.absolute()
+    assert result.exists(), result
+    assert result.is_dir()
+    assert (result / ".gitignore").exists(), (result, result.glob("*"))
+    return result
 
 
 def get_rel_path(full_path:str) -> str:
     return os.path.relpath(full_path, get_proj_root())
 
 
-def get_colab_link(full_path:str, github_id:str=None, repo:str=None) -> str:
+def get_colab_link(full_path:str, github_id:str=None, repo:str=None, branch:str=None) -> str:
 
     if (github_id is None) or (repo is None):
         github_id, repo = get_github_username_repo(full_path)
+
+    if (branch is None):
+        branch = get_current_branch()
 
     rel_path = get_rel_path(full_path)
     rel_path_list = rel_path.split(os.sep)
@@ -112,7 +142,7 @@ def get_colab_link(full_path:str, github_id:str=None, repo:str=None) -> str:
             "https",
             "colab.research.google.com",
             '/'.join(
-                ["github", github_id, repo, "blob", "main"] + rel_path_list,
+                ["github", github_id, repo, "blob", branch] + rel_path_list,
             ),
             None,
             None,
@@ -120,6 +150,17 @@ def get_colab_link(full_path:str, github_id:str=None, repo:str=None) -> str:
         )
     )
     return result
+
+
+def get_current_branch() -> str:
+    """
+    ref :
+        https://stackoverflow.com/questions/6245570/how-to-get-the-current-branch-name-in-git
+    """
+    return subprocess.check_output(
+        ("git", "branch", "--show-current"),
+        encoding="utf8",
+    ).strip()
 
 
 def get_button_img_tag() -> str:
