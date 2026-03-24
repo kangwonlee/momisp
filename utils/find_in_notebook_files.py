@@ -24,7 +24,7 @@ replace = True
 arm = False
 
 [string]
-replace this = r'#+\s+(하중)$'
+replace this = r'#+\\s+(하중)$'
 to this = '''하중<br>Load'''
 --------------------
 [string] section can be regular expressions
