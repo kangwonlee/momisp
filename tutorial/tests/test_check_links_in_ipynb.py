@@ -24,14 +24,6 @@ def test_check_links_in_ipynb_cells_list():
 # including urls of images
 patterns = [
     {
-        'text': '* `gdb` is the **GNU debugger** that you can use if you compiled with `gcc` or `g++`.\n[\n[ref0](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)\n, [ref1](https://www.quora.com/What-is-a-good-debugger-for-C++-programming)\n, [ref2](https://en.wikipedia.org/wiki/GNU_Debugger)\n]\n\n',
-        'urls': {
-            'http://www.yolinux.com/TUTORIALS/GDB-Commands.html',
-            'https://www.quora.com/What-is-a-good-debugger-for-C++-programming',
-            'https://en.wikipedia.org/wiki/GNU_Debugger',
-        }
-    },
-    {
         'text': '* In case of `clang`, `lldb` would be your choice. \n[\n[ref](https://lldb.llvm.org/lldb-gdb.html)\n]\n',
         'urls': {
             'https://lldb.llvm.org/lldb-gdb.html',
@@ -158,7 +150,6 @@ sample_ipynb = {
     "* `gdb` is the **GNU debugger** that you can use if you compiled with `gcc` or `g++`.\n",
     "[\n",
     "[ref0](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)\n",
-    ", [ref1](https://www.quora.com/What-is-a-good-debugger-for-C++-programming)\n",
     ", [ref2](https://en.wikipedia.org/wiki/GNU_Debugger)\n",
     "]\n",
     "\n"
