@@ -150,7 +150,6 @@ sample_ipynb = {
     "* `gdb` is the **GNU debugger** that you can use if you compiled with `gcc` or `g++`.\n",
     "[\n",
     "[ref0](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)\n",
-    ", [ref2](https://en.wikipedia.org/wiki/GNU_Debugger)\n",
     "]\n",
     "\n"
    ]
