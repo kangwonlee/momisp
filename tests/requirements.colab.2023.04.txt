@@ -9,7 +9,7 @@
 
 cython
 jupyter
-lxml == 4.9.3
+lxml == 6.1.0
 matplotlib == 3.7.1
 notebook == 6.5.5
 numpy == 1.23.5
